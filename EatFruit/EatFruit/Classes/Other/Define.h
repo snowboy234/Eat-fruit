@@ -22,6 +22,8 @@
 #define TWColorRGB(r,g,b) TWColorRGBA(r,g,b,1.0)
 
 
+#define ViewControllerBgColor TWColorRGB(45, 47, 78)
+
 
 // MARK:- ID
 //#define Theme                           @"Theme"

@@ -13,6 +13,16 @@
 		FF5BE78E1F3D440400F864F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF5BE78D1F3D440400F864F1 /* Assets.xcassets */; };
 		FF5BE7911F3D440400F864F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF5BE78F1F3D440400F864F1 /* LaunchScreen.storyboard */; };
 		FF5BE7A51F3D44B800F864F1 /* TWMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7A41F3D44B800F864F1 /* TWMainViewController.m */; };
+		FF5BE7AB1F3D496500F864F1 /* TWHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7AA1F3D496500F864F1 /* TWHomeViewController.m */; };
+		FF5BE7AE1F3D4A1800F864F1 /* TWMainToHomeAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7AD1F3D4A1800F864F1 /* TWMainToHomeAnimation.m */; };
+		FF5BE7B11F3D5E4A00F864F1 /* UIView+TWView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7B01F3D5E4A00F864F1 /* UIView+TWView.m */; };
+		FF5BE7B41F3D5EB500F864F1 /* UIView+TWFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7B31F3D5EB500F864F1 /* UIView+TWFrame.m */; };
+		FF5BE7B91F3D7BDC00F864F1 /* UIButton+TWButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7B61F3D7BDC00F864F1 /* UIButton+TWButton.m */; };
+		FF5BE7BA1F3D7BDC00F864F1 /* UILabel+TWLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7B81F3D7BDC00F864F1 /* UILabel+TWLabel.m */; };
+		FF5BE7BD1F3D7BE200F864F1 /* UIImage+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7BC1F3D7BE200F864F1 /* UIImage+Image.m */; };
+		FF5BE7C01F3DA6BF00F864F1 /* UIButton+touch.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7BF1F3DA6BF00F864F1 /* UIButton+touch.m */; };
+		FF5BE7C31F3DB15C00F864F1 /* TWMainToAirAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7C21F3DB15C00F864F1 /* TWMainToAirAnimation.m */; };
+		FF5BE7CA1F3DB2FC00F864F1 /* TWAirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7C91F3DB2FC00F864F1 /* TWAirViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +40,26 @@
 		FF5BE7A41F3D44B800F864F1 /* TWMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWMainViewController.m; sourceTree = "<group>"; };
 		FF5BE7A71F3D451900F864F1 /* EatFruit.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EatFruit.pch; sourceTree = "<group>"; };
 		FF5BE7A81F3D458400F864F1 /* Define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Define.h; sourceTree = "<group>"; };
+		FF5BE7A91F3D496500F864F1 /* TWHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWHomeViewController.h; sourceTree = "<group>"; };
+		FF5BE7AA1F3D496500F864F1 /* TWHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWHomeViewController.m; sourceTree = "<group>"; };
+		FF5BE7AC1F3D4A1800F864F1 /* TWMainToHomeAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWMainToHomeAnimation.h; sourceTree = "<group>"; };
+		FF5BE7AD1F3D4A1800F864F1 /* TWMainToHomeAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWMainToHomeAnimation.m; sourceTree = "<group>"; };
+		FF5BE7AF1F3D5E4A00F864F1 /* UIView+TWView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TWView.h"; sourceTree = "<group>"; };
+		FF5BE7B01F3D5E4A00F864F1 /* UIView+TWView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TWView.m"; sourceTree = "<group>"; };
+		FF5BE7B21F3D5EB500F864F1 /* UIView+TWFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TWFrame.h"; sourceTree = "<group>"; };
+		FF5BE7B31F3D5EB500F864F1 /* UIView+TWFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TWFrame.m"; sourceTree = "<group>"; };
+		FF5BE7B51F3D7BDC00F864F1 /* UIButton+TWButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+TWButton.h"; sourceTree = "<group>"; };
+		FF5BE7B61F3D7BDC00F864F1 /* UIButton+TWButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+TWButton.m"; sourceTree = "<group>"; };
+		FF5BE7B71F3D7BDC00F864F1 /* UILabel+TWLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+TWLabel.h"; sourceTree = "<group>"; };
+		FF5BE7B81F3D7BDC00F864F1 /* UILabel+TWLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+TWLabel.m"; sourceTree = "<group>"; };
+		FF5BE7BB1F3D7BE200F864F1 /* UIImage+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Image.h"; sourceTree = "<group>"; };
+		FF5BE7BC1F3D7BE200F864F1 /* UIImage+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Image.m"; sourceTree = "<group>"; };
+		FF5BE7BE1F3DA6BF00F864F1 /* UIButton+touch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+touch.h"; sourceTree = "<group>"; };
+		FF5BE7BF1F3DA6BF00F864F1 /* UIButton+touch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+touch.m"; sourceTree = "<group>"; };
+		FF5BE7C11F3DB15C00F864F1 /* TWMainToAirAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWMainToAirAnimation.h; sourceTree = "<group>"; };
+		FF5BE7C21F3DB15C00F864F1 /* TWMainToAirAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWMainToAirAnimation.m; sourceTree = "<group>"; };
+		FF5BE7C81F3DB2FC00F864F1 /* TWAirViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAirViewController.h; sourceTree = "<group>"; };
+		FF5BE7C91F3DB2FC00F864F1 /* TWAirViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAirViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +134,7 @@
 		FF5BE7981F3D444900F864F1 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				FF5BE7C41F3DB2EA00F864F1 /* Air */,
 				FF5BE7A61F3D450900F864F1 /* Other */,
 				FF5BE7991F3D44A200F864F1 /* Catagroy */,
 				FF5BE79A1F3D44A200F864F1 /* Home */,
@@ -116,6 +147,18 @@
 		FF5BE7991F3D44A200F864F1 /* Catagroy */ = {
 			isa = PBXGroup;
 			children = (
+				FF5BE7BE1F3DA6BF00F864F1 /* UIButton+touch.h */,
+				FF5BE7BF1F3DA6BF00F864F1 /* UIButton+touch.m */,
+				FF5BE7BB1F3D7BE200F864F1 /* UIImage+Image.h */,
+				FF5BE7BC1F3D7BE200F864F1 /* UIImage+Image.m */,
+				FF5BE7B51F3D7BDC00F864F1 /* UIButton+TWButton.h */,
+				FF5BE7B61F3D7BDC00F864F1 /* UIButton+TWButton.m */,
+				FF5BE7B71F3D7BDC00F864F1 /* UILabel+TWLabel.h */,
+				FF5BE7B81F3D7BDC00F864F1 /* UILabel+TWLabel.m */,
+				FF5BE7B21F3D5EB500F864F1 /* UIView+TWFrame.h */,
+				FF5BE7B31F3D5EB500F864F1 /* UIView+TWFrame.m */,
+				FF5BE7AF1F3D5E4A00F864F1 /* UIView+TWView.h */,
+				FF5BE7B01F3D5E4A00F864F1 /* UIView+TWView.m */,
 			);
 			path = Catagroy;
 			sourceTree = "<group>";
@@ -147,6 +190,8 @@
 		FF5BE79D1F3D44A200F864F1 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				FF5BE7A91F3D496500F864F1 /* TWHomeViewController.h */,
+				FF5BE7AA1F3D496500F864F1 /* TWHomeViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -187,6 +232,10 @@
 		FF5BE7A21F3D44A200F864F1 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				FF5BE7AC1F3D4A1800F864F1 /* TWMainToHomeAnimation.h */,
+				FF5BE7AD1F3D4A1800F864F1 /* TWMainToHomeAnimation.m */,
+				FF5BE7C11F3DB15C00F864F1 /* TWMainToAirAnimation.h */,
+				FF5BE7C21F3DB15C00F864F1 /* TWMainToAirAnimation.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -198,6 +247,39 @@
 				FF5BE7A81F3D458400F864F1 /* Define.h */,
 			);
 			path = Other;
+			sourceTree = "<group>";
+		};
+		FF5BE7C41F3DB2EA00F864F1 /* Air */ = {
+			isa = PBXGroup;
+			children = (
+				FF5BE7C51F3DB2EA00F864F1 /* Model */,
+				FF5BE7C61F3DB2EA00F864F1 /* View */,
+				FF5BE7C71F3DB2EA00F864F1 /* ViewController */,
+			);
+			path = Air;
+			sourceTree = "<group>";
+		};
+		FF5BE7C51F3DB2EA00F864F1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FF5BE7C61F3DB2EA00F864F1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FF5BE7C71F3DB2EA00F864F1 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FF5BE7C81F3DB2FC00F864F1 /* TWAirViewController.h */,
+				FF5BE7C91F3DB2FC00F864F1 /* TWAirViewController.m */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -329,9 +411,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF5BE7B11F3D5E4A00F864F1 /* UIView+TWView.m in Sources */,
+				FF5BE7BD1F3D7BE200F864F1 /* UIImage+Image.m in Sources */,
+				FF5BE7BA1F3D7BDC00F864F1 /* UILabel+TWLabel.m in Sources */,
+				FF5BE7AB1F3D496500F864F1 /* TWHomeViewController.m in Sources */,
+				FF5BE7C31F3DB15C00F864F1 /* TWMainToAirAnimation.m in Sources */,
+				FF5BE7B91F3D7BDC00F864F1 /* UIButton+TWButton.m in Sources */,
+				FF5BE7B41F3D5EB500F864F1 /* UIView+TWFrame.m in Sources */,
 				FF5BE7A51F3D44B800F864F1 /* TWMainViewController.m in Sources */,
 				FF5BE7861F3D440400F864F1 /* AppDelegate.m in Sources */,
+				FF5BE7CA1F3DB2FC00F864F1 /* TWAirViewController.m in Sources */,
+				FF5BE7AE1F3D4A1800F864F1 /* TWMainToHomeAnimation.m in Sources */,
 				FF5BE7831F3D440400F864F1 /* main.m in Sources */,
+				FF5BE7C01F3DA6BF00F864F1 /* UIButton+touch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +578,7 @@
 				FF5BE7971F3D440400F864F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
