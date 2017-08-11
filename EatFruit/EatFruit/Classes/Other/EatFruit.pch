@@ -1,0 +1,16 @@
+//
+//  EatFruit.pch
+//  EatFruit
+//
+//  Created by 田伟 on 2017/8/11.
+//  Copyright © 2017年 田伟. All rights reserved.
+//
+
+#ifndef EatFruit_pch
+#define EatFruit_pch
+
+
+#import "Define.h"
+
+
+#endif /* EatFruit_pch */
