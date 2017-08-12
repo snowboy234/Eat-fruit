@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^repeatAnimationBlock)();
 @interface TWAirViewController : UIViewController
-
+@property(nonatomic, copy) repeatAnimationBlock block;
 @end

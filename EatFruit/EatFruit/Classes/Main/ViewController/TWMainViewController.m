@@ -12,32 +12,55 @@
 #import "TWMainToAirAnimation.h"
 #import "TWAirViewController.h"
 
+#define ImageViewW (TWScreenWidth - TWMargin * 5)
+#define ButtonClickTime 0.3
+
 @interface TWMainViewController ()<TWMainToHomeAnimationDelegate, TWMainToAirAnimationDelegate>
-@property (nonatomic, strong) TWHomeViewController * homeVc;
-@property (nonatomic, strong) TWAirViewController * airVc;
 @property (nonatomic, strong) TWMainToHomeAnimation * animationToolBottom;
 @property (nonatomic, strong) TWMainToAirAnimation * animationToolRight;
+@property (nonatomic, strong) TWHomeViewController * homeVc;
+@property (nonatomic, strong) TWAirViewController * airVc;
 @property (nonatomic, strong) UIView * topView;
+@property (nonatomic, strong) UIImageView * imageView;// 标题视图
+@property (nonatomic, strong) UIButton * landButton;  // 模式一按钮
+@property (nonatomic, strong) UIButton * airButton;   // 模式二按钮
+
 @end
 
 @implementation TWMainViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initObject];
+    [self initBackgroundImageView];
+    [self initBottomView];
+    [self setLevelButtonAnimation];
+    [self initTopView];
+    [self setTitleImageViewAnimation];
+}
+
+- (void)initObject{
     _homeVc = [[TWHomeViewController alloc]init];
     _airVc = [[TWAirViewController alloc]init];
     _animationToolBottom = [TWMainToHomeAnimation shareMainToHomeAnimation];
     _animationToolRight = [TWMainToAirAnimation shareMainToAirAnimation];
-    self.view.backgroundColor = ViewControllerBgColor;
-    [self initBottomView];
-    [self initTopView];
 }
 
-
-#define ImageViewW (TWScreenWidth - TWMargin * 5)
-#define ButtonClickTime 0.3
-
 #pragma mark --UI搭建
+#pragma mark --大背景设置
+- (void)initBackgroundImageView{
+    self.view.backgroundColor = ViewControllerBgColor;
+    NSInteger index = arc4random() % 40 + 20;
+        for (NSInteger i = 0; i < index; i++) {
+        NSInteger x = arc4random() % (int)TWScreenWidth;
+        NSInteger y = arc4random() % (int)TWScreenHeight;
+        CGFloat w = arc4random() % 25 + 10;
+        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(x, y, w, w)];
+        imageView.image = [UIImage imageNamed:@"star"];
+        [self.view addSubview:imageView];
+    }
+}
+
 #pragma mark --TopView
 - (void)initTopView{
     _topView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, TWScreenWidth, TWScreenHeight * 0.5)];
@@ -45,10 +68,10 @@
     
     // 计算宽高比例
     CGFloat WHProportion = 326 / 166.0;
-    UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ImageViewW, ImageViewW / WHProportion)];
-    imageView.image = [UIImage imageNamed:@"logo-sheet0"];
-    imageView.center = _topView.center;
-    [_topView addSubview:imageView];
+    _imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ImageViewW, ImageViewW / WHProportion)];
+    _imageView.image = [UIImage imageNamed:@"logo-sheet0"];
+    _imageView.center = _topView.center;
+    [_topView addSubview:_imageView];
 }
 
 #pragma mark --BottomView
@@ -64,26 +87,36 @@
 
 #pragma mark --开始按钮的子菜单
     // 子菜单上的land按钮
-    UIButton * landButton = [[UIButton alloc]initWithFrame:CGRectMake(x, height + TWMargin, width, 0)];
-    landButton.timeInterval = ButtonClickTime;
-    [landButton setBackgroundImage:[UIImage imageNamed:@"land-sheet0"] forState:UIControlStateNormal];
-    [[landButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+    _landButton = [[UIButton alloc]initWithFrame:CGRectMake(x, height + TWMargin, width, 0)];
+    _landButton.timeInterval = ButtonClickTime;
+    [_landButton setBackgroundImage:[UIImage imageNamed:@"land-sheet0"] forState:UIControlStateNormal];
+    [[_landButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         _homeVc.transitioningDelegate = _animationToolBottom;
         _animationToolBottom.delegate = self;
+        WeakSelf
+        _homeVc.block = ^{
+            [weakSelf setTitleImageViewAnimation];
+            [weakSelf setLevelButtonAnimation];
+        };
         [self presentViewController:_homeVc animated:YES completion:nil];
     }];
-    [bottomView addSubview:landButton];
+    [bottomView addSubview:_landButton];
     
     // 子菜单上的air按钮
-    UIButton * airButton = [[UIButton alloc]initWithFrame:CGRectMake(TWScreenWidth * 0.5 + TWMargin * 0.5, height + TWMargin, width, 0)];
-    airButton.timeInterval = ButtonClickTime;
-    [airButton setBackgroundImage:[UIImage imageNamed:@"sky-sheet0"] forState:UIControlStateNormal];
-    [[airButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+    _airButton = [[UIButton alloc]initWithFrame:CGRectMake(TWScreenWidth * 0.5 + TWMargin * 0.5, height + TWMargin, width, 0)];
+    _airButton.timeInterval = ButtonClickTime;
+    [_airButton setBackgroundImage:[UIImage imageNamed:@"sky-sheet0"] forState:UIControlStateNormal];
+    [[_airButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         _airVc.transitioningDelegate = _animationToolRight;
         _animationToolRight.delegate = self;
+        WeakSelf
+        _airVc.block = ^{
+            [weakSelf setTitleImageViewAnimation];
+            [weakSelf setLevelButtonAnimation];
+        };
         [self presentViewController:_airVc animated:YES completion:nil];
     }];
-    [bottomView addSubview:airButton];
+    [bottomView addSubview:_airButton];
     
 #pragma mark --选择角色按钮
     CGFloat WHProportion_characterButton = 320 / 87.0;
@@ -103,17 +136,18 @@
     [[playButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         if (x.selected) {
             x.selected = NO;
+            // hidden
             [UIView animateWithDuration:ButtonClickTime animations:^{
-                landButton.tw_height = 0;
-                airButton.tw_height = 0;
+                _landButton.tw_height = 0;
+                _airButton.tw_height = 0;
                 characterButton.tw_y = height + TWMargin;
             }];
         } else {
             x.selected = YES;
             // show
             [UIView animateWithDuration:ButtonClickTime animations:^{
-                landButton.tw_height = height;
-                airButton.tw_height = height;
+                _landButton.tw_height = height;
+                _airButton.tw_height = height;
                 characterButton.tw_y = height * 2 + TWMargin * 2;
             }];
         }
@@ -132,7 +166,6 @@
     [bottomView addSubview:voiceButton];
 }
 
-
 #pragma mark --TWMainToHomeAnimationDelegate
 - (UIImageView *)getTopScreenImage{
     UIImageView * imageView = [[UIImageView alloc]init];
@@ -148,13 +181,56 @@
     return imageView;
 }
 
-#pragma mark --私有方法
+#pragma mark --其他私有方法
 -(UIImage *)getImage{
     UIGraphicsBeginImageContext(self.view.frame.size);
     [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
+}
+
+- (void)setTitleImageViewAnimation{
+    CAKeyframeAnimation * pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    pathAnimation.calculationMode = kCAAnimationPaced;
+    pathAnimation.fillMode = kCAFillModeForwards;
+    pathAnimation.repeatCount = MAXFLOAT;
+    pathAnimation.autoreverses=YES;
+    pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    pathAnimation.duration=2.5;
+    
+    UIBezierPath *path=[UIBezierPath bezierPathWithOvalInRect:CGRectInset(_imageView.frame, _imageView.tw_width / 2 - 5, _imageView.tw_width / 2 - 5)];
+    pathAnimation.path=path.CGPath;
+    [_imageView.layer addAnimation:pathAnimation forKey:@"pathAnimation"];
+    
+    CAKeyframeAnimation * scaleX=[CAKeyframeAnimation animationWithKeyPath:@"transform.scale.x"];
+    scaleX.values   = @[@1.0, @1.1, @1.0];
+    scaleX.keyTimes = @[@0.0, @0.5,@1.0];
+    scaleX.repeatCount = MAXFLOAT;
+    scaleX.autoreverses = YES;
+    scaleX.duration = 2;
+    [_imageView.layer addAnimation:scaleX forKey:@"scaleX"];
+    
+    CAKeyframeAnimation * scaleY=[CAKeyframeAnimation animationWithKeyPath:@"transform.scale.y"];
+    scaleY.values   = @[@1.0, @1.1, @1.0];
+    scaleY.keyTimes = @[@0.0, @0.5,@1.0];
+    scaleY.repeatCount = MAXFLOAT;
+    scaleY.autoreverses = YES;
+    scaleY.duration = 3;
+    [_imageView.layer addAnimation:scaleY forKey:@"scaleY"];
+}
+
+- (void)setLevelButtonAnimation{
+    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"buttonAnimation"];
+    anim.keyPath = @"transform.scale";
+    anim.toValue = @0.9;
+    anim.repeatCount = MAXFLOAT;
+    anim.duration = 0.5;
+    anim.autoreverses = YES;
+    
+    //添加动画
+    [_landButton.layer addAnimation:anim forKey:@"buttonAnimation"];
+    [_airButton.layer addAnimation:anim forKey:@"buttonAnimation"];
 }
 
 @end
