@@ -25,6 +25,8 @@
 #define ViewControllerBgColor TWColorRGB(45, 47, 78)
 
 
+#define ButtonClickTime 0.3
+
 // MARK:- ID
 //#define Theme                           @"Theme"
 

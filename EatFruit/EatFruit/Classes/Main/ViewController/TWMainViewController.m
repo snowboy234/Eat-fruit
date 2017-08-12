@@ -13,7 +13,6 @@
 #import "TWAirViewController.h"
 
 #define ImageViewW (TWScreenWidth - TWMargin * 5)
-#define ButtonClickTime 0.3
 
 @interface TWMainViewController ()<TWMainToHomeAnimationDelegate, TWMainToAirAnimationDelegate>
 @property (nonatomic, strong) TWMainToHomeAnimation * animationToolBottom;
@@ -98,6 +97,10 @@
             [weakSelf setTitleImageViewAnimation];
             [weakSelf setLevelButtonAnimation];
         };
+        // 进入页面后开启定时器
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [_homeVc countDownTime];
+        });
         [self presentViewController:_homeVc animated:YES completion:nil];
     }];
     [bottomView addSubview:_landButton];

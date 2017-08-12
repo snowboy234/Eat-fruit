@@ -23,6 +23,8 @@
 		FF5BE7C01F3DA6BF00F864F1 /* UIButton+touch.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7BF1F3DA6BF00F864F1 /* UIButton+touch.m */; };
 		FF5BE7C31F3DB15C00F864F1 /* TWMainToAirAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7C21F3DB15C00F864F1 /* TWMainToAirAnimation.m */; };
 		FF5BE7CA1F3DB2FC00F864F1 /* TWAirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7C91F3DB2FC00F864F1 /* TWAirViewController.m */; };
+		FFF1BD391F3F0F7100EEF90D /* TWReadyStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFF1BD381F3F0F7100EEF90D /* TWReadyStarView.m */; };
+		FFF1BD3C1F3F1BAE00EEF90D /* TWStrokeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FFF1BD3B1F3F1BAE00EEF90D /* TWStrokeLabel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,10 @@
 		FF5BE7C21F3DB15C00F864F1 /* TWMainToAirAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWMainToAirAnimation.m; sourceTree = "<group>"; };
 		FF5BE7C81F3DB2FC00F864F1 /* TWAirViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAirViewController.h; sourceTree = "<group>"; };
 		FF5BE7C91F3DB2FC00F864F1 /* TWAirViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAirViewController.m; sourceTree = "<group>"; };
+		FFF1BD371F3F0F7100EEF90D /* TWReadyStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWReadyStarView.h; sourceTree = "<group>"; };
+		FFF1BD381F3F0F7100EEF90D /* TWReadyStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWReadyStarView.m; sourceTree = "<group>"; };
+		FFF1BD3A1F3F1BAE00EEF90D /* TWStrokeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWStrokeLabel.h; sourceTree = "<group>"; };
+		FFF1BD3B1F3F1BAE00EEF90D /* TWStrokeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWStrokeLabel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,25 +172,10 @@
 		FF5BE79A1F3D44A200F864F1 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				FF5BE79B1F3D44A200F864F1 /* Model */,
-				FF5BE79C1F3D44A200F864F1 /* View */,
+				FFF1BD361F3F0F6400EEF90D /* View */,
 				FF5BE79D1F3D44A200F864F1 /* ViewController */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		FF5BE79B1F3D44A200F864F1 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		FF5BE79C1F3D44A200F864F1 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		FF5BE79D1F3D44A200F864F1 /* ViewController */ = {
@@ -280,6 +271,17 @@
 				FF5BE7C91F3DB2FC00F864F1 /* TWAirViewController.m */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		FFF1BD361F3F0F6400EEF90D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FFF1BD3A1F3F1BAE00EEF90D /* TWStrokeLabel.h */,
+				FFF1BD3B1F3F1BAE00EEF90D /* TWStrokeLabel.m */,
+				FFF1BD371F3F0F7100EEF90D /* TWReadyStarView.h */,
+				FFF1BD381F3F0F7100EEF90D /* TWReadyStarView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -415,6 +417,7 @@
 				FF5BE7BD1F3D7BE200F864F1 /* UIImage+Image.m in Sources */,
 				FF5BE7BA1F3D7BDC00F864F1 /* UILabel+TWLabel.m in Sources */,
 				FF5BE7AB1F3D496500F864F1 /* TWHomeViewController.m in Sources */,
+				FFF1BD3C1F3F1BAE00EEF90D /* TWStrokeLabel.m in Sources */,
 				FF5BE7C31F3DB15C00F864F1 /* TWMainToAirAnimation.m in Sources */,
 				FF5BE7B91F3D7BDC00F864F1 /* UIButton+TWButton.m in Sources */,
 				FF5BE7B41F3D5EB500F864F1 /* UIView+TWFrame.m in Sources */,
@@ -422,6 +425,7 @@
 				FF5BE7861F3D440400F864F1 /* AppDelegate.m in Sources */,
 				FF5BE7CA1F3DB2FC00F864F1 /* TWAirViewController.m in Sources */,
 				FF5BE7AE1F3D4A1800F864F1 /* TWMainToHomeAnimation.m in Sources */,
+				FFF1BD391F3F0F7100EEF90D /* TWReadyStarView.m in Sources */,
 				FF5BE7831F3D440400F864F1 /* main.m in Sources */,
 				FF5BE7C01F3DA6BF00F864F1 /* UIButton+touch.m in Sources */,
 			);
