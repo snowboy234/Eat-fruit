@@ -12,7 +12,7 @@
 
 #define TopImageViewH TWScreenWidth / (400 / 86.0)
 
-@interface TWHomeViewController ()<TWReadyStarViewDelegate, UICollisionBehaviorDelegate>
+@interface TWHomeViewController ()<TWReadyStarViewDelegate, UICollisionBehaviorDelegate> // UIGestureRecognizerDelegate
 @property (nonatomic, strong) UIView * boundaryView;                    // 约束人物行动的底座
 @property (nonatomic, strong) UIImageView * baby;                       // 人物
 @property (nonatomic, copy) NSString * babyName;                        // 人物名称
@@ -22,7 +22,8 @@
 @property (nonatomic, strong) UIImageView * lifeView;                   // 显示❤️
 @property (nonatomic, strong) UILabel * lifeCountLabel;                 // 显示剩余几次❤️
 @property (nonatomic, strong) UIButton * starOrPauseButton;             // 暂停开始
-@property (nonatomic, strong) TWStrokeLabel * scoreLabel;               // 显示分数
+@property (nonatomic, strong) TWStrokeLabel * scoreLabel;               // 显示分数的label
+@property (nonatomic, assign) NSInteger score;                          // 得数
 
 @property (nonatomic, strong) NSMutableArray * foodArray;
 @property (nonatomic, strong) NSMutableArray * unfoodArray;
@@ -32,6 +33,8 @@
 
 @property (nonatomic, strong) UIDynamicAnimator * dynamicAnimator;
 @property (nonatomic, strong) UIGravityBehavior * gravityBehavior;
+@property (nonatomic, strong) UIDynamicItemBehavior * dynamicItemBehavior;
+@property (nonatomic, strong) UIAttachmentBehavior * attachmentBehavior;
 @property (nonatomic, strong) UICollisionBehavior * collisionBehavior;
 @property (nonatomic, strong) NSTimer * timer;
 @end
@@ -100,6 +103,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _score = 0;
     [self createDynamic];
     [self initBackgroundImageView];
     [self initBottomView];
@@ -111,7 +115,7 @@
     _dynamicAnimator = [[UIDynamicAnimator alloc]initWithReferenceView:self.view];
     _gravityBehavior = [[UIGravityBehavior alloc]init];
     _collisionBehavior = [[UICollisionBehavior alloc]init];
-    _collisionBehavior.collisionMode = UICollisionBehaviorModeBoundaries;
+    _collisionBehavior.collisionMode = UICollisionBehaviorModeEverything;
     _collisionBehavior.collisionDelegate = self;
     _collisionBehavior.translatesReferenceBoundsIntoBoundary = YES;
     [_dynamicAnimator addBehavior:_gravityBehavior];
@@ -152,7 +156,7 @@
     _lifeCountLabel.tw_centerY = self.lifeView.tw_centerY;
     
     _scoreLabel = [[TWStrokeLabel alloc]initWithFrame:CGRectMake(0, 0, TWScreenWidth, 50)];
-    _scoreLabel.text = @"12020";
+    _scoreLabel.text = [NSString stringWithFormat:@"%ld",_score];
     _scoreLabel.textColor = [UIColor whiteColor];
     _scoreLabel.font = [UIFont boldSystemFontOfSize:50];
     _scoreLabel.textAlignment = NSTextAlignmentCenter;
@@ -171,11 +175,11 @@
         if (x.selected) {
             x.selected = NO;
             [_starOrPauseButton setBackgroundImage:[UIImage imageNamed:@"pause_sprite-sheet1"] forState:UIControlStateNormal];
-            TWLog(@"暂停");
+            [_timer invalidate];
         } else {
             x.selected = YES;
             [_starOrPauseButton setBackgroundImage:[UIImage imageNamed:@"pause_sprite-sheet0"] forState:UIControlStateNormal];
-            TWLog(@"开始");
+            [_timer fire];
         }
     }];
 }
@@ -229,24 +233,99 @@
     _baby.image = [UIImage imageNamed:@"baby1"];
     [self.view addSubview:_baby];
     _baby.userInteractionEnabled = YES;
-    UISwipeGestureRecognizer * swipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(babyImageViewSwipeGestureRecognizer:)];
-    [_baby addGestureRecognizer:swipe];
     
-    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(babyImageViewTapGestureRecognizer:)];
-    [_baby addGestureRecognizer:tap];
+    [_collisionBehavior addItem:_baby];
+    _dynamicItemBehavior = [[UIDynamicItemBehavior alloc]init];
+    [_dynamicItemBehavior addItem:_baby];
+    _dynamicItemBehavior.allowsRotation = YES;
+    _dynamicItemBehavior.anchored = YES;
+    [_dynamicAnimator addBehavior:_dynamicItemBehavior];
+
+    UIPanGestureRecognizer * panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self                                               action:@selector(handlePan:)];
+    [_baby addGestureRecognizer:panGestureRecognizer];
+    
+//    UISwipeGestureRecognizer * swipeGestureRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeEvent:)];
+//    swipeGestureRight.direction = UISwipeGestureRecognizerDirectionRight | UISwipeGestureRecognizerDirectionLeft;
+//    [_baby addGestureRecognizer:swipeGestureRight];
+//    swipeGestureRight.delegate = self;
+//    panGestureRecognizer.delegate = self;
+//    // 后面的这个手势要是识别成功的话就不会执行前一个手势了.如果后一个手势的state是UIGestureRecognizerStateFailed 接收者转换到其正常的下一个状态。换句话说它会优先识别Swipe手势如果不是swipe再识别是否是Pan手势.如果识别是Swipe则就执行Swipe的方法.不走Pan方法了.
+////    [panGestureRecognizer requireGestureRecognizerToFail:swipeGestureRight];
 }
 
-- (void)babyImageViewTapGestureRecognizer:(UITapGestureRecognizer *)tap{
-    TWLog(@"点击");
-}
 
-- (void)babyImageViewSwipeGestureRecognizer:(UISwipeGestureRecognizer *)swipe{
-    if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
-        TWLog(@"向左");
-    } else if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
-        TWLog(@"向右");
+//- (void)swipeEvent:(UISwipeGestureRecognizer *)swipe{
+//    switch (swipe.direction) {
+//        case UISwipeGestureRecognizerDirectionLeft:
+//            TWLog(@"left");
+//            break;
+//        case UISwipeGestureRecognizerDirectionRight:
+//            TWLog(@"right");
+//            break;
+//        case UISwipeGestureRecognizerDirectionUp:
+//            TWLog(@"up");
+//            break;
+//        case UISwipeGestureRecognizerDirectionDown:
+//            TWLog(@"down");
+//            break;
+//        default:
+//            break;
+//    }
+//}
+
+- (void)handlePan:(UIPanGestureRecognizer *)panGestureRecognizer{
+    
+    // 在手势开始时添加 物理仿真行为
+    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        // 首先要移除物理仿真行为
+        [_dynamicAnimator removeAllBehaviors];
+        
+        // 获取手势在 view 容器中的位置
+        CGPoint location = [panGestureRecognizer locationInView:self.view];
+        // 获取手势在 _baby 中的位置
+        CGPoint boxLocation = [panGestureRecognizer locationInView:_baby];
+        
+        // 以 _baby 为参考坐标系，计算触摸点到 _baby 中点的偏移量
+        UIOffset offset = UIOffsetMake(boxLocation.x - CGRectGetMidX(_baby.bounds), boxLocation.y - CGRectGetMidY(_baby.bounds));
+        // 创建物理仿真行为
+        _attachmentBehavior = [[UIAttachmentBehavior alloc] initWithItem:_baby offsetFromCenter:offset attachedToAnchor:location];
+        [_dynamicAnimator addBehavior:_attachmentBehavior];
+        [_dynamicAnimator addBehavior:_gravityBehavior];
+        [_dynamicAnimator addBehavior:_collisionBehavior];
     }
+    [_attachmentBehavior setAnchorPoint:[panGestureRecognizer locationInView:self.view]];
+    
+
+    
+//    // 固定其y坐标
+//    CGFloat y = TWScreenHeight - _boundaryView.tw_height;
+//    UIImageView * view = (UIImageView *)panGestureRecognizer.view;
+//    
+//    //抖动imageView
+//    CABasicAnimation * shake = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+//    shake.fromValue = [NSNumber numberWithFloat:-0.2];
+//    shake.toValue = [NSNumber numberWithFloat:+0.2];
+//    shake.duration = 0.05;
+//    shake.autoreverses = YES; //是否重复
+//    shake.repeatCount = MAXFLOAT;
+//
+//    
+//    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan || panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+//        
+//        [view.layer addAnimation:shake forKey:@"imageView"];
+//        
+//        // 移动imageView
+//        CGPoint translation = [panGestureRecognizer translationInView:view.superview];
+//        [view setCenter:(CGPoint){view.center.x + translation.x, y}];
+//        [panGestureRecognizer setTranslation:CGPointZero inView:view.superview];
+//        
+//    } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+//        // 停止动画
+//        [view.layer removeAllAnimations];
+//    }
 }
+
+
 
 #pragma mark --准备倒计时设置
 - (void)countDownTime{
@@ -260,23 +339,37 @@
 - (void)customCountDown:(TWReadyStarView *)downView{
     // 准备开始游戏
     [self initMiddleView];
-//    [self prepareForGame];
+    [self prepareForGame];
 }
 
+//#pragma mark --UIGestureRecognizerDelegate
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+//    // 是否允许手势识别器同时识别两个手势.YES允许,NO不允许
+//    return YES;
+//}
+
 #pragma mark --UICollisionBehaviorDelegate
-// 开始碰撞时触发的方法
+// 开始碰撞到边界时触发的方法
 - (void)collisionBehavior:(UICollisionBehavior *)behavior beganContactForItem:(id<UIDynamicItem>)item withBoundaryIdentifier:(id<NSCopying>)identifier atPoint:(CGPoint)p{
     
+//    CGPoint babyCenter = _baby.center;
+//    CGFloat babyWidth = TWScreenWidth * 0.2 * 0.5;
+//    CGFloat distance_x = fabs(p.x - babyWidth);
+//    CGFloat distance_y = fabs(p.y - babyWidth);
+//    TWLog(@"%f",distance_x);
+//    if (distance_x) {
+//        <#statements#>
+//    }
     
     
-    // 当碰触到小孩时，需要被吃掉
     
     
     
     
     
     
-    // 当没有碰到小孩并且碰撞底边时，需要移除
+    
+    // 当碰撞底边边界时，需要移除
     if (TWScreenHeight - p.y <= 1) {
         for (NSInteger i = 0; i < self.allImageViewArray.count; i++) {
             if ([item isEqual:self.allImageViewArray[i]]) {
@@ -316,7 +409,7 @@
 // 随机掉落
 - (void)dropFruit{
     NSInteger x = arc4random() % (int)TWScreenWidth;
-    NSInteger size = arc4random() % 5 + 30;
+    NSInteger size = arc4random() % 5 + 40;
     UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(x, 0, size, size)];
     imageView.image = [UIImage imageNamed:_allArray[arc4random() % self.allArray.count]];
     [self.view insertSubview:imageView belowSubview:_headerView];
