@@ -228,12 +228,24 @@
     _baby = [[UIImageView alloc]initWithFrame:CGRectMake(x, y, w, w)];
     _baby.image = [UIImage imageNamed:@"baby1"];
     [self.view addSubview:_baby];
+    _baby.userInteractionEnabled = YES;
+    UISwipeGestureRecognizer * swipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(babyImageViewSwipeGestureRecognizer:)];
+    [_baby addGestureRecognizer:swipe];
     
-    
-    
-    
-    
-    
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(babyImageViewTapGestureRecognizer:)];
+    [_baby addGestureRecognizer:tap];
+}
+
+- (void)babyImageViewTapGestureRecognizer:(UITapGestureRecognizer *)tap{
+    TWLog(@"点击");
+}
+
+- (void)babyImageViewSwipeGestureRecognizer:(UISwipeGestureRecognizer *)swipe{
+    if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
+        TWLog(@"向左");
+    } else if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
+        TWLog(@"向右");
+    }
 }
 
 #pragma mark --准备倒计时设置
@@ -248,7 +260,7 @@
 - (void)customCountDown:(TWReadyStarView *)downView{
     // 准备开始游戏
     [self initMiddleView];
-    [self prepareForGame];
+//    [self prepareForGame];
 }
 
 #pragma mark --UICollisionBehaviorDelegate
@@ -314,26 +326,26 @@
 }
 
 // 模拟返回主页
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
-    [self pauseFruit];
-    
-    // 头部视图隐藏
-    [UIView animateWithDuration:0.25 animations:^{
-        self.headerView.tw_y = -TopImageViewH * 1.2;
-        self.lifeView.tw_y = 15 - TopImageViewH * 1.2;
-        self.starOrPauseButton.tw_centerY = self.lifeView.tw_centerY;
-        self.lifeCountLabel.tw_centerY = self.lifeView.tw_centerY;
-        [self.scoreLabel setCenter:self.headerView.center];
-    }];
-    
-    // 退出视图
-    [self dismissViewControllerAnimated:YES completion:^{
-        if (_block) {
-            _block();
-        }
-    }];
-}
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+//    
+//    [self pauseFruit];
+//    
+//    // 头部视图隐藏
+//    [UIView animateWithDuration:0.25 animations:^{
+//        self.headerView.tw_y = -TopImageViewH * 1.2;
+//        self.lifeView.tw_y = 15 - TopImageViewH * 1.2;
+//        self.starOrPauseButton.tw_centerY = self.lifeView.tw_centerY;
+//        self.lifeCountLabel.tw_centerY = self.lifeView.tw_centerY;
+//        [self.scoreLabel setCenter:self.headerView.center];
+//    }];
+//    
+//    // 退出视图
+//    [self dismissViewControllerAnimated:YES completion:^{
+//        if (_block) {
+//            _block();
+//        }
+//    }];
+//}
 
 - (void)pauseFruit{
     // 关闭定时器,移除所有imageView
