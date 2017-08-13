@@ -12,7 +12,7 @@
 
 #define TopImageViewH TWScreenWidth / (400 / 86.0)
 
-@interface TWHomeViewController ()<TWReadyStarViewDelegate>
+@interface TWHomeViewController ()<TWReadyStarViewDelegate, UICollisionBehaviorDelegate>
 @property (nonatomic, strong) UIView * boundaryView;                    // 约束人物行动的底座
 @property (nonatomic, strong) UIImageView * baby;                       // 人物
 @property (nonatomic, copy) NSString * babyName;                        // 人物名称
@@ -23,9 +23,63 @@
 @property (nonatomic, strong) UILabel * lifeCountLabel;                 // 显示剩余几次❤️
 @property (nonatomic, strong) UIButton * starOrPauseButton;             // 暂停开始
 @property (nonatomic, strong) TWStrokeLabel * scoreLabel;               // 显示分数
+
+@property (nonatomic, strong) NSMutableArray * foodArray;
+@property (nonatomic, strong) NSMutableArray * unfoodArray;
+@property (nonatomic, strong) NSMutableArray * allArray;
+
+@property (nonatomic, strong) NSMutableArray * allImageViewArray;       // 所有掉落的对象
+
+@property (nonatomic, strong) UIDynamicAnimator * dynamicAnimator;
+@property (nonatomic, strong) UIGravityBehavior * gravityBehavior;
+@property (nonatomic, strong) UICollisionBehavior * collisionBehavior;
+@property (nonatomic, strong) NSTimer * timer;
 @end
 
 @implementation TWHomeViewController
+
+#pragma mark --懒加载
+- (NSMutableArray *)foodArray{
+    if (_foodArray == nil) {
+        _foodArray = [NSMutableArray array];
+        for (NSInteger i = 1; i <= 10; i++) {
+            NSString * foodName = [NSString stringWithFormat:@"food%ld",i];
+            [_foodArray addObject:foodName];
+        }
+    }
+    return _foodArray;
+}
+
+- (NSMutableArray *)unfoodArray{
+    if (_unfoodArray == nil) {
+        _unfoodArray = [NSMutableArray array];
+        for (NSInteger i = 1; i <= 3; i++) {
+            NSString * foodName = [NSString stringWithFormat:@"unfood%ld",i];
+            [_unfoodArray addObject:foodName];
+        }
+    }
+    return _unfoodArray;
+}
+
+- (NSMutableArray *)allArray{
+    if (_allArray == nil) {
+        _allArray = [NSMutableArray array];
+        for (NSInteger i = 0; i < self.foodArray.count; i++) {
+            [_allArray addObject:self.foodArray[i]];
+        }
+        for (NSInteger i = 0; i < self.unfoodArray.count; i++) {
+            [_allArray addObject:self.unfoodArray[i]];
+        }
+    }
+    return _allArray;
+}
+
+- (NSMutableArray *)allImageViewArray{
+    if (_allImageViewArray == nil) {
+        _allImageViewArray = [NSMutableArray array];
+    }
+    return _allImageViewArray;
+}
 
 - (TWReadyStarView *)readyStartView{
     if (_readyStartView == nil) {
@@ -37,6 +91,7 @@
     return _readyStartView;
 }
 
+#pragma mark --系统回调函数
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     // 先获取选定的人物
@@ -45,13 +100,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self createDynamic];
     [self initBackgroundImageView];
     [self initBottomView];
     [self initBabyImageView];
     [self initTopView];
 }
 
-#pragma mark --UI界面
+- (void)createDynamic{
+    _dynamicAnimator = [[UIDynamicAnimator alloc]initWithReferenceView:self.view];
+    _gravityBehavior = [[UIGravityBehavior alloc]init];
+    _collisionBehavior = [[UICollisionBehavior alloc]init];
+    _collisionBehavior.collisionMode = UICollisionBehaviorModeBoundaries;
+    _collisionBehavior.collisionDelegate = self;
+    _collisionBehavior.translatesReferenceBoundsIntoBoundary = YES;
+    [_dynamicAnimator addBehavior:_gravityBehavior];
+    [_dynamicAnimator addBehavior:_collisionBehavior];
+}
+
+#pragma mark --UI界面--
 #pragma mark --大背景设置
 - (void)initBackgroundImageView{
     self.view.backgroundColor = ViewControllerBgColor;
@@ -125,10 +192,10 @@
     cloud2.image = [UIImage imageNamed:@"may_2-sheet0"];
     [self.view addSubview:cloud2];
     
-    [UIView animateWithDuration:20 animations:^{
+    [UIView animateWithDuration:60 animations:^{
         cloud1.tw_x = -width;
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:20 animations:^{
+        [UIView animateWithDuration:60 animations:^{
             cloud2.tw_x = -width;
         } completion:^(BOOL finished) {
             [cloud1 removeFromSuperview];
@@ -161,6 +228,12 @@
     _baby = [[UIImageView alloc]initWithFrame:CGRectMake(x, y, w, w)];
     _baby.image = [UIImage imageNamed:@"baby1"];
     [self.view addSubview:_baby];
+    
+    
+    
+    
+    
+    
 }
 
 #pragma mark --准备倒计时设置
@@ -169,14 +242,45 @@
     [_readyStartView addTimerForAnimationDownView];
 }
 
+
+#pragma mark --代理方法--
 #pragma mark --TWReadyStarViewDelegate
 - (void)customCountDown:(TWReadyStarView *)downView{
     // 准备开始游戏
-    [self prepareForGame];
     [self initMiddleView];
+    [self prepareForGame];
 }
 
+#pragma mark --UICollisionBehaviorDelegate
+// 开始碰撞时触发的方法
+- (void)collisionBehavior:(UICollisionBehavior *)behavior beganContactForItem:(id<UIDynamicItem>)item withBoundaryIdentifier:(id<NSCopying>)identifier atPoint:(CGPoint)p{
+    
+    
+    
+    // 当碰触到小孩时，需要被吃掉
+    
+    
+    
+    
+    
+    
+    // 当没有碰到小孩并且碰撞底边时，需要移除
+    if (TWScreenHeight - p.y <= 1) {
+        for (NSInteger i = 0; i < self.allImageViewArray.count; i++) {
+            if ([item isEqual:self.allImageViewArray[i]]) {
+                UIImageView * imageView = self.allImageViewArray[i];
+                if ([imageView isEqual:item]) {
+                    [_collisionBehavior removeItem:imageView];
+                    [_gravityBehavior removeItem:imageView];
+                    [self.allImageViewArray removeObject:imageView];
+                    [imageView removeFromSuperview];
+                }
+            }
+        }
+    }
+}
 
+#pragma mark --其他私有方法
 - (void)prepareForGame{
     // 界面组装
     [UIView animateWithDuration:0.5 animations:^{
@@ -193,11 +297,28 @@
 }
 
 - (void)begeinGame{
-    // 随机掉落水果
-    
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dropFruit) userInfo:nil repeats:YES];
+    [_timer fire];
 }
 
+// 随机掉落
+- (void)dropFruit{
+    NSInteger x = arc4random() % (int)TWScreenWidth;
+    NSInteger size = arc4random() % 5 + 30;
+    UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(x, 0, size, size)];
+    imageView.image = [UIImage imageNamed:_allArray[arc4random() % self.allArray.count]];
+    [self.view insertSubview:imageView belowSubview:_headerView];
+    [self.allImageViewArray addObject:imageView];
+    [_gravityBehavior addItem:imageView];
+    [_collisionBehavior addItem:imageView];
+}
+
+// 模拟返回主页
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    [self pauseFruit];
+    
+    // 头部视图隐藏
     [UIView animateWithDuration:0.25 animations:^{
         self.headerView.tw_y = -TopImageViewH * 1.2;
         self.lifeView.tw_y = 15 - TopImageViewH * 1.2;
@@ -205,6 +326,8 @@
         self.lifeCountLabel.tw_centerY = self.lifeView.tw_centerY;
         [self.scoreLabel setCenter:self.headerView.center];
     }];
+    
+    // 退出视图
     [self dismissViewControllerAnimated:YES completion:^{
         if (_block) {
             _block();
@@ -212,5 +335,16 @@
     }];
 }
 
+- (void)pauseFruit{
+    // 关闭定时器,移除所有imageView
+    [_timer invalidate];
+    for (NSInteger i = 0; i < self.allImageViewArray.count; i++) {
+        UIImageView * imageView = self.allImageViewArray[i];
+        [_collisionBehavior removeItem:imageView];
+        [_gravityBehavior removeItem:imageView];
+        [imageView removeFromSuperview];
+    }
+    [self.allImageViewArray removeAllObjects];
+}
 
 @end
