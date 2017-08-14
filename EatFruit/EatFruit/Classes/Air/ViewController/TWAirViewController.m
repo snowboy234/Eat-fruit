@@ -177,13 +177,13 @@
     NSInteger tunnelHeight = 150;
     
     //柱子图像
-    NSInteger tall = arc4random() % 120 + 100;
+    NSInteger tall = arc4random() % 200 + 20;
     
     _topPipe = [[UIImageView alloc]initWithFrame:CGRectMake(320, tall - TWScreenHeight * 0.5, 70, TWScreenHeight * 0.5)];
     _topPipe.image = [UIImage imageNamed:@"toppipe-sheet0"];
     [self.view addSubview:_topPipe];
     
-    _bottomPipe = [[UIImageView alloc]initWithFrame:CGRectMake(320, tall + tunnelHeight, 70, TWScreenHeight * 0.5)];
+    _bottomPipe = [[UIImageView alloc]initWithFrame:CGRectMake(320, tall + tunnelHeight, 70, TWScreenHeight)];
     _bottomPipe.image = [UIImage imageNamed:@"toppipe-sheet0"];
     [self.view addSubview:_bottomPipe];
 }
@@ -203,7 +203,7 @@
     }
     
     //下降
-    if(_isTap == YES && _birdsView.frame.origin.y < 370){
+    if(_isTap == YES && _birdsView.frame.origin.y < TWScreenHeight){
         CGRect frame = _birdsView.frame;
         frame.origin.y++;
         _number -= 2;
