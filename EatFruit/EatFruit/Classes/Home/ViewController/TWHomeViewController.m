@@ -10,8 +10,6 @@
 #import "TWReadyStarView.h"
 #import "TWStrokeLabel.h"
 
-#define TopImageViewH TWScreenWidth / (400 / 86.0)
-
 @interface TWHomeViewController ()<TWReadyStarViewDelegate, UICollisionBehaviorDelegate> // UIGestureRecognizerDelegate
 @property (nonatomic, strong) UIView * boundaryView;                    // 约束人物行动的底座
 @property (nonatomic, strong) UIImageView * baby;                       // 人物
@@ -30,6 +28,7 @@
 @property (nonatomic, strong) NSMutableArray * allArray;
 
 @property (nonatomic, strong) NSMutableArray * allImageViewArray;       // 所有掉落的对象
+@property (nonatomic, strong) NSMutableArray * allEatImageViewArray;    // 所有吃掉掉落的对象
 
 @property (nonatomic, strong) UIDynamicAnimator * dynamicAnimator;
 @property (nonatomic, strong) UIGravityBehavior * gravityBehavior;
@@ -82,6 +81,13 @@
         _allImageViewArray = [NSMutableArray array];
     }
     return _allImageViewArray;
+}
+
+- (NSMutableArray *)allEatImageViewArray{
+    if (_allEatImageViewArray == nil) {
+        _allEatImageViewArray = [NSMutableArray array];
+    }
+    return _allEatImageViewArray;
 }
 
 - (TWReadyStarView *)readyStartView{
@@ -275,54 +281,54 @@
 
 - (void)handlePan:(UIPanGestureRecognizer *)panGestureRecognizer{
     
-    // 在手势开始时添加 物理仿真行为
-    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        // 首先要移除物理仿真行为
-        [_dynamicAnimator removeAllBehaviors];
-        
-        // 获取手势在 view 容器中的位置
-        CGPoint location = [panGestureRecognizer locationInView:self.view];
-        // 获取手势在 _baby 中的位置
-        CGPoint boxLocation = [panGestureRecognizer locationInView:_baby];
-        
-        // 以 _baby 为参考坐标系，计算触摸点到 _baby 中点的偏移量
-        UIOffset offset = UIOffsetMake(boxLocation.x - CGRectGetMidX(_baby.bounds), boxLocation.y - CGRectGetMidY(_baby.bounds));
-        // 创建物理仿真行为
-        _attachmentBehavior = [[UIAttachmentBehavior alloc] initWithItem:_baby offsetFromCenter:offset attachedToAnchor:location];
-        [_dynamicAnimator addBehavior:_attachmentBehavior];
-        [_dynamicAnimator addBehavior:_gravityBehavior];
-        [_dynamicAnimator addBehavior:_collisionBehavior];
-    }
-    [_attachmentBehavior setAnchorPoint:[panGestureRecognizer locationInView:self.view]];
+//    // 在手势开始时添加 物理仿真行为
+//    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
+//        // 首先要移除物理仿真行为
+//        [_dynamicAnimator removeAllBehaviors];
+//        
+//        // 获取手势在 view 容器中的位置
+//        CGPoint location = [panGestureRecognizer locationInView:self.view];
+//        // 获取手势在 _baby 中的位置
+//        CGPoint boxLocation = [panGestureRecognizer locationInView:_baby];
+//        
+//        // 以 _baby 为参考坐标系，计算触摸点到 _baby 中点的偏移量
+//        UIOffset offset = UIOffsetMake(boxLocation.x - CGRectGetMidX(_baby.bounds), boxLocation.y - CGRectGetMidY(_baby.bounds));
+//        // 创建物理仿真行为
+//        _attachmentBehavior = [[UIAttachmentBehavior alloc] initWithItem:_baby offsetFromCenter:offset attachedToAnchor:location];
+//        [_dynamicAnimator addBehavior:_attachmentBehavior];
+//        [_dynamicAnimator addBehavior:_gravityBehavior];
+//        [_dynamicAnimator addBehavior:_collisionBehavior];
+//    }
+//    [_attachmentBehavior setAnchorPoint:[panGestureRecognizer locationInView:self.view]];
     
 
     
-//    // 固定其y坐标
-//    CGFloat y = TWScreenHeight - _boundaryView.tw_height;
-//    UIImageView * view = (UIImageView *)panGestureRecognizer.view;
-//    
-//    //抖动imageView
-//    CABasicAnimation * shake = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-//    shake.fromValue = [NSNumber numberWithFloat:-0.2];
-//    shake.toValue = [NSNumber numberWithFloat:+0.2];
-//    shake.duration = 0.05;
-//    shake.autoreverses = YES; //是否重复
-//    shake.repeatCount = MAXFLOAT;
-//
-//    
-//    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan || panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
-//        
-//        [view.layer addAnimation:shake forKey:@"imageView"];
-//        
-//        // 移动imageView
-//        CGPoint translation = [panGestureRecognizer translationInView:view.superview];
-//        [view setCenter:(CGPoint){view.center.x + translation.x, y}];
-//        [panGestureRecognizer setTranslation:CGPointZero inView:view.superview];
-//        
-//    } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
-//        // 停止动画
-//        [view.layer removeAllAnimations];
-//    }
+    // 固定其y坐标
+    CGFloat y = TWScreenHeight - _boundaryView.tw_height;
+    UIImageView * view = (UIImageView *)panGestureRecognizer.view;
+    
+    //抖动imageView
+    CABasicAnimation * shake = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    shake.fromValue = [NSNumber numberWithFloat:-0.2];
+    shake.toValue = [NSNumber numberWithFloat:+0.2];
+    shake.duration = 0.05;
+    shake.autoreverses = YES; //是否重复
+    shake.repeatCount = MAXFLOAT;
+
+    
+    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan || panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        
+        [view.layer addAnimation:shake forKey:@"imageView"];
+        
+        // 移动imageView
+        CGPoint translation = [panGestureRecognizer translationInView:view.superview];
+        [view setCenter:(CGPoint){view.center.x + translation.x, y}];
+        [panGestureRecognizer setTranslation:CGPointZero inView:view.superview];
+        
+    } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        // 停止动画
+        [view.layer removeAllAnimations];
+    }
 }
 
 
@@ -352,23 +358,55 @@
 // 开始碰撞到边界时触发的方法
 - (void)collisionBehavior:(UICollisionBehavior *)behavior beganContactForItem:(id<UIDynamicItem>)item withBoundaryIdentifier:(id<NSCopying>)identifier atPoint:(CGPoint)p{
     
-//    CGPoint babyCenter = _baby.center;
-//    CGFloat babyWidth = TWScreenWidth * 0.2 * 0.5;
-//    CGFloat distance_x = fabs(p.x - babyWidth);
-//    CGFloat distance_y = fabs(p.y - babyWidth);
-//    TWLog(@"%f",distance_x);
-//    if (distance_x) {
-//        <#statements#>
+    
+//    UIImageView * imageView = (UIImageView *)item;
+    
+    CGPoint babyCenter = _baby.center;
+    TWLog(@"%@",NSStringFromCGPoint(babyCenter));
+    
+    // 半径
+    CGFloat babyWidth = TWScreenWidth * 0.2 * 0.5;
+    CGFloat distance_x = fabs(p.x - babyWidth);
+    CGFloat distance_y = fabs(p.y - babyWidth);
+    TWLog(@"%f——————%f",distance_x,distance_y);
+    if (distance_x < babyWidth || distance_y < babyWidth) {
+        NSLog(@"包含");
+        for (NSInteger i = 0; i < self.allImageViewArray.count; i++) {
+            if ([item isEqual:self.allImageViewArray[i]]) {
+                UIImageView * imageView = self.allImageViewArray[i];
+                if ([imageView isEqual:item]) {
+                    [_collisionBehavior removeItem:imageView];
+                    [_gravityBehavior removeItem:imageView];
+                    [self.allImageViewArray removeObject:imageView];
+                    [self.allEatImageViewArray addObject:imageView];
+                    _score += 5;
+                    [imageView removeFromSuperview];
+                }
+            }
+        }
+    } else {
+        NSLog(@"不包含");
+    }
+    
+    
+//    if (CGRectIntersectsRect(_baby.bounds, imageView.frame)) {
+//        NSLog(@"包含");
+//        for (NSInteger i = 0; i < self.allImageViewArray.count; i++) {
+//            if ([item isEqual:self.allImageViewArray[i]]) {
+//                UIImageView * imageView = self.allImageViewArray[i];
+//                if ([imageView isEqual:item]) {
+//                    [_collisionBehavior removeItem:imageView];
+//                    [_gravityBehavior removeItem:imageView];
+//                    [self.allImageViewArray removeObject:imageView];
+//                    [self.allEatImageViewArray addObject:imageView];
+//                    _score += 5;
+//                    [imageView removeFromSuperview];
+//                }
+//            }
+//        }
+//    } else {
+//        NSLog(@"不包含");
 //    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
     // 当碰撞底边边界时，需要移除
     if (TWScreenHeight - p.y <= 1) {
         for (NSInteger i = 0; i < self.allImageViewArray.count; i++) {
@@ -402,7 +440,7 @@
 }
 
 - (void)begeinGame{
-    _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dropFruit) userInfo:nil repeats:YES];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(dropFruit) userInfo:nil repeats:YES];
     [_timer fire];
 }
 
@@ -414,6 +452,21 @@
     imageView.image = [UIImage imageNamed:_allArray[arc4random() % self.allArray.count]];
     [self.view insertSubview:imageView belowSubview:_headerView];
     [self.allImageViewArray addObject:imageView];
+    
+    
+//    [UIView animateWithDuration:3.0 animations:^{
+//        imageView.tw_y = TWScreenHeight;
+//    } completion:^(BOOL finished) {
+////        if (CGRectIntersectsRect(_baby.bounds, imageView.frame)) {
+////            NSLog(@"包含");
+////        } else {
+////            NSLog(@"不包含");
+////        }
+//        [imageView removeFromSuperview];
+//        [self.allImageViewArray removeObject:imageView];
+//        TWLog(@"%ld",self.allImageViewArray.count);
+//    }];
+
     [_gravityBehavior addItem:imageView];
     [_collisionBehavior addItem:imageView];
 }

@@ -11,4 +11,6 @@
 typedef void(^repeatAnimationBlock)();
 @interface TWAirViewController : UIViewController
 @property(nonatomic, copy) repeatAnimationBlock block;
+- (void)showBirdView;
+- (void)countDownTime;
 @end

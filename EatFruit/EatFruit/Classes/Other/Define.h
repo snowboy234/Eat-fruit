@@ -50,7 +50,7 @@
 #define StatusBarHeight 20
 #define NavigationBarHeight 64
 #define TabBarHeight 49
-
+#define TopImageViewH TWScreenWidth / (400 / 86.0)
 
 
 

@@ -23,6 +23,7 @@
 		FF5BE7C01F3DA6BF00F864F1 /* UIButton+touch.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7BF1F3DA6BF00F864F1 /* UIButton+touch.m */; };
 		FF5BE7C31F3DB15C00F864F1 /* TWMainToAirAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7C21F3DB15C00F864F1 /* TWMainToAirAnimation.m */; };
 		FF5BE7CA1F3DB2FC00F864F1 /* TWAirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7C91F3DB2FC00F864F1 /* TWAirViewController.m */; };
+		FF5BE82B1F416EA900F864F1 /* DataTool.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE82A1F416EA900F864F1 /* DataTool.m */; };
 		FFF1BD391F3F0F7100EEF90D /* TWReadyStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFF1BD381F3F0F7100EEF90D /* TWReadyStarView.m */; };
 		FFF1BD3C1F3F1BAE00EEF90D /* TWStrokeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FFF1BD3B1F3F1BAE00EEF90D /* TWStrokeLabel.m */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,8 @@
 		FF5BE7C21F3DB15C00F864F1 /* TWMainToAirAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWMainToAirAnimation.m; sourceTree = "<group>"; };
 		FF5BE7C81F3DB2FC00F864F1 /* TWAirViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAirViewController.h; sourceTree = "<group>"; };
 		FF5BE7C91F3DB2FC00F864F1 /* TWAirViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAirViewController.m; sourceTree = "<group>"; };
+		FF5BE8291F416EA900F864F1 /* DataTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTool.h; sourceTree = "<group>"; };
+		FF5BE82A1F416EA900F864F1 /* DataTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTool.m; sourceTree = "<group>"; };
 		FFF1BD371F3F0F7100EEF90D /* TWReadyStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWReadyStarView.h; sourceTree = "<group>"; };
 		FFF1BD381F3F0F7100EEF90D /* TWReadyStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWReadyStarView.m; sourceTree = "<group>"; };
 		FFF1BD3A1F3F1BAE00EEF90D /* TWStrokeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWStrokeLabel.h; sourceTree = "<group>"; };
@@ -223,6 +226,8 @@
 		FF5BE7A21F3D44A200F864F1 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				FF5BE8291F416EA900F864F1 /* DataTool.h */,
+				FF5BE82A1F416EA900F864F1 /* DataTool.m */,
 				FF5BE7AC1F3D4A1800F864F1 /* TWMainToHomeAnimation.h */,
 				FF5BE7AD1F3D4A1800F864F1 /* TWMainToHomeAnimation.m */,
 				FF5BE7C11F3DB15C00F864F1 /* TWMainToAirAnimation.h */,
@@ -426,6 +431,7 @@
 				FF5BE7CA1F3DB2FC00F864F1 /* TWAirViewController.m in Sources */,
 				FF5BE7AE1F3D4A1800F864F1 /* TWMainToHomeAnimation.m in Sources */,
 				FFF1BD391F3F0F7100EEF90D /* TWReadyStarView.m in Sources */,
+				FF5BE82B1F416EA900F864F1 /* DataTool.m in Sources */,
 				FF5BE7831F3D440400F864F1 /* main.m in Sources */,
 				FF5BE7C01F3DA6BF00F864F1 /* UIButton+touch.m in Sources */,
 			);

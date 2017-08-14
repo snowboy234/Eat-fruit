@@ -117,6 +117,11 @@
             [weakSelf setTitleImageViewAnimation];
             [weakSelf setLevelButtonAnimation];
         };
+        // 进入页面后开启定时器
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [_airVc countDownTime];
+            [_airVc showBirdView];
+        });
         [self presentViewController:_airVc animated:YES completion:nil];
     }];
     [bottomView addSubview:_airButton];
