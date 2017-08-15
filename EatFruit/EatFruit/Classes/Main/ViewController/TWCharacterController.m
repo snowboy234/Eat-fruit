@@ -40,7 +40,7 @@
         [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"ch_%ld",_index] forKey:Character];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        [self dismissViewControllerAnimated:NO completion:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }];
     [toolView addSubview:backButton];
     

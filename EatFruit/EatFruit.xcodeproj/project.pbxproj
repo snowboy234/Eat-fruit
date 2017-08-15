@@ -30,6 +30,7 @@
 		FFD39D291F42C72A00EBC89A /* TWHomeGameOverController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD39D281F42C72A00EBC89A /* TWHomeGameOverController.m */; };
 		FFD39D2F1F42D96200EBC89A /* TWRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD39D2E1F42D96200EBC89A /* TWRootViewController.m */; };
 		FFD39D321F42D9A400EBC89A /* TWCharacterController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD39D311F42D9A400EBC89A /* TWCharacterController.m */; };
+		FFD39D351F42EE5F00EBC89A /* TWMainToCharaterAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD39D341F42EE5F00EBC89A /* TWMainToCharaterAnimation.m */; };
 		FFF1BD391F3F0F7100EEF90D /* TWReadyStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFF1BD381F3F0F7100EEF90D /* TWReadyStarView.m */; };
 		FFF1BD3C1F3F1BAE00EEF90D /* TWStrokeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FFF1BD3B1F3F1BAE00EEF90D /* TWStrokeLabel.m */; };
 /* End PBXBuildFile section */
@@ -83,6 +84,8 @@
 		FFD39D2E1F42D96200EBC89A /* TWRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWRootViewController.m; sourceTree = "<group>"; };
 		FFD39D301F42D9A400EBC89A /* TWCharacterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWCharacterController.h; sourceTree = "<group>"; };
 		FFD39D311F42D9A400EBC89A /* TWCharacterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWCharacterController.m; sourceTree = "<group>"; };
+		FFD39D331F42EE5F00EBC89A /* TWMainToCharaterAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWMainToCharaterAnimation.h; sourceTree = "<group>"; };
+		FFD39D341F42EE5F00EBC89A /* TWMainToCharaterAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWMainToCharaterAnimation.m; sourceTree = "<group>"; };
 		FFF1BD371F3F0F7100EEF90D /* TWReadyStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWReadyStarView.h; sourceTree = "<group>"; };
 		FFF1BD381F3F0F7100EEF90D /* TWReadyStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWReadyStarView.m; sourceTree = "<group>"; };
 		FFF1BD3A1F3F1BAE00EEF90D /* TWStrokeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWStrokeLabel.h; sourceTree = "<group>"; };
@@ -256,6 +259,8 @@
 				FF5BE7AD1F3D4A1800F864F1 /* TWMainToHomeAnimation.m */,
 				FF5BE7C11F3DB15C00F864F1 /* TWMainToAirAnimation.h */,
 				FF5BE7C21F3DB15C00F864F1 /* TWMainToAirAnimation.m */,
+				FFD39D331F42EE5F00EBC89A /* TWMainToCharaterAnimation.h */,
+				FFD39D341F42EE5F00EBC89A /* TWMainToCharaterAnimation.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -448,6 +453,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFD39D351F42EE5F00EBC89A /* TWMainToCharaterAnimation.m in Sources */,
 				FF5BE99E1F42A4E400F864F1 /* BabyImageView.m in Sources */,
 				FF5BE7B11F3D5E4A00F864F1 /* UIView+TWView.m in Sources */,
 				FF5BE7BD1F3D7BE200F864F1 /* UIImage+Image.m in Sources */,

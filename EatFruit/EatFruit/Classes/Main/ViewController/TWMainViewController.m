@@ -12,10 +12,12 @@
 #import "TWMainToAirAnimation.h"
 #import "TWAirViewController.h"
 #import "TWCharacterController.h"
+#import "TWMainToCharaterAnimation.h"
 
-@interface TWMainViewController ()<TWMainToHomeAnimationDelegate, TWMainToAirAnimationDelegate>
+@interface TWMainViewController ()<TWMainToHomeAnimationDelegate, TWMainToAirAnimationDelegate, TWMainToCharaterAnimationDelegate>
 @property (nonatomic, strong) TWMainToHomeAnimation * animationToolBottom;
 @property (nonatomic, strong) TWMainToAirAnimation * animationToolRight;
+@property (nonatomic, strong) TWMainToCharaterAnimation * animationToolLeft;
 @property (nonatomic, strong) TWCharacterController * characterVc;
 @property (nonatomic, strong) TWAirViewController * airVc;
 @property (nonatomic, strong) UIView * topView;
@@ -43,6 +45,7 @@
     _characterVc = [[TWCharacterController alloc]init];
     _animationToolBottom = [TWMainToHomeAnimation shareMainToHomeAnimation];
     _animationToolRight = [TWMainToAirAnimation shareMainToAirAnimation];
+    _animationToolLeft = [TWMainToCharaterAnimation shareMainToCharaterAnimation];
 }
 
 #pragma mark --UI搭建
@@ -133,7 +136,9 @@
     characterButton.timeInterval = ButtonClickTime;
     [characterButton setBackgroundImage:[UIImage imageNamed:@"character-sheet0"] forState:UIControlStateNormal];
     [[characterButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        [self presentViewController:_characterVc animated:NO completion:nil];
+        _characterVc.transitioningDelegate = _animationToolLeft;
+        _animationToolLeft.delegate = self;
+        [self presentViewController:_characterVc animated:YES completion:nil];
     }];
     [bottomView addSubview:characterButton];
     
@@ -182,9 +187,15 @@
     return imageView;
 }
 
-
 #pragma mark --TWMainToAirAnimationDelegate
 - (UIImageView *)getRightScreenImage{
+    UIImageView * imageView = [[UIImageView alloc]init];
+    imageView.image = [self getImage];
+    return imageView;
+}
+
+#pragma mark --TWMainToCharaterAnimationDelegate
+- (UIImageView *)getLeftScreenImage{
     UIImageView * imageView = [[UIImageView alloc]init];
     imageView.image = [self getImage];
     return imageView;
