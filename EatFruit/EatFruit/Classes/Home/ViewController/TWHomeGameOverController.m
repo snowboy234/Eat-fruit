@@ -50,7 +50,7 @@
     // 本轮得分
     TWStrokeLabel * scoreLabel = [[TWStrokeLabel alloc]initWithFrame:CGRectMake(0, 0, TWScreenWidth, 50)];
     scoreLabel.center = self.view.center;
-    scoreLabel.text = @"45";
+    scoreLabel.text = [NSString stringWithFormat:@"%ld",self.score];
     scoreLabel.textColor = [UIColor whiteColor];
     scoreLabel.textAlignment = NSTextAlignmentCenter;
     scoreLabel.font = [UIFont systemFontOfSize:50];

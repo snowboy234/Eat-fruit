@@ -12,5 +12,5 @@
 
 + (instancetype)initBabyImageViewWithFrame:(CGRect)frame imageName:(NSString *)imageName;
 - (BOOL)checkIfCaught:(CGRect)frame;
-
+@property (nonatomic, copy) NSString * name;
 @end

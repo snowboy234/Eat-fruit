@@ -11,11 +11,12 @@
 #import "TWMainToHomeAnimation.h"
 #import "TWMainToAirAnimation.h"
 #import "TWAirViewController.h"
+#import "TWCharacterController.h"
 
 @interface TWMainViewController ()<TWMainToHomeAnimationDelegate, TWMainToAirAnimationDelegate>
 @property (nonatomic, strong) TWMainToHomeAnimation * animationToolBottom;
 @property (nonatomic, strong) TWMainToAirAnimation * animationToolRight;
-//@property (nonatomic, strong) TWHomeViewController * homeVc;
+@property (nonatomic, strong) TWCharacterController * characterVc;
 @property (nonatomic, strong) TWAirViewController * airVc;
 @property (nonatomic, strong) UIView * topView;
 @property (nonatomic, strong) UIImageView * imageView;// 标题视图
@@ -28,6 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    TWLog(@"%@",NSHomeDirectory());
     [self initObject];
     [self initBackgroundImageView];
     [self initBottomView];
@@ -38,6 +40,7 @@
 
 - (void)initObject{
     _airVc = [[TWAirViewController alloc]init];
+    _characterVc = [[TWCharacterController alloc]init];
     _animationToolBottom = [TWMainToHomeAnimation shareMainToHomeAnimation];
     _animationToolRight = [TWMainToAirAnimation shareMainToAirAnimation];
 }
@@ -130,7 +133,7 @@
     characterButton.timeInterval = ButtonClickTime;
     [characterButton setBackgroundImage:[UIImage imageNamed:@"character-sheet0"] forState:UIControlStateNormal];
     [[characterButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        TWLogFunc
+        [self presentViewController:_characterVc animated:NO completion:nil];
     }];
     [bottomView addSubview:characterButton];
     

@@ -104,7 +104,13 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     // 先获取选定的人物
-    
+    NSString * charater = [[NSUserDefaults standardUserDefaults] objectForKey:Character];
+    if (charater) {
+        _babyName = charater;
+    } else {
+        _babyName = @"baby1";
+    }
+    self.baby.name = _babyName;
 }
 
 - (void)viewDidLoad {
@@ -251,7 +257,7 @@
     CGFloat y = TWScreenHeight - _boundaryView.tw_height - BabyHeight * 0.5;
     CGFloat x = (TWScreenWidth - BabyHeight) * 0.5;
     NSInteger w = (NSInteger)BabyHeight;
-    _baby = [BabyImageView initBabyImageViewWithFrame:CGRectMake(x, y, w, w) imageName:@"baby1"];
+    _baby = [BabyImageView initBabyImageViewWithFrame:CGRectMake(x, y, w, w) imageName:_babyName];
     [self.view addSubview:_baby];
 }
 
@@ -368,6 +374,7 @@
         [self.scoreLabel setCenter:self.headerView.center];
     }completion:^(BOOL finished) {
         // 退出视图
+        _gameOverVc.score = _score.points;
         [self presentViewController:_gameOverVc animated:YES completion:nil];
     }];
 }

@@ -1,5 +1,5 @@
 //
-//  TWHomeGameOverController.h
+//  TWRootViewController.h
 //  EatFruit
 //
 //  Created by 田伟 on 2017/8/15.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TWHomeGameOverController : UIViewController
-@property (nonatomic, assign) NSInteger score;
+@interface TWRootViewController : UIViewController
+
 @end

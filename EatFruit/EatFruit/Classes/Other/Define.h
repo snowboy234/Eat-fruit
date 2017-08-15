@@ -28,7 +28,7 @@
 #define ButtonClickTime 0.3
 
 // MARK:- ID
-//#define Theme                           @"Theme"
+#define Character @"Character"
 
 
 // MARK:- 打印
@@ -54,5 +54,6 @@
 #define CandyHeight 40
 #define BabyHeight TWScreenWidth * 0.2
 #define ImageViewW (TWScreenWidth - TWMargin * 5)
+#define ImageViewWH (TWScreenWidth - TWMargin * 20)      // 角色小图
 
 #endif /* Define_h */

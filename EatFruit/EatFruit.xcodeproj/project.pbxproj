@@ -28,6 +28,8 @@
 		FF5BE99E1F42A4E400F864F1 /* BabyImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE99A1F42A4E400F864F1 /* BabyImageView.m */; };
 		FF5BE99F1F42A4E400F864F1 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE99C1F42A4E400F864F1 /* Score.m */; };
 		FFD39D291F42C72A00EBC89A /* TWHomeGameOverController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD39D281F42C72A00EBC89A /* TWHomeGameOverController.m */; };
+		FFD39D2F1F42D96200EBC89A /* TWRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD39D2E1F42D96200EBC89A /* TWRootViewController.m */; };
+		FFD39D321F42D9A400EBC89A /* TWCharacterController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD39D311F42D9A400EBC89A /* TWCharacterController.m */; };
 		FFF1BD391F3F0F7100EEF90D /* TWReadyStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFF1BD381F3F0F7100EEF90D /* TWReadyStarView.m */; };
 		FFF1BD3C1F3F1BAE00EEF90D /* TWStrokeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FFF1BD3B1F3F1BAE00EEF90D /* TWStrokeLabel.m */; };
 /* End PBXBuildFile section */
@@ -77,6 +79,10 @@
 		FF5BE99C1F42A4E400F864F1 /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
 		FFD39D271F42C72A00EBC89A /* TWHomeGameOverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWHomeGameOverController.h; sourceTree = "<group>"; };
 		FFD39D281F42C72A00EBC89A /* TWHomeGameOverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWHomeGameOverController.m; sourceTree = "<group>"; };
+		FFD39D2D1F42D96200EBC89A /* TWRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWRootViewController.h; sourceTree = "<group>"; };
+		FFD39D2E1F42D96200EBC89A /* TWRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWRootViewController.m; sourceTree = "<group>"; };
+		FFD39D301F42D9A400EBC89A /* TWCharacterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWCharacterController.h; sourceTree = "<group>"; };
+		FFD39D311F42D9A400EBC89A /* TWCharacterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWCharacterController.m; sourceTree = "<group>"; };
 		FFF1BD371F3F0F7100EEF90D /* TWReadyStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWReadyStarView.h; sourceTree = "<group>"; };
 		FFF1BD381F3F0F7100EEF90D /* TWReadyStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWReadyStarView.m; sourceTree = "<group>"; };
 		FFF1BD3A1F3F1BAE00EEF90D /* TWStrokeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWStrokeLabel.h; sourceTree = "<group>"; };
@@ -233,6 +239,10 @@
 			children = (
 				FF5BE7A31F3D44B800F864F1 /* TWMainViewController.h */,
 				FF5BE7A41F3D44B800F864F1 /* TWMainViewController.m */,
+				FFD39D2D1F42D96200EBC89A /* TWRootViewController.h */,
+				FFD39D2E1F42D96200EBC89A /* TWRootViewController.m */,
+				FFD39D301F42D9A400EBC89A /* TWCharacterController.h */,
+				FFD39D311F42D9A400EBC89A /* TWCharacterController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -450,6 +460,7 @@
 				FF5BE7B41F3D5EB500F864F1 /* UIView+TWFrame.m in Sources */,
 				FF5BE7A51F3D44B800F864F1 /* TWMainViewController.m in Sources */,
 				FFD39D291F42C72A00EBC89A /* TWHomeGameOverController.m in Sources */,
+				FFD39D321F42D9A400EBC89A /* TWCharacterController.m in Sources */,
 				FF5BE7861F3D440400F864F1 /* AppDelegate.m in Sources */,
 				FF5BE7CA1F3DB2FC00F864F1 /* TWAirViewController.m in Sources */,
 				FF5BE7AE1F3D4A1800F864F1 /* TWMainToHomeAnimation.m in Sources */,
@@ -458,6 +469,7 @@
 				FF5BE7831F3D440400F864F1 /* main.m in Sources */,
 				FF5BE7C01F3DA6BF00F864F1 /* UIButton+touch.m in Sources */,
 				FF5BE99F1F42A4E400F864F1 /* Score.m in Sources */,
+				FFD39D2F1F42D96200EBC89A /* TWRootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

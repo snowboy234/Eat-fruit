@@ -10,6 +10,11 @@
 
 @implementation BabyImageView
 
+- (void)setName:(NSString *)name{
+    _name = name;
+    self.image = [UIImage imageNamed:name];
+}
+
 + (instancetype)initBabyImageViewWithFrame:(CGRect)frame imageName:(NSString *)imageName{
     BabyImageView * babyImageView = [[BabyImageView alloc]initWithFrame:frame];
     babyImageView.image = [UIImage imageNamed:imageName];
