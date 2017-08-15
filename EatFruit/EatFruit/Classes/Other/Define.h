@@ -55,5 +55,7 @@
 #define BabyHeight TWScreenWidth * 0.2
 #define ImageViewW (TWScreenWidth - TWMargin * 5)
 #define ImageViewWH (TWScreenWidth - TWMargin * 20)      // 角色小图
+#define PipeHeight TWScreenHeight * 0.6
+#define PipeWidth TWScreenWidth * 0.17
 
 #endif /* Define_h */

@@ -29,6 +29,7 @@
 @property (nonatomic, strong) UIImageView *bottomPipe;
 @property (nonatomic, assign) CGRect topPipeFrame;
 @property (nonatomic, strong) UILabel *columnLabel;
+@property (nonatomic, strong) UIImageView * tapView;
 
 @end
 
@@ -39,7 +40,6 @@
     [self initBackgroundImageView];
     [self initMiddleView];
     [self initBirdsView];
-    [self initGameUI];
     [self initTopView];
 }
 
@@ -108,11 +108,11 @@
         if (x.selected) {
             x.selected = NO;
             [_starOrPauseButton setBackgroundImage:[UIImage imageNamed:@"pause_sprite-sheet1"] forState:UIControlStateNormal];
-            
+            [_timer setFireDate:[NSDate distantFuture]];
         } else {
             x.selected = YES;
             [_starOrPauseButton setBackgroundImage:[UIImage imageNamed:@"pause_sprite-sheet0"] forState:UIControlStateNormal];
-            
+            [_timer setFireDate:[NSDate distantPast]];
         }
     }];
 }
@@ -131,18 +131,15 @@
     [self pipe];
     
     //添加手势(单手单击手势)
-    UIImageView *tapView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, TWScreenWidth, TWScreenHeight)];
-    tapView.userInteractionEnabled = YES;
+    _tapView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, TWScreenWidth, TWScreenHeight)];
+    _tapView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onTap)];
-    [tapView addGestureRecognizer:tap];
-    [self.view addSubview:tapView];
-    
+    [_tapView addGestureRecognizer:tap];
+    [self.view addSubview:_tapView];
+    [self.view insertSubview:_headerView aboveSubview:_tapView];
     
     //物理重力系数
     _number = 0;
-    
-    //计时器
-    _timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
     
     //已过柱子计数法及显示
     _columnNumber = 0;
@@ -165,7 +162,7 @@
 #pragma mark --TWReadyStarViewDelegate
 - (void)customCountDown:(TWReadyStarView *)downView{
     // 准备开始游戏
-    [self initMiddleView];
+//    [self initMiddleView];
     [self initGameUI];
     [self prepareForGame];
 }
@@ -174,16 +171,27 @@
 #pragma mark 绘制柱子
 -(void)pipe {
     //通道高度
-    NSInteger tunnelHeight = 150;
+    NSInteger tunnelHeight = (NSInteger)(TWScreenHeight * 0.4);
+    //柱子图像的位置
+    NSInteger tall = arc4random() % (NSInteger)(TWScreenHeight * 0.5);
     
-    //柱子图像
-    NSInteger tall = arc4random() % 200 + 20;
+    /*
+     450 * 2 = 900 + 200 = 1100;
+     1100 - 736 = 364
+     
+     上面是 100
+     
+     上面至少露出来的 要大于100px  但是要小于450
+                    -350                0
+     */
     
-    _topPipe = [[UIImageView alloc]initWithFrame:CGRectMake(320, tall - TWScreenHeight * 0.5, 70, TWScreenHeight * 0.5)];
+    // 高度按比例固定为410
+    CGFloat start = TWScreenWidth * 320 / 375.0;        // 起始位置
+    _topPipe = [[UIImageView alloc]initWithFrame:CGRectMake(start, tall - TWScreenHeight * 0.5, PipeWidth, PipeHeight)];// 100 - 736 / 2  300 - 736 / 2
     _topPipe.image = [UIImage imageNamed:@"toppipe-sheet0"];
-    [self.view addSubview:_topPipe];
+    [self.view insertSubview:_topPipe belowSubview:_headerView];
     
-    _bottomPipe = [[UIImageView alloc]initWithFrame:CGRectMake(320, tall + tunnelHeight, 70, TWScreenHeight)];
+    _bottomPipe = [[UIImageView alloc]initWithFrame:CGRectMake(start, tall + tunnelHeight, PipeWidth, PipeHeight)];
     _bottomPipe.image = [UIImage imageNamed:@"toppipe-sheet0"];
     [self.view addSubview:_bottomPipe];
 }
@@ -218,7 +226,7 @@
     bottomPipeFrame.origin.x--;
     _topPipe.frame = _topPipeFrame;
     _bottomPipe.frame = bottomPipeFrame;
-    if (_topPipeFrame.origin.x < -70) {
+    if (_topPipeFrame.origin.x < -80) {
         // 绘制柱子
         [self pipe];
     }
@@ -264,41 +272,38 @@
 -(void)pullGameOver {
     //游戏结束操作界面
     NSLog(@"GameOver");
-    //    gameOver = [[GameOverView alloc] initWithFrame:CGRectMake(20, 160, 280, 300)];
-    //    gameOver.delegate = self;
-    //    [self.view addSubview:gameOver];
 }
 
 #pragma mark 更新分数记录
 -(void)updateScore {
-    //    //更新最佳成绩
-    //    if (_columnNumber > [DataTool integerForKey:kBestScoreKey]) {
-    //        [DataTool setInteger:_columnNumber forKey:kBestScoreKey];
-    //    }
-    //    //更新本局分数
-    //    [DataTool setInteger:_columnNumber forKey:kCurrentScoreKey];
-    //    //更新排行榜
-    //    NSArray *ranks = (NSArray *)[DataTool objectForKey:kRankKey];
-    //    NSMutableArray *newRanksM = [NSMutableArray array];
-    //    NSInteger count = ranks.count;
-    //    BOOL isUpdate = NO;
-    //    for (NSInteger i = 0; i < count; i++) {
-    //        NSString *scoreStr = ranks[i];
-    //        NSInteger score = [scoreStr integerValue];
-    //        if (score < _columnNumber && isUpdate == NO) {
-    //            scoreStr = [NSString stringWithFormat:@"%zi", _columnNumber];
-    //            [newRanksM addObject:scoreStr];
-    //            isUpdate = YES;
-    //            i--;
-    //        } else {
-    //            scoreStr = [NSString stringWithFormat:@"%zi", score];
-    //            [newRanksM addObject:scoreStr];
-    //        }
-    //    }
-    //    if (newRanksM.count > count) {
-    //        [newRanksM removeLastObject];
-    //    }
-    //    [DataTool setObject:newRanksM forKey:kRankKey];
+    //更新最佳成绩
+//    if (_columnNumber > [DataTool integerForKey:kBestScoreKey]) {
+//        [DataTool setInteger:_columnNumber forKey:kBestScoreKey];
+//    }
+//    //更新本局分数
+//    [DataTool setInteger:_columnNumber forKey:kCurrentScoreKey];
+//    //更新排行榜
+//    NSArray *ranks = (NSArray *)[DataTool objectForKey:kRankKey];
+//    NSMutableArray *newRanksM = [NSMutableArray array];
+//    NSInteger count = ranks.count;
+//    BOOL isUpdate = NO;
+//    for (NSInteger i = 0; i < count; i++) {
+//        NSString *scoreStr = ranks[i];
+//        NSInteger score = [scoreStr integerValue];
+//        if (score < _columnNumber && isUpdate == NO) {
+//            scoreStr = [NSString stringWithFormat:@"%zi", _columnNumber];
+//            [newRanksM addObject:scoreStr];
+//            isUpdate = YES;
+//            i--;
+//        } else {
+//            scoreStr = [NSString stringWithFormat:@"%zi", score];
+//            [newRanksM addObject:scoreStr];
+//        }
+//    }
+//    if (newRanksM.count > count) {
+//        [newRanksM removeLastObject];
+//    }
+//    [DataTool setObject:newRanksM forKey:kRankKey];
 }
 
 
@@ -318,7 +323,6 @@
     return _readyStartView;
 }
 
-
 - (void)prepareForGame{
     // 界面组装
     [UIView animateWithDuration:0.5 animations:^{
@@ -334,7 +338,8 @@
 
 - (void)begeinGame{
     
-    
+    //计时器
+    _timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
     
 }
 
