@@ -17,7 +17,7 @@
 #import "UIButton+TWButton.h"
 #import "UILabel+TWLabel.h"
 #import "UIButton+touch.h"
-
+#import "TWStrokeLabel.h"
 
 #import <Masonry/Masonry.h>
 #import <SVProgressHUD/SVProgressHUD.h>

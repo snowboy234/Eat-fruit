@@ -24,6 +24,10 @@
 		FF5BE7C31F3DB15C00F864F1 /* TWMainToAirAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7C21F3DB15C00F864F1 /* TWMainToAirAnimation.m */; };
 		FF5BE7CA1F3DB2FC00F864F1 /* TWAirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE7C91F3DB2FC00F864F1 /* TWAirViewController.m */; };
 		FF5BE82B1F416EA900F864F1 /* DataTool.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE82A1F416EA900F864F1 /* DataTool.m */; };
+		FF5BE99D1F42A4E400F864F1 /* CandyImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE9981F42A4E400F864F1 /* CandyImageView.m */; };
+		FF5BE99E1F42A4E400F864F1 /* BabyImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE99A1F42A4E400F864F1 /* BabyImageView.m */; };
+		FF5BE99F1F42A4E400F864F1 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE99C1F42A4E400F864F1 /* Score.m */; };
+		FFD39D291F42C72A00EBC89A /* TWHomeGameOverController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD39D281F42C72A00EBC89A /* TWHomeGameOverController.m */; };
 		FFF1BD391F3F0F7100EEF90D /* TWReadyStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFF1BD381F3F0F7100EEF90D /* TWReadyStarView.m */; };
 		FFF1BD3C1F3F1BAE00EEF90D /* TWStrokeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FFF1BD3B1F3F1BAE00EEF90D /* TWStrokeLabel.m */; };
 /* End PBXBuildFile section */
@@ -65,6 +69,14 @@
 		FF5BE7C91F3DB2FC00F864F1 /* TWAirViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAirViewController.m; sourceTree = "<group>"; };
 		FF5BE8291F416EA900F864F1 /* DataTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTool.h; sourceTree = "<group>"; };
 		FF5BE82A1F416EA900F864F1 /* DataTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTool.m; sourceTree = "<group>"; };
+		FF5BE9971F42A4E400F864F1 /* CandyImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CandyImageView.h; sourceTree = "<group>"; };
+		FF5BE9981F42A4E400F864F1 /* CandyImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CandyImageView.m; sourceTree = "<group>"; };
+		FF5BE9991F42A4E400F864F1 /* BabyImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyImageView.h; sourceTree = "<group>"; };
+		FF5BE99A1F42A4E400F864F1 /* BabyImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImageView.m; sourceTree = "<group>"; };
+		FF5BE99B1F42A4E400F864F1 /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
+		FF5BE99C1F42A4E400F864F1 /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
+		FFD39D271F42C72A00EBC89A /* TWHomeGameOverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWHomeGameOverController.h; sourceTree = "<group>"; };
+		FFD39D281F42C72A00EBC89A /* TWHomeGameOverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWHomeGameOverController.m; sourceTree = "<group>"; };
 		FFF1BD371F3F0F7100EEF90D /* TWReadyStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWReadyStarView.h; sourceTree = "<group>"; };
 		FFF1BD381F3F0F7100EEF90D /* TWReadyStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWReadyStarView.m; sourceTree = "<group>"; };
 		FFF1BD3A1F3F1BAE00EEF90D /* TWStrokeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWStrokeLabel.h; sourceTree = "<group>"; };
@@ -186,6 +198,8 @@
 			children = (
 				FF5BE7A91F3D496500F864F1 /* TWHomeViewController.h */,
 				FF5BE7AA1F3D496500F864F1 /* TWHomeViewController.m */,
+				FFD39D271F42C72A00EBC89A /* TWHomeGameOverController.h */,
+				FFD39D281F42C72A00EBC89A /* TWHomeGameOverController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -281,6 +295,12 @@
 		FFF1BD361F3F0F6400EEF90D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FF5BE9971F42A4E400F864F1 /* CandyImageView.h */,
+				FF5BE9981F42A4E400F864F1 /* CandyImageView.m */,
+				FF5BE9991F42A4E400F864F1 /* BabyImageView.h */,
+				FF5BE99A1F42A4E400F864F1 /* BabyImageView.m */,
+				FF5BE99B1F42A4E400F864F1 /* Score.h */,
+				FF5BE99C1F42A4E400F864F1 /* Score.m */,
 				FFF1BD3A1F3F1BAE00EEF90D /* TWStrokeLabel.h */,
 				FFF1BD3B1F3F1BAE00EEF90D /* TWStrokeLabel.m */,
 				FFF1BD371F3F0F7100EEF90D /* TWReadyStarView.h */,
@@ -418,15 +438,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF5BE99E1F42A4E400F864F1 /* BabyImageView.m in Sources */,
 				FF5BE7B11F3D5E4A00F864F1 /* UIView+TWView.m in Sources */,
 				FF5BE7BD1F3D7BE200F864F1 /* UIImage+Image.m in Sources */,
 				FF5BE7BA1F3D7BDC00F864F1 /* UILabel+TWLabel.m in Sources */,
 				FF5BE7AB1F3D496500F864F1 /* TWHomeViewController.m in Sources */,
 				FFF1BD3C1F3F1BAE00EEF90D /* TWStrokeLabel.m in Sources */,
+				FF5BE99D1F42A4E400F864F1 /* CandyImageView.m in Sources */,
 				FF5BE7C31F3DB15C00F864F1 /* TWMainToAirAnimation.m in Sources */,
 				FF5BE7B91F3D7BDC00F864F1 /* UIButton+TWButton.m in Sources */,
 				FF5BE7B41F3D5EB500F864F1 /* UIView+TWFrame.m in Sources */,
 				FF5BE7A51F3D44B800F864F1 /* TWMainViewController.m in Sources */,
+				FFD39D291F42C72A00EBC89A /* TWHomeGameOverController.m in Sources */,
 				FF5BE7861F3D440400F864F1 /* AppDelegate.m in Sources */,
 				FF5BE7CA1F3DB2FC00F864F1 /* TWAirViewController.m in Sources */,
 				FF5BE7AE1F3D4A1800F864F1 /* TWMainToHomeAnimation.m in Sources */,
@@ -434,6 +457,7 @@
 				FF5BE82B1F416EA900F864F1 /* DataTool.m in Sources */,
 				FF5BE7831F3D440400F864F1 /* main.m in Sources */,
 				FF5BE7C01F3DA6BF00F864F1 /* UIButton+touch.m in Sources */,
+				FF5BE99F1F42A4E400F864F1 /* Score.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

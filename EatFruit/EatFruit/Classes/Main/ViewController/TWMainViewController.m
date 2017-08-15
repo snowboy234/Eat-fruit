@@ -12,12 +12,10 @@
 #import "TWMainToAirAnimation.h"
 #import "TWAirViewController.h"
 
-#define ImageViewW (TWScreenWidth - TWMargin * 5)
-
 @interface TWMainViewController ()<TWMainToHomeAnimationDelegate, TWMainToAirAnimationDelegate>
 @property (nonatomic, strong) TWMainToHomeAnimation * animationToolBottom;
 @property (nonatomic, strong) TWMainToAirAnimation * animationToolRight;
-@property (nonatomic, strong) TWHomeViewController * homeVc;
+//@property (nonatomic, strong) TWHomeViewController * homeVc;
 @property (nonatomic, strong) TWAirViewController * airVc;
 @property (nonatomic, strong) UIView * topView;
 @property (nonatomic, strong) UIImageView * imageView;// 标题视图
@@ -39,7 +37,6 @@
 }
 
 - (void)initObject{
-    _homeVc = [[TWHomeViewController alloc]init];
     _airVc = [[TWAirViewController alloc]init];
     _animationToolBottom = [TWMainToHomeAnimation shareMainToHomeAnimation];
     _animationToolRight = [TWMainToAirAnimation shareMainToAirAnimation];
@@ -90,18 +87,19 @@
     _landButton.timeInterval = ButtonClickTime;
     [_landButton setBackgroundImage:[UIImage imageNamed:@"land-sheet0"] forState:UIControlStateNormal];
     [[_landButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        _homeVc.transitioningDelegate = _animationToolBottom;
+        TWHomeViewController * homeVc = [[TWHomeViewController alloc]init];
+        homeVc.transitioningDelegate = _animationToolBottom;
         _animationToolBottom.delegate = self;
         WeakSelf
-        _homeVc.block = ^{
+        homeVc.block = ^{
             [weakSelf setTitleImageViewAnimation];
             [weakSelf setLevelButtonAnimation];
         };
         // 进入页面后开启定时器
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [_homeVc countDownTime];
+            [homeVc countDownTime];
         });
-        [self presentViewController:_homeVc animated:YES completion:nil];
+        [self presentViewController:homeVc animated:YES completion:nil];
     }];
     [bottomView addSubview:_landButton];
     

@@ -51,7 +51,8 @@
 #define NavigationBarHeight 64
 #define TabBarHeight 49
 #define TopImageViewH TWScreenWidth / (400 / 86.0)
-
-
+#define CandyHeight 40
+#define BabyHeight TWScreenWidth * 0.2
+#define ImageViewW (TWScreenWidth - TWMargin * 5)
 
 #endif /* Define_h */
