@@ -366,7 +366,7 @@
     _paused = YES;
     
     // 跳出页面
-    [UIView animateWithDuration:0.25 animations:^{
+    [UIView animateWithDuration:1 animations:^{
         self.headerView.tw_y = -TopImageViewH * 1.2;
         self.lifeView.tw_y = 15 - TopImageViewH * 1.2;
         self.starOrPauseButton.tw_centerY = self.lifeView.tw_centerY;

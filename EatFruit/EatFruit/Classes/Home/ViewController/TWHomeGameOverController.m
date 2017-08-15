@@ -7,6 +7,7 @@
 //
 
 #import "TWHomeGameOverController.h"
+#import "TWMainViewController.h"
 
 @interface TWHomeGameOverController ()
 @property (nonatomic, strong) UIImageView * imageView;
@@ -120,7 +121,10 @@
         while (rootVC.presentingViewController) {
             rootVC = rootVC.presentingViewController;
         }
-        [rootVC dismissViewControllerAnimated:NO completion:nil];
+        
+        [rootVC dismissViewControllerAnimated:NO completion:^{
+            [(TWMainViewController *)rootVC showAnimation];
+        }];
     }];
     [bottomView addSubview:backButton];
     

@@ -10,6 +10,7 @@
 #import "TWStrokeLabel.h"
 #import "TWReadyStarView.h"
 #import "DataTool.h"
+#import "TWHomeGameOverController.h"
 
 @interface TWAirViewController ()<TWReadyStarViewDelegate>
 @property (nonatomic, strong) UIImageView * topView;//顶部图片
@@ -31,12 +32,15 @@
 @property (nonatomic, strong) UILabel *columnLabel;
 @property (nonatomic, strong) UIImageView * tapView;
 
+@property (nonatomic, strong) TWHomeGameOverController * gameOverVc;
+
 @end
 
 @implementation TWAirViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _gameOverVc = [[TWHomeGameOverController alloc]init];
     [self initBackgroundImageView];
     [self initMiddleView];
     [self initBirdsView];
@@ -162,7 +166,7 @@
 #pragma mark --TWReadyStarViewDelegate
 - (void)customCountDown:(TWReadyStarView *)downView{
     // 准备开始游戏
-//    [self initMiddleView];
+    [self initMiddleView];
     [self initGameUI];
     [self prepareForGame];
 }
@@ -238,24 +242,20 @@
         //        [self.soundTool playSoundByFileName:@"punch"];
         [self onStop];
     }
-    if (_topPipeFrame.origin.x == (100 + 30 - 70)) {
-        //        [self.soundTool playSoundByFileName:@"pipe"];
-        [self columnLabelClick];
+
+#pragma mark 更新分数
+
+    NSInteger offset = (NSInteger)_topPipeFrame.origin.x;
+    if (offset == 30) {     // 30是估计的数据
+        _columnNumber++;
+        _columnLabel.text = [NSString stringWithFormat:@"%zi",_columnNumber];
+        _score = _columnNumber;
     }
 }
 
 #pragma mark tap手势操作
 -(void)onTap {
     _isTap = NO;
-}
-
-#pragma mark 更新分数
--(void)columnLabelClick {
-    if (_topPipeFrame.origin.x == (100 + 30 - 70)) {
-        _columnNumber++;
-        _columnLabel.text = [NSString stringWithFormat:@"%zi",_columnNumber];
-        _score = _columnNumber;
-    }
 }
 
 #pragma mark 游戏停止
@@ -272,6 +272,15 @@
 -(void)pullGameOver {
     //游戏结束操作界面
     NSLog(@"GameOver");
+    [UIView animateWithDuration:1 animations:^{
+        self.headerView.tw_y = -TopImageViewH * 1.2;
+        self.starOrPauseButton.tw_y = 15 - TopImageViewH * 1.2;
+        [self.scoreLabel setCenter:self.headerView.center];
+        _birdsView.tw_y = -60;
+    } completion:^(BOOL finished) {
+        _gameOverVc.score = self.score;
+        [self presentViewController:_gameOverVc animated:NO completion:nil];
+    }];
 }
 
 #pragma mark 更新分数记录
@@ -337,29 +346,8 @@
 }
 
 - (void)begeinGame{
-    
-    //计时器
     _timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
-    
 }
-
-
-// 退出视图
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-//    // 头部视图隐藏
-//    [UIView animateWithDuration:0.25 animations:^{
-//        self.headerView.tw_y = -TopImageViewH * 1.2;
-//        self.starOrPauseButton.tw_y = 15 - TopImageViewH * 1.2;
-//        [self.scoreLabel setCenter:self.headerView.center];
-//        _birdsView.tw_y = -60;
-//    }];
-//
-//    [self dismissViewControllerAnimated:YES completion:^{
-//        if (_block) {
-//            _block();
-//        }
-//    }];
-//}
 
 
 @end

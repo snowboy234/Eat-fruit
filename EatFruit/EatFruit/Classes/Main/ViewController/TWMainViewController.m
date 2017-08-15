@@ -253,4 +253,9 @@
     [_airButton.layer addAnimation:anim forKey:@"buttonAnimation"];
 }
 
+- (void)showAnimation{
+    [self setLevelButtonAnimation];
+    [self setTitleImageViewAnimation];
+}
+
 @end
