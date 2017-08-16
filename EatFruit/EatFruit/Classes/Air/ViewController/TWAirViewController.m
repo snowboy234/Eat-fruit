@@ -32,15 +32,12 @@
 @property (nonatomic, strong) UILabel *columnLabel;
 @property (nonatomic, strong) UIImageView * tapView;
 
-@property (nonatomic, strong) TWHomeGameOverController * gameOverVc;
-
 @end
 
 @implementation TWAirViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _gameOverVc = [[TWHomeGameOverController alloc]init];
     [self initBackgroundImageView];
     [self initMiddleView];
     [self initBirdsView];
@@ -278,8 +275,9 @@
         [self.scoreLabel setCenter:self.headerView.center];
         _birdsView.tw_y = -60;
     } completion:^(BOOL finished) {
-        _gameOverVc.score = self.score;
-        [self presentViewController:_gameOverVc animated:NO completion:nil];
+        TWHomeGameOverController * gameOverVc = [[TWHomeGameOverController alloc]init];
+        gameOverVc.score = self.score;
+        [self presentViewController:gameOverVc animated:NO completion:nil];
     }];
 }
 

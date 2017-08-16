@@ -39,7 +39,6 @@
         // 保存当前的新形象
         [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"ch_%ld",_index] forKey:Character];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
     [toolView addSubview:backButton];
@@ -54,8 +53,6 @@
     [[_leftButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         _rightButton.hidden = NO;
         _index--;
-        NSString * imageName = [NSString stringWithFormat:@"ch_%ld",_index];
-        NSLog(@"%@",imageName);
         _imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"ch_%ld",_index]];
         if (_index == 1) {
             _leftButton.hidden = YES;
@@ -77,8 +74,6 @@
     [[_rightButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         _leftButton.hidden = NO;
         _index++;
-        NSString * imageName = [NSString stringWithFormat:@"ch_%ld",_index];
-        NSLog(@"%@",imageName);
         _imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"ch_%ld",_index]];
         if (_index == 4) {
             _rightButton.hidden = YES;

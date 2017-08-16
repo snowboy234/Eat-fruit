@@ -332,9 +332,6 @@
         [self.scoreLabel setCenter:self.headerView.center];
     } completion:^(BOOL finished) {
         _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(createCandy) userInfo:nil repeats:YES];
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [_timer invalidate];
-//        });
     }];
 }
 

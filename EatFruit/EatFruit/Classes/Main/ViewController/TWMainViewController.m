@@ -19,7 +19,6 @@
 @property (nonatomic, strong) TWMainToAirAnimation * animationToolRight;
 @property (nonatomic, strong) TWMainToCharaterAnimation * animationToolLeft;
 @property (nonatomic, strong) TWCharacterController * characterVc;
-@property (nonatomic, strong) TWAirViewController * airVc;
 @property (nonatomic, strong) UIView * topView;
 @property (nonatomic, strong) UIImageView * imageView;// 标题视图
 @property (nonatomic, strong) UIButton * landButton;  // 模式一按钮
@@ -28,6 +27,11 @@
 @end
 
 @implementation TWMainViewController
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self showAnimation];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,7 +45,6 @@
 }
 
 - (void)initObject{
-    _airVc = [[TWAirViewController alloc]init];
     _characterVc = [[TWCharacterController alloc]init];
     _animationToolBottom = [TWMainToHomeAnimation shareMainToHomeAnimation];
     _animationToolRight = [TWMainToAirAnimation shareMainToAirAnimation];
@@ -114,19 +117,20 @@
     _airButton.timeInterval = ButtonClickTime;
     [_airButton setBackgroundImage:[UIImage imageNamed:@"sky-sheet0"] forState:UIControlStateNormal];
     [[_airButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        _airVc.transitioningDelegate = _animationToolRight;
+        TWAirViewController * airVc = [[TWAirViewController alloc]init];
+        airVc.transitioningDelegate = _animationToolRight;
         _animationToolRight.delegate = self;
         WeakSelf
-        _airVc.block = ^{
+        airVc.block = ^{
             [weakSelf setTitleImageViewAnimation];
             [weakSelf setLevelButtonAnimation];
         };
         // 进入页面后开启定时器
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [_airVc countDownTime];
-            [_airVc showBirdView];
+            [airVc countDownTime];
+            [airVc showBirdView];
         });
-        [self presentViewController:_airVc animated:YES completion:nil];
+        [self presentViewController:airVc animated:YES completion:nil];
     }];
     [bottomView addSubview:_airButton];
     

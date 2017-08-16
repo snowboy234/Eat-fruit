@@ -16,6 +16,11 @@
 
 @implementation TWHomeGameOverController
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self setTitleImageViewAnimation];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBackgroundImageView];
@@ -69,7 +74,6 @@
     _titleView.center = top.center;
     _titleView.image = [UIImage imageNamed:@"failed_txt-sheet0"];
     [top addSubview:_titleView];
-    [self setTitleImageViewAnimation];
 }
 
 - (void)setTitleImageViewAnimation{
@@ -121,10 +125,7 @@
         while (rootVC.presentingViewController) {
             rootVC = rootVC.presentingViewController;
         }
-        
-        [rootVC dismissViewControllerAnimated:NO completion:^{
-            [(TWMainViewController *)rootVC showAnimation];
-        }];
+        [rootVC dismissViewControllerAnimated:NO completion:nil];
     }];
     [bottomView addSubview:backButton];
     
