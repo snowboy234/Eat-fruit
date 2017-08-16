@@ -30,6 +30,12 @@
 		FF9A6BFE1F43D7DC008173F9 /* TWAllCharacterController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9A6BFC1F43D7DC008173F9 /* TWAllCharacterController.m */; };
 		FF9A6BFF1F43D7DC008173F9 /* TWAllCharacterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF9A6BFD1F43D7DC008173F9 /* TWAllCharacterController.xib */; };
 		FF9A6C061F43E48E008173F9 /* TWAirBaby.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9A6C051F43E48E008173F9 /* TWAirBaby.m */; };
+		FF9A6C371F44226B008173F9 /* TWMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9A6C351F44226B008173F9 /* TWMusicViewController.m */; };
+		FF9A6C381F44226B008173F9 /* TWMusicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF9A6C361F44226B008173F9 /* TWMusicViewController.xib */; };
+		FF9A6C3B1F44229C008173F9 /* TWMainToMusicAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9A6C3A1F44229C008173F9 /* TWMainToMusicAnimation.m */; };
+		FF9A6C3E1F442680008173F9 /* SoundTool.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9A6C3D1F442680008173F9 /* SoundTool.m */; };
+		FF9A6C691F4434A0008173F9 /* MyPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9A6C681F4434A0008173F9 /* MyPlayer.m */; };
+		FF9A6C6B1F4437E1008173F9 /* music.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FF9A6C6A1F4437E1008173F9 /* music.bundle */; };
 		FFD39D291F42C72A00EBC89A /* TWHomeGameOverController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD39D281F42C72A00EBC89A /* TWHomeGameOverController.m */; };
 		FFD39D2F1F42D96200EBC89A /* TWRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD39D2E1F42D96200EBC89A /* TWRootViewController.m */; };
 		FFD39D351F42EE5F00EBC89A /* TWMainToCharaterAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD39D341F42EE5F00EBC89A /* TWMainToCharaterAnimation.m */; };
@@ -85,6 +91,16 @@
 		FF9A6BFD1F43D7DC008173F9 /* TWAllCharacterController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TWAllCharacterController.xib; sourceTree = "<group>"; };
 		FF9A6C041F43E48E008173F9 /* TWAirBaby.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAirBaby.h; sourceTree = "<group>"; };
 		FF9A6C051F43E48E008173F9 /* TWAirBaby.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAirBaby.m; sourceTree = "<group>"; };
+		FF9A6C341F44226B008173F9 /* TWMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWMusicViewController.h; sourceTree = "<group>"; };
+		FF9A6C351F44226B008173F9 /* TWMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWMusicViewController.m; sourceTree = "<group>"; };
+		FF9A6C361F44226B008173F9 /* TWMusicViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TWMusicViewController.xib; sourceTree = "<group>"; };
+		FF9A6C391F44229C008173F9 /* TWMainToMusicAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWMainToMusicAnimation.h; sourceTree = "<group>"; };
+		FF9A6C3A1F44229C008173F9 /* TWMainToMusicAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWMainToMusicAnimation.m; sourceTree = "<group>"; };
+		FF9A6C3C1F442680008173F9 /* SoundTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundTool.h; sourceTree = "<group>"; };
+		FF9A6C3D1F442680008173F9 /* SoundTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundTool.m; sourceTree = "<group>"; };
+		FF9A6C671F4434A0008173F9 /* MyPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPlayer.h; sourceTree = "<group>"; };
+		FF9A6C681F4434A0008173F9 /* MyPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPlayer.m; sourceTree = "<group>"; };
+		FF9A6C6A1F4437E1008173F9 /* music.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = music.bundle; sourceTree = "<group>"; };
 		FFD39D271F42C72A00EBC89A /* TWHomeGameOverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWHomeGameOverController.h; sourceTree = "<group>"; };
 		FFD39D281F42C72A00EBC89A /* TWHomeGameOverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWHomeGameOverController.m; sourceTree = "<group>"; };
 		FFD39D2D1F42D96200EBC89A /* TWRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWRootViewController.h; sourceTree = "<group>"; };
@@ -169,6 +185,7 @@
 		FF5BE7981F3D444900F864F1 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				FF9A6C621F442E2D008173F9 /* Music */,
 				FF5BE7C41F3DB2EA00F864F1 /* Air */,
 				FF5BE7A61F3D450900F864F1 /* Other */,
 				FF5BE7991F3D44A200F864F1 /* Catagroy */,
@@ -252,6 +269,9 @@
 				FF9A6BFB1F43D7DC008173F9 /* TWAllCharacterController.h */,
 				FF9A6BFC1F43D7DC008173F9 /* TWAllCharacterController.m */,
 				FF9A6BFD1F43D7DC008173F9 /* TWAllCharacterController.xib */,
+				FF9A6C341F44226B008173F9 /* TWMusicViewController.h */,
+				FF9A6C351F44226B008173F9 /* TWMusicViewController.m */,
+				FF9A6C361F44226B008173F9 /* TWMusicViewController.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -259,6 +279,10 @@
 		FF5BE7A21F3D44A200F864F1 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				FF9A6C671F4434A0008173F9 /* MyPlayer.h */,
+				FF9A6C681F4434A0008173F9 /* MyPlayer.m */,
+				FF9A6C3C1F442680008173F9 /* SoundTool.h */,
+				FF9A6C3D1F442680008173F9 /* SoundTool.m */,
 				FF5BE8291F416EA900F864F1 /* DataTool.h */,
 				FF5BE82A1F416EA900F864F1 /* DataTool.m */,
 				FF5BE7AC1F3D4A1800F864F1 /* TWMainToHomeAnimation.h */,
@@ -267,6 +291,8 @@
 				FF5BE7C21F3DB15C00F864F1 /* TWMainToAirAnimation.m */,
 				FFD39D331F42EE5F00EBC89A /* TWMainToCharaterAnimation.h */,
 				FFD39D341F42EE5F00EBC89A /* TWMainToCharaterAnimation.m */,
+				FF9A6C391F44229C008173F9 /* TWMainToMusicAnimation.h */,
+				FF9A6C3A1F44229C008173F9 /* TWMainToMusicAnimation.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -305,6 +331,14 @@
 				FF9A6C051F43E48E008173F9 /* TWAirBaby.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		FF9A6C621F442E2D008173F9 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				FF9A6C6A1F4437E1008173F9 /* music.bundle */,
+			);
+			path = Music;
 			sourceTree = "<group>";
 		};
 		FFF1BD361F3F0F6400EEF90D /* View */ = {
@@ -387,7 +421,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF9A6C6B1F4437E1008173F9 /* music.bundle in Resources */,
 				FF5BE7911F3D440400F864F1 /* LaunchScreen.storyboard in Resources */,
+				FF9A6C381F44226B008173F9 /* TWMusicViewController.xib in Resources */,
 				FF9A6BFF1F43D7DC008173F9 /* TWAllCharacterController.xib in Resources */,
 				FF5BE78E1F3D440400F864F1 /* Assets.xcassets in Resources */,
 			);
@@ -461,6 +497,8 @@
 				FF5BE7BA1F3D7BDC00F864F1 /* UILabel+TWLabel.m in Sources */,
 				FF5BE7AB1F3D496500F864F1 /* TWHomeViewController.m in Sources */,
 				FFF1BD3C1F3F1BAE00EEF90D /* TWStrokeLabel.m in Sources */,
+				FF9A6C3E1F442680008173F9 /* SoundTool.m in Sources */,
+				FF9A6C691F4434A0008173F9 /* MyPlayer.m in Sources */,
 				FF5BE99D1F42A4E400F864F1 /* CandyImageView.m in Sources */,
 				FF5BE7C31F3DB15C00F864F1 /* TWMainToAirAnimation.m in Sources */,
 				FF5BE7B91F3D7BDC00F864F1 /* UIButton+TWButton.m in Sources */,
@@ -470,10 +508,12 @@
 				FF5BE7861F3D440400F864F1 /* AppDelegate.m in Sources */,
 				FF9A6BFE1F43D7DC008173F9 /* TWAllCharacterController.m in Sources */,
 				FF5BE7CA1F3DB2FC00F864F1 /* TWAirViewController.m in Sources */,
+				FF9A6C371F44226B008173F9 /* TWMusicViewController.m in Sources */,
 				FF5BE7AE1F3D4A1800F864F1 /* TWMainToHomeAnimation.m in Sources */,
 				FFF1BD391F3F0F7100EEF90D /* TWReadyStarView.m in Sources */,
 				FF5BE82B1F416EA900F864F1 /* DataTool.m in Sources */,
 				FF5BE7831F3D440400F864F1 /* main.m in Sources */,
+				FF9A6C3B1F44229C008173F9 /* TWMainToMusicAnimation.m in Sources */,
 				FF5BE7C01F3DA6BF00F864F1 /* UIButton+touch.m in Sources */,
 				FF5BE99F1F42A4E400F864F1 /* Score.m in Sources */,
 				FF9A6C061F43E48E008173F9 /* TWAirBaby.m in Sources */,

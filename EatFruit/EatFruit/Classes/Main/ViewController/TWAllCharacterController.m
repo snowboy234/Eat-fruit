@@ -75,6 +75,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"ch_%ld",_topIndex] forKey:TopCharacter];
     [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"bird%ld",_bottomIndex] forKey:BottomCharacter];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -24,21 +24,31 @@
 
 // 检查是否抓住
 - (BOOL)checkIfCaught:(CGRect)frame{
+    // 碰撞检测（交集）
+    CGRect candyFrame = frame;
 
-//    CGRect candyFrame = frame;
-
-    int candy1 = frame.origin.x;
-    int candy2 = frame.origin.x + frame.size.width;
+    // 判断两个结构体是否有交错
+    bool oneRect = CGRectIntersectsRect(candyFrame, self.frame);
     
-    int netX1 = self.frame.origin.x;
-    int netX2 = self.frame.origin.x + self.frame.size.width;
-    
-    if( 5 + candy1 >= netX1 && candy2 <= netX2 + 5){
+//    if (oneRect) {
 //        NSLog(@"You did it!");
-        return YES;
-    }
+//        return YES;
+//    }
 //    NSLog(@"Fail");
-    return NO;
+//    return NO;
+    return oneRect;
+    
+    // 顶部接受
+//    int candy1x = frame.origin.x;
+//    int candy2x = frame.origin.x + frame.size.width;
+//    
+//    int netX1x = self.frame.origin.x;
+//    int netX2x = self.frame.origin.x + self.frame.size.width;
+//    
+//    if( 5 + candy1x >= netX1x && candy2x <= netX2x + 5){
+//        return YES;
+//    }
+//    return NO;
 }
 
 @end

@@ -18,6 +18,8 @@
 #import "UILabel+TWLabel.h"
 #import "UIButton+touch.h"
 #import "TWStrokeLabel.h"
+#import "SoundTool.h"
+#import "MyPlayer.h"
 
 #import <Masonry/Masonry.h>
 #import <SVProgressHUD/SVProgressHUD.h>

@@ -30,6 +30,9 @@
 // MARK:- ID
 #define TopCharacter @"TopCharacter"
 #define BottomCharacter @"BottomCharacter"
+#define MusicShow @"MusicShow"
+#define ON @"ON"
+#define OFF @"OFF"
 
 // MARK:- 打印
 #ifdef DEBUG

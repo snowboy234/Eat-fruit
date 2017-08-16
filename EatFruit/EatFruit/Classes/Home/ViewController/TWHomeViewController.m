@@ -35,7 +35,8 @@
 @property (nonatomic, strong) NSMutableArray * allUnfoodArray;          // 所有武器
 @property (nonatomic, strong) NSTimer * timer;
 @property (nonatomic, strong) TWHomeGameOverController * gameOverVc;
-
+@property (nonatomic, strong) SoundTool * soundTool;
+@property (nonatomic, strong) MyPlayer * soundPlay;
 @end
 
 @implementation TWHomeViewController
@@ -111,6 +112,14 @@
         _babyName = @"baby1";
     }
     self.baby.name = _babyName;
+    [_soundPlay playMusicWithName:@"landbgMusic.wav"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [_soundPlay playOrStopMusic];
+    [_soundTool stopSound:@"landShort.wav"];
+    [_soundTool stopSound:@"airShort.wav"];
 }
 
 - (void)viewDidLoad {
@@ -119,6 +128,8 @@
     _paused = NO;
     _lifeCount = 3;
     _gameOverVc = [[TWHomeGameOverController alloc]init];
+    _soundPlay = [MyPlayer shareInstance];
+    _soundTool = [[SoundTool alloc]init];
     [self initBackgroundImageView];
     [self initBottomView];
     [self initBabyImageView];
@@ -284,13 +295,14 @@
         candy.caught = YES;
         // 接住的的食物
         if ([self.allFoodArray containsObject:candy]) {
+            [_soundTool playSoundByFileName:@"landShort.wav"];
             // 加分
             self.score = [self.score addPoints];
         } else {
             // 减❤️
             _lifeCount --;
             _lifeCountLabel.text = [NSString stringWithFormat:@"× %ld",_lifeCount];
-    
+            [_soundTool playSoundByFileName:@"airShort.wav"];
             // _lifeCount个数小于0的时候失败
             if (_lifeCount == -1) {
                 _lifeCountLabel.text = @"× 0";
@@ -378,7 +390,7 @@
 
 
 -(void)saveScore{
-    NSLog(@"Save Score");
+//    NSLog(@"Save Score");
 //    NSArray *saved = [[NSUserDefaults standardUserDefaults] objectForKey:@"arrScores"];
 //    if(saved == nil){
 //        saved = [NSMutableArray new];

@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBackgroundImageView];
-    [self initBottomView];
+//    [self initBottomView];
     [self initMiddleView];
 }
 

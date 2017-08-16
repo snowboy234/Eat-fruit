@@ -12,6 +12,7 @@
 @interface TWHomeGameOverController ()
 @property (nonatomic, strong) UIImageView * imageView;
 @property (nonatomic, strong) UIImageView * titleView;
+@property (nonatomic, strong) MyPlayer * soundPlayer;
 @end
 
 @implementation TWHomeGameOverController
@@ -19,15 +20,22 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self setTitleImageViewAnimation];
+    [_soundPlayer playMusicWithName:@"gameover.mp3"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [_soundPlayer playOrStopMusic];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _soundPlayer = [MyPlayer shareInstance];
     [self initBackgroundImageView];
     [self setMiddleView];
     [self setTitleView];
-    [self initBottomView];
     [self setToolView];
+    [self initBottomView];
 }
 
 #pragma mark --UI设置
@@ -74,6 +82,17 @@
     _titleView.center = top.center;
     _titleView.image = [UIImage imageNamed:@"failed_txt-sheet0"];
     [top addSubview:_titleView];
+}
+
+#pragma mark --底部背景设置
+- (void)initBottomView{
+    CGFloat bottomViewH = (TWScreenHeight / 5) / 3 * 2;
+    UIView * bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, TWScreenHeight - bottomViewH, TWScreenWidth, bottomViewH)];
+    [self.view addSubview:bottomView];
+    
+    UIImageView * bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, TWScreenWidth, bottomViewH)];
+    bgImageView.image = [UIImage imageNamed:@"Grassland"];
+    [bottomView addSubview:bgImageView];
 }
 
 - (void)setTitleImageViewAnimation{
@@ -137,18 +156,6 @@
         TWLogFunc
     }];
     [bottomView addSubview:voiceButton];
-}
-
-
-#pragma mark --底部背景设置
-- (void)initBottomView{
-    CGFloat bottomViewH = (TWScreenHeight / 5) / 3 * 2;
-    UIView * bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, TWScreenHeight - bottomViewH, TWScreenWidth, bottomViewH)];
-    [self.view addSubview:bottomView];
-    
-    UIImageView * bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, TWScreenWidth, bottomViewH)];
-    bgImageView.image = [UIImage imageNamed:@"Grassland"];
-    [bottomView addSubview:bgImageView];
 }
 
 

@@ -11,7 +11,6 @@
 #import "TWReadyStarView.h"
 #import "DataTool.h"
 #import "TWHomeGameOverController.h"
-#import "TWAirCandyImageView.h"
 #import "TWAirBaby.h"
 #import "Score.h"
 
@@ -31,14 +30,14 @@
 @property (nonatomic, assign) NSInteger columnNumber;
 @property (nonatomic, strong) UIImageView * topPipe;                     // 上柱子
 @property (nonatomic, strong) UIImageView * bottomPipe;                  // 下柱子
-//@property (nonatomic, strong) TWAirCandyImageView * oneCandy;            // 糖果1
-//@property (nonatomic, strong) TWAirCandyImageView * twoCandy;            // 糖果2
 @property (nonatomic, strong) UIImageView * oneCandy;                       // 糖果1
 @property (nonatomic, strong) UIImageView * twoCandy;                       // 糖果2
 @property (nonatomic, assign) CGRect topPipeFrame;
 @property (nonatomic, strong) UILabel * columnLabel;
 @property (nonatomic, strong) UIImageView * tapView;
 @property (nonatomic, assign) BOOL paused;                              // 暂停
+@property (nonatomic, strong) SoundTool * soundTool;
+@property (nonatomic, strong) MyPlayer * soundPlay;
 @end
 
 @implementation TWAirViewController
@@ -66,17 +65,27 @@
         _babyName = @"bird1";
     }
     self.birdsView.name = _babyName;
+    [_soundPlay playMusicWithName:@"airbgMusic.mp3"];
 }
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [_soundPlay playOrStopMusic];
+    [_soundTool stopSound:@"airShort.wav"];
+    [_soundTool stopSound:@"landShort.wav"];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     _paused = NO;
     _score = [[Score alloc]init];
+    _soundPlay = [MyPlayer shareInstance];
+    _soundTool = [[SoundTool alloc]init];
     [self initBackgroundImageView];
     [self initMiddleView];
     [self initBirdsView];
     [self initTopView];
-    
 }
 
 #pragma mark --UI设置
@@ -278,12 +287,13 @@
     //碰撞检测（交集）
     bool oneRect = CGRectIntersectsRect(_oneCandy.frame, _birdsView.frame);
     if (oneRect) {
+        [_soundTool playSoundByFileName:@"landShort.wav"];
         _oneCandy.hidden = YES;
         self.score = [self.score addPoint];
-//        _scoreLabel.text = [NSString stringWithFormat:@"%ld",_score.points];
     }
     bool twoRect = CGRectIntersectsRect(_twoCandy.frame, _birdsView.frame);
     if (twoRect) {
+        [_soundTool playSoundByFileName:@"landShort.wav"];
         _twoCandy.hidden = YES;
         self.score = [self.score addPoint];
         
@@ -291,7 +301,7 @@
     bool topRet = CGRectIntersectsRect(_birdsView.frame, _topPipe.frame);
     bool bottomRet = CGRectIntersectsRect(_birdsView.frame, _bottomPipe.frame);
     if (topRet == true || bottomRet == true) {
-        //        [self.soundTool playSoundByFileName:@"punch"];
+        [_soundTool playSoundByFileName:@"airShort.wav"];
         [self onStop];
     }
 
@@ -403,18 +413,6 @@
     _timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
 }
 
-// 随机分布
-//- (void)createCandy{
-//    if(self.starOrPauseButton.isSelected){
-//        NSInteger index = arc4random() % self.foodArray.count;
-//        TWAirCandyImageView * candy = [TWAirCandyImageView initCandyImageViewWithIamegName:self.foodArray[index]];
-//        candy.delegate = self;
-//        [candy startMoveing];
-//        [self.view insertSubview:candy belowSubview:self.headerView];
-//    }
-//}
-
-
 #pragma mark --代理方法--
 #pragma mark --TWReadyStarViewDelegate
 - (void)customCountDown:(TWReadyStarView *)downView{
@@ -423,31 +421,5 @@
     [self initGameUI];
     [self prepareForGame];
 }
-
-//#pragma mark --TWAirCandyImageViewDelegate
-//// 当candy到达baby的头顶10px时触发本方法
-//- (void)checkPosition:(TWAirCandyImageView *)candy{
-//    
-//    if([self.birdsView checkIfCaught:candy.frame]){
-//        candy.caught = YES;
-//        // 接住的的食物 加分
-//        self.score = [self.score addPoints];
-//    }else{
-//        // 减分
-//        self.score = [self.score fail];
-//    }
-//    
-//    // 显示分数
-//    self.scoreLabel.text = [NSString stringWithFormat:@"%ld", self.score.points];
-//}
-//
-//- (void)removeMe:(TWAirCandyImageView *)candy{
-//    [candy removeFromSuperview];
-//}
-//
-//- (BOOL)checkGameStatus{
-//    return self.paused;
-//}
-
 
 @end

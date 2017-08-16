@@ -13,16 +13,21 @@
 #import "TWAirViewController.h"
 #import "TWAllCharacterController.h"
 #import "TWMainToCharaterAnimation.h"
+#import "TWMainToMusicAnimation.h"
+#import "TWMusicViewController.h"
 
-@interface TWMainViewController ()<TWMainToHomeAnimationDelegate, TWMainToAirAnimationDelegate, TWMainToCharaterAnimationDelegate>
+@interface TWMainViewController ()<TWMainToHomeAnimationDelegate, TWMainToAirAnimationDelegate, TWMainToCharaterAnimationDelegate, TWMainToMusicAnimationDelegate>
 @property (nonatomic, strong) TWMainToHomeAnimation * animationToolBottom;
 @property (nonatomic, strong) TWMainToAirAnimation * animationToolRight;
 @property (nonatomic, strong) TWMainToCharaterAnimation * animationToolLeft;
+@property (nonatomic, strong) TWMainToMusicAnimation * animationToolTop;
 @property (nonatomic, strong) TWAllCharacterController * characterVc;
+@property (nonatomic, strong) TWMusicViewController * musicVc;
 @property (nonatomic, strong) UIView * topView;
 @property (nonatomic, strong) UIImageView * imageView;// 标题视图
 @property (nonatomic, strong) UIButton * landButton;  // 模式一按钮
 @property (nonatomic, strong) UIButton * airButton;   // 模式二按钮
+@property (nonatomic, strong) MyPlayer * soundPlay;
 
 @end
 
@@ -31,6 +36,12 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self showAnimation];
+    [_soundPlay playMusicWithName:@"main.wav"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+//    [_soundPlay playOrStopMusic];
 }
 
 - (void)viewDidLoad {
@@ -45,9 +56,12 @@
 
 - (void)initObject{
     _characterVc = [[TWAllCharacterController alloc]init];
+    _musicVc = [[TWMusicViewController alloc]init];
     _animationToolBottom = [TWMainToHomeAnimation shareMainToHomeAnimation];
     _animationToolRight = [TWMainToAirAnimation shareMainToAirAnimation];
     _animationToolLeft = [TWMainToCharaterAnimation shareMainToCharaterAnimation];
+    _animationToolTop = [TWMainToMusicAnimation shareMainToMusicAnimation];
+    _soundPlay = [MyPlayer shareInstance];
 }
 
 #pragma mark --UI搭建
@@ -171,14 +185,15 @@
     }];
     [bottomView addSubview:playButton];
     
-    
 #pragma mark --声音按钮
     // 更多按钮（声音按钮）
     UIButton * voiceButton = [[UIButton alloc]initWithFrame:CGRectMake(TWScreenWidth * 0.5 + TWMargin * 0.5, 0, width, height)];
     voiceButton.timeInterval = ButtonClickTime;
     [voiceButton setBackgroundImage:[UIImage imageNamed:@"more-sheet0"] forState:UIControlStateNormal];
     [[voiceButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        TWLogFunc
+        _musicVc.transitioningDelegate = _animationToolTop;
+        _animationToolTop.delegate = self;
+        [self presentViewController:_musicVc animated:YES completion:nil];
     }];
     [bottomView addSubview:voiceButton];
 }
@@ -199,6 +214,13 @@
 
 #pragma mark --TWMainToCharaterAnimationDelegate
 - (UIImageView *)getLeftScreenImage{
+    UIImageView * imageView = [[UIImageView alloc]init];
+    imageView.image = [self getImage];
+    return imageView;
+}
+
+#pragma mark --TWMainToMusicAnimationDelegate
+- (UIImageView *)getBottomScreenImage{
     UIImageView * imageView = [[UIImageView alloc]init];
     imageView.image = [self getImage];
     return imageView;
