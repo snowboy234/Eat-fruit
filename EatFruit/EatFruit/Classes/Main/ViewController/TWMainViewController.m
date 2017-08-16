@@ -37,11 +37,13 @@
     [super viewWillAppear:animated];
     [self showAnimation];
     [_soundPlay playMusicWithName:@"main.wav"];
+    
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-//    [_soundPlay playOrStopMusic];
+    [_soundPlay playOrStopMusic];
 }
 
 - (void)viewDidLoad {
