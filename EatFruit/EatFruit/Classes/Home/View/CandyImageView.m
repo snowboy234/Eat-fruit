@@ -11,6 +11,7 @@
 @implementation CandyImageView
 
 + (instancetype)initCandyImageViewWithIamegName:(NSString *)imageName{
+    // 随机x坐标
     NSInteger x = arc4random() % (int)(TWScreenWidth - 40);
     CandyImageView * imageView = [[CandyImageView alloc]initWithFrame:CGRectMake(x, 0, CandyHeight, CandyHeight)];
     imageView.image = [UIImage imageNamed:imageName];

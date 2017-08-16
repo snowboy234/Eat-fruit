@@ -15,6 +15,11 @@
     return score;
 }
 
+-(id)addPoint{
+    self.points += 1;
+    return self;
+}
+
 -(id)addPoints{
     self.points += 50;
     return self;

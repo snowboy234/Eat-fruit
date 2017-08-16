@@ -29,6 +29,7 @@
 		FF5BE99F1F42A4E400F864F1 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE99C1F42A4E400F864F1 /* Score.m */; };
 		FF9A6BFE1F43D7DC008173F9 /* TWAllCharacterController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9A6BFC1F43D7DC008173F9 /* TWAllCharacterController.m */; };
 		FF9A6BFF1F43D7DC008173F9 /* TWAllCharacterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF9A6BFD1F43D7DC008173F9 /* TWAllCharacterController.xib */; };
+		FF9A6C061F43E48E008173F9 /* TWAirBaby.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9A6C051F43E48E008173F9 /* TWAirBaby.m */; };
 		FFD39D291F42C72A00EBC89A /* TWHomeGameOverController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD39D281F42C72A00EBC89A /* TWHomeGameOverController.m */; };
 		FFD39D2F1F42D96200EBC89A /* TWRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD39D2E1F42D96200EBC89A /* TWRootViewController.m */; };
 		FFD39D351F42EE5F00EBC89A /* TWMainToCharaterAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD39D341F42EE5F00EBC89A /* TWMainToCharaterAnimation.m */; };
@@ -82,6 +83,8 @@
 		FF9A6BFB1F43D7DC008173F9 /* TWAllCharacterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAllCharacterController.h; sourceTree = "<group>"; };
 		FF9A6BFC1F43D7DC008173F9 /* TWAllCharacterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAllCharacterController.m; sourceTree = "<group>"; };
 		FF9A6BFD1F43D7DC008173F9 /* TWAllCharacterController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TWAllCharacterController.xib; sourceTree = "<group>"; };
+		FF9A6C041F43E48E008173F9 /* TWAirBaby.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAirBaby.h; sourceTree = "<group>"; };
+		FF9A6C051F43E48E008173F9 /* TWAirBaby.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAirBaby.m; sourceTree = "<group>"; };
 		FFD39D271F42C72A00EBC89A /* TWHomeGameOverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWHomeGameOverController.h; sourceTree = "<group>"; };
 		FFD39D281F42C72A00EBC89A /* TWHomeGameOverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWHomeGameOverController.m; sourceTree = "<group>"; };
 		FFD39D2D1F42D96200EBC89A /* TWRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWRootViewController.h; sourceTree = "<group>"; };
@@ -280,25 +283,10 @@
 		FF5BE7C41F3DB2EA00F864F1 /* Air */ = {
 			isa = PBXGroup;
 			children = (
-				FF5BE7C51F3DB2EA00F864F1 /* Model */,
-				FF5BE7C61F3DB2EA00F864F1 /* View */,
+				FF9A6C001F43E01C008173F9 /* View */,
 				FF5BE7C71F3DB2EA00F864F1 /* ViewController */,
 			);
 			path = Air;
-			sourceTree = "<group>";
-		};
-		FF5BE7C51F3DB2EA00F864F1 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		FF5BE7C61F3DB2EA00F864F1 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		FF5BE7C71F3DB2EA00F864F1 /* ViewController */ = {
@@ -308,6 +296,15 @@
 				FF5BE7C91F3DB2FC00F864F1 /* TWAirViewController.m */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		FF9A6C001F43E01C008173F9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FF9A6C041F43E48E008173F9 /* TWAirBaby.h */,
+				FF9A6C051F43E48E008173F9 /* TWAirBaby.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		FFF1BD361F3F0F6400EEF90D /* View */ = {
@@ -479,6 +476,7 @@
 				FF5BE7831F3D440400F864F1 /* main.m in Sources */,
 				FF5BE7C01F3DA6BF00F864F1 /* UIButton+touch.m in Sources */,
 				FF5BE99F1F42A4E400F864F1 /* Score.m in Sources */,
+				FF9A6C061F43E48E008173F9 /* TWAirBaby.m in Sources */,
 				FFD39D2F1F42D96200EBC89A /* TWRootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

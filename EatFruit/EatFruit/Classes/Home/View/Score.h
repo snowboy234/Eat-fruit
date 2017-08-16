@@ -11,6 +11,7 @@
 @interface Score : NSObject
 @property (nonatomic, assign) NSInteger points;
 + (id)initScore;
+- (id)addPoint;
 - (id)addPoints;
 - (id)fail;
 @end

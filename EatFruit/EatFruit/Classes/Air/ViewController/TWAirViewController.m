@@ -11,31 +11,51 @@
 #import "TWReadyStarView.h"
 #import "DataTool.h"
 #import "TWHomeGameOverController.h"
+#import "TWAirCandyImageView.h"
+#import "TWAirBaby.h"
+#import "Score.h"
 
-@interface TWAirViewController ()<TWReadyStarViewDelegate>
+@interface TWAirViewController ()<TWReadyStarViewDelegate> // TWAirCandyImageViewDelegate
 @property (nonatomic, strong) UIImageView * topView;//顶部图片
 @property (nonatomic, strong) NSTimer * timer;
 @property (nonatomic, assign) BOOL isTap;
-@property (nonatomic, strong) UIImageView * birdsView;
+@property (nonatomic, strong) TWAirBaby * birdsView;
 @property (nonatomic, strong) TWReadyStarView * readyStartView;         // 倒计时视图
 @property (nonatomic, copy) NSString * babyName;                        // 人物名称
 @property (nonatomic, strong) UIImageView * headerView;                 // 上面工具栏视图
 @property (nonatomic, strong) UIButton * starOrPauseButton;             // 暂停开始
 @property (nonatomic, strong) TWStrokeLabel * scoreLabel;               // 显示分数的label
-@property (nonatomic, assign) NSInteger score;                          // 得数
-
+@property (nonatomic, strong) Score * score;                            // 得数
+@property (nonatomic, strong) NSMutableArray * foodArray;
 @property (nonatomic, assign) NSInteger number;
 @property (nonatomic, assign) NSInteger columnNumber;
-@property (nonatomic, strong) UIImageView *topPipe;
-@property (nonatomic, strong) UIImageView *bottomPipe;
+@property (nonatomic, strong) UIImageView * topPipe;                     // 上柱子
+@property (nonatomic, strong) UIImageView * bottomPipe;                  // 下柱子
+//@property (nonatomic, strong) TWAirCandyImageView * oneCandy;            // 糖果1
+//@property (nonatomic, strong) TWAirCandyImageView * twoCandy;            // 糖果2
+@property (nonatomic, strong) UIImageView * oneCandy;                       // 糖果1
+@property (nonatomic, strong) UIImageView * twoCandy;                       // 糖果2
 @property (nonatomic, assign) CGRect topPipeFrame;
-@property (nonatomic, strong) UILabel *columnLabel;
+@property (nonatomic, strong) UILabel * columnLabel;
 @property (nonatomic, strong) UIImageView * tapView;
-
+@property (nonatomic, assign) BOOL paused;                              // 暂停
 @end
 
 @implementation TWAirViewController
 
+#pragma mark --懒加载
+- (NSMutableArray *)foodArray{
+    if (_foodArray == nil) {
+        _foodArray = [NSMutableArray array];
+        for (NSInteger i = 1; i <= 10; i++) {
+            NSString * foodName = [NSString stringWithFormat:@"food%ld",i];
+            [_foodArray addObject:foodName];
+        }
+    }
+    return _foodArray;
+}
+
+#pragma mark --系统回调函数
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     // 先获取选定的人物
@@ -45,15 +65,18 @@
     } else {
         _babyName = @"bird1";
     }
-    self.birdsView.image = [UIImage imageNamed:_babyName];
+    self.birdsView.name = _babyName;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _paused = NO;
+    _score = [[Score alloc]init];
     [self initBackgroundImageView];
     [self initMiddleView];
     [self initBirdsView];
     [self initTopView];
+    
 }
 
 #pragma mark --UI设置
@@ -103,7 +126,7 @@
     [self.view addSubview:_headerView];
     
     _scoreLabel = [[TWStrokeLabel alloc]initWithFrame:CGRectMake(0, 0, TWScreenWidth, 50)];
-    _scoreLabel.text = [NSString stringWithFormat:@"%ld",_score];
+    _scoreLabel.text = [NSString stringWithFormat:@"%ld",_score.points];
     _scoreLabel.textColor = [UIColor whiteColor];
     _scoreLabel.font = [UIFont boldSystemFontOfSize:50];
     _scoreLabel.textAlignment = NSTextAlignmentCenter;
@@ -132,7 +155,7 @@
 
 #pragma mark --游戏界面设置
 - (void)initBirdsView{
-    _birdsView = [[UIImageView alloc]initWithFrame:CGRectMake(70, -60, 60, 60)];
+    _birdsView = [TWAirBaby initBabyImageViewWithFrame:CGRectMake(70, -60, 60, 60) imageName:_babyName];
     [self.view addSubview:_birdsView];
 }
 
@@ -170,15 +193,6 @@
     }];
 }
 
-#pragma mark --代理方法--
-#pragma mark --TWReadyStarViewDelegate
-- (void)customCountDown:(TWReadyStarView *)downView{
-    // 准备开始游戏
-    [self initMiddleView];
-    [self initGameUI];
-    [self prepareForGame];
-}
-
 #pragma mark --其他私有方法
 #pragma mark 绘制柱子
 -(void)pipe {
@@ -190,9 +204,7 @@
     /*
      450 * 2 = 900 + 200 = 1100;
      1100 - 736 = 364
-     
      上面是 100
-     
      上面至少露出来的 要大于100px  但是要小于450
                     -350                0
      */
@@ -206,11 +218,29 @@
     _bottomPipe = [[UIImageView alloc]initWithFrame:CGRectMake(start, tall + tunnelHeight, PipeWidth, PipeHeight)];
     _bottomPipe.image = [UIImage imageNamed:@"toppipe-sheet0"];
     [self.view addSubview:_bottomPipe];
+    
+    // 添加糖果
+    // 随机y坐标
+    _oneCandy.hidden = NO;
+    _twoCandy.hidden = NO;
+    NSInteger x1 = arc4random() % (NSInteger)start;
+    NSInteger y1 = arc4random() % (NSInteger)(TWScreenHeight * 0.5) + 50;
+    NSInteger x2 = arc4random() % (NSInteger)start;
+    NSInteger y2 = arc4random() % (NSInteger)(TWScreenHeight * 0.5) + TWScreenHeight * 0.5;
+    NSInteger index1 = arc4random() % self.foodArray.count;
+    NSInteger index2 = arc4random() % self.foodArray.count;
+    _oneCandy = [[UIImageView alloc]initWithFrame:CGRectMake(x1, y1, CandyHeight, CandyHeight)];
+    _oneCandy.image = [UIImage imageNamed:self.foodArray[index1]];
+    [self.view addSubview:_oneCandy];
+    _twoCandy = [[UIImageView alloc]initWithFrame:CGRectMake(x2, y2, CandyHeight, CandyHeight)];
+    _twoCandy.image = [UIImage imageNamed:self.foodArray[index2]];
+    [self.view addSubview:_twoCandy];
+    
 }
 
 #pragma mark 定时器操作
 -(void)onTimer {
-    
+
     //上升
     if (_isTap == NO) {
         CGRect frame = _birdsView.frame;
@@ -232,6 +262,8 @@
     }
     
     //柱子移动
+    _oneCandy.tw_x--;
+    _twoCandy.tw_x--;
     _topPipeFrame = _topPipe.frame;
     CGRect bottomPipeFrame = _bottomPipe.frame;
     _topPipeFrame.origin.x--;
@@ -239,11 +271,23 @@
     _topPipe.frame = _topPipeFrame;
     _bottomPipe.frame = bottomPipeFrame;
     if (_topPipeFrame.origin.x < -80) {
-        // 绘制柱子
+        // 当柱子移动到屏幕的左边，看不到了，重新绘制柱子
         [self pipe];
     }
     
     //碰撞检测（交集）
+    bool oneRect = CGRectIntersectsRect(_oneCandy.frame, _birdsView.frame);
+    if (oneRect) {
+        _oneCandy.hidden = YES;
+        self.score = [self.score addPoint];
+//        _scoreLabel.text = [NSString stringWithFormat:@"%ld",_score.points];
+    }
+    bool twoRect = CGRectIntersectsRect(_twoCandy.frame, _birdsView.frame);
+    if (twoRect) {
+        _twoCandy.hidden = YES;
+        self.score = [self.score addPoint];
+        
+    }
     bool topRet = CGRectIntersectsRect(_birdsView.frame, _topPipe.frame);
     bool bottomRet = CGRectIntersectsRect(_birdsView.frame, _bottomPipe.frame);
     if (topRet == true || bottomRet == true) {
@@ -252,12 +296,13 @@
     }
 
 #pragma mark 更新分数
-
+    
     NSInteger offset = (NSInteger)_topPipeFrame.origin.x;
-    if (offset == 30) {     // 30是估计的数据
+    if (offset == 30) {     // 30是大概估计的数据
         _columnNumber++;
         _columnLabel.text = [NSString stringWithFormat:@"%zi",_columnNumber];
-        _score = _columnNumber;
+        _scoreLabel.text = [NSString stringWithFormat:@"%ld",_score.points];
+//        _score = _columnNumber;
     }
 }
 
@@ -278,8 +323,8 @@
 
 #pragma mark 弹出游戏结束操作界面
 -(void)pullGameOver {
+    _paused = YES;
     //游戏结束操作界面
-    NSLog(@"GameOver");
     [UIView animateWithDuration:1 animations:^{
         self.headerView.tw_y = -TopImageViewH * 1.2;
         self.starOrPauseButton.tw_y = 15 - TopImageViewH * 1.2;
@@ -287,7 +332,7 @@
         _birdsView.tw_y = -60;
     } completion:^(BOOL finished) {
         TWHomeGameOverController * gameOverVc = [[TWHomeGameOverController alloc]init];
-        gameOverVc.score = self.score;
+        gameOverVc.score = self.score.points;
         [self presentViewController:gameOverVc animated:NO completion:nil];
     }];
 }
@@ -357,6 +402,52 @@
 - (void)begeinGame{
     _timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
 }
+
+// 随机分布
+//- (void)createCandy{
+//    if(self.starOrPauseButton.isSelected){
+//        NSInteger index = arc4random() % self.foodArray.count;
+//        TWAirCandyImageView * candy = [TWAirCandyImageView initCandyImageViewWithIamegName:self.foodArray[index]];
+//        candy.delegate = self;
+//        [candy startMoveing];
+//        [self.view insertSubview:candy belowSubview:self.headerView];
+//    }
+//}
+
+
+#pragma mark --代理方法--
+#pragma mark --TWReadyStarViewDelegate
+- (void)customCountDown:(TWReadyStarView *)downView{
+    // 准备开始游戏
+    [self initMiddleView];
+    [self initGameUI];
+    [self prepareForGame];
+}
+
+//#pragma mark --TWAirCandyImageViewDelegate
+//// 当candy到达baby的头顶10px时触发本方法
+//- (void)checkPosition:(TWAirCandyImageView *)candy{
+//    
+//    if([self.birdsView checkIfCaught:candy.frame]){
+//        candy.caught = YES;
+//        // 接住的的食物 加分
+//        self.score = [self.score addPoints];
+//    }else{
+//        // 减分
+//        self.score = [self.score fail];
+//    }
+//    
+//    // 显示分数
+//    self.scoreLabel.text = [NSString stringWithFormat:@"%ld", self.score.points];
+//}
+//
+//- (void)removeMe:(TWAirCandyImageView *)candy{
+//    [candy removeFromSuperview];
+//}
+//
+//- (BOOL)checkGameStatus{
+//    return self.paused;
+//}
 
 
 @end
