@@ -104,7 +104,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     // 先获取选定的人物
-    NSString * charater = [[NSUserDefaults standardUserDefaults] objectForKey:Character];
+    NSString * charater = [[NSUserDefaults standardUserDefaults] objectForKey:TopCharacter];
     if (charater) {
         _babyName = charater;
     } else {

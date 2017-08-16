@@ -28,8 +28,8 @@
 #define ButtonClickTime 0.3
 
 // MARK:- ID
-#define Character @"Character"
-
+#define TopCharacter @"TopCharacter"
+#define BottomCharacter @"BottomCharacter"
 
 // MARK:- 打印
 #ifdef DEBUG

@@ -11,14 +11,14 @@
 #import "TWMainToHomeAnimation.h"
 #import "TWMainToAirAnimation.h"
 #import "TWAirViewController.h"
-#import "TWCharacterController.h"
+#import "TWAllCharacterController.h"
 #import "TWMainToCharaterAnimation.h"
 
 @interface TWMainViewController ()<TWMainToHomeAnimationDelegate, TWMainToAirAnimationDelegate, TWMainToCharaterAnimationDelegate>
 @property (nonatomic, strong) TWMainToHomeAnimation * animationToolBottom;
 @property (nonatomic, strong) TWMainToAirAnimation * animationToolRight;
 @property (nonatomic, strong) TWMainToCharaterAnimation * animationToolLeft;
-@property (nonatomic, strong) TWCharacterController * characterVc;
+@property (nonatomic, strong) TWAllCharacterController * characterVc;
 @property (nonatomic, strong) UIView * topView;
 @property (nonatomic, strong) UIImageView * imageView;// 标题视图
 @property (nonatomic, strong) UIButton * landButton;  // 模式一按钮
@@ -45,7 +45,7 @@
 }
 
 - (void)initObject{
-    _characterVc = [[TWCharacterController alloc]init];
+    _characterVc = [[TWAllCharacterController alloc]init];
     _animationToolBottom = [TWMainToHomeAnimation shareMainToHomeAnimation];
     _animationToolRight = [TWMainToAirAnimation shareMainToAirAnimation];
     _animationToolLeft = [TWMainToCharaterAnimation shareMainToCharaterAnimation];

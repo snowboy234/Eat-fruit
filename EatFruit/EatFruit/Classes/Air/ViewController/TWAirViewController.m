@@ -18,7 +18,7 @@
 @property (nonatomic, assign) BOOL isTap;
 @property (nonatomic, strong) UIImageView * birdsView;
 @property (nonatomic, strong) TWReadyStarView * readyStartView;         // 倒计时视图
-
+@property (nonatomic, copy) NSString * babyName;                        // 人物名称
 @property (nonatomic, strong) UIImageView * headerView;                 // 上面工具栏视图
 @property (nonatomic, strong) UIButton * starOrPauseButton;             // 暂停开始
 @property (nonatomic, strong) TWStrokeLabel * scoreLabel;               // 显示分数的label
@@ -35,6 +35,18 @@
 @end
 
 @implementation TWAirViewController
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    // 先获取选定的人物
+    NSString * charater = [[NSUserDefaults standardUserDefaults] objectForKey:BottomCharacter];
+    if (charater) {
+        _babyName = charater;
+    } else {
+        _babyName = @"bird1";
+    }
+    self.birdsView.image = [UIImage imageNamed:_babyName];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -121,7 +133,6 @@
 #pragma mark --游戏界面设置
 - (void)initBirdsView{
     _birdsView = [[UIImageView alloc]initWithFrame:CGRectMake(70, -60, 60, 60)];
-    _birdsView.image = [UIImage imageNamed:@"bird1"];
     [self.view addSubview:_birdsView];
 }
 
