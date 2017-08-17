@@ -257,6 +257,7 @@
             [self.scoreLabel setCenter:self.headerView.center];
             self.backMainButton.tw_centerY = self.lifeView.tw_centerY;
         }completion:^(BOOL finished) {
+            
             // 回到主页
             [self dismissViewControllerAnimated:YES completion:nil];
         }];

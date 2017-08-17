@@ -32,23 +32,16 @@
 #import "AppDelegate.h"
 #import "TWMainViewController.h"
 
-#import "TWHomeGameOverController.h"
-
-
-
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-//    _window.rootViewController = [[TWHomeGameOverController alloc]init];
     _window.rootViewController = [[TWMainViewController alloc]init];
     [_window makeKeyAndVisible];
-    
     return YES;
 }
 
