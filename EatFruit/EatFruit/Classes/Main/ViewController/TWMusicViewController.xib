@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,6 +14,7 @@
             <connections>
                 <outlet property="musicSwitch" destination="zLM-v8-uBQ" id="2Ex-xr-VKQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="yinxiaoSwitch" destination="y4a-RU-xkv" id="PFw-og-Xqa"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -21,17 +23,62 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zLM-v8-uBQ">
-                    <rect key="frame" x="163" y="318" width="51" height="31"/>
+                    <rect key="frame" x="240" y="288" width="51" height="31"/>
                     <connections>
                         <action selector="musicSwitchChanged:" destination="-1" eventType="valueChanged" id="GM0-2j-MOX"/>
                     </connections>
                 </switch>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y4a-RU-xkv">
+                    <rect key="frame" x="240" y="348" width="51" height="31"/>
+                    <connections>
+                        <action selector="yinxiaoSwitchChanged:" destination="-1" eventType="valueChanged" id="XbT-qN-lWY"/>
+                    </connections>
+                </switch>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M33-Ba-CfC">
+                    <rect key="frame" x="20" y="602.5" width="100" height="44.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="M33-Ba-CfC" secondAttribute="height" multiplier="196:87" id="ihB-mW-tBC"/>
+                        <constraint firstAttribute="width" constant="100" id="xjz-oe-Qvz"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="back-sheet0"/>
+                    <connections>
+                        <action selector="backButtonClick:" destination="-1" eventType="touchUpInside" id="KcV-4g-uec"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bgmusic" translatesAutoresizingMaskIntoConstraints="NO" id="ERd-ke-LDx">
+                    <rect key="frame" x="20" y="292.5" width="200" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="ERd-ke-LDx" secondAttribute="height" multiplier="368:41" id="5oa-Tc-SrQ"/>
+                        <constraint firstAttribute="width" constant="200" id="ZqS-Fc-O7J"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="soundEffect" translatesAutoresizingMaskIntoConstraints="NO" id="OKZ-JV-2yC">
+                    <rect key="frame" x="20" y="355.5" width="140" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="140" id="9tZ-i7-1Ju"/>
+                        <constraint firstAttribute="width" secondItem="OKZ-JV-2yC" secondAttribute="height" multiplier="368:41" id="ahf-Qg-g70"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="zLM-v8-uBQ" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="HBI-6P-RoB"/>
-                <constraint firstItem="zLM-v8-uBQ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="NMQ-le-JTv"/>
+                <constraint firstItem="ERd-ke-LDx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="1Ys-wp-0ks"/>
+                <constraint firstItem="M33-Ba-CfC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="1gD-fM-Oqn"/>
+                <constraint firstAttribute="bottom" secondItem="M33-Ba-CfC" secondAttribute="bottom" constant="20" id="Acq-9P-LQL"/>
+                <constraint firstItem="ERd-ke-LDx" firstAttribute="centerY" secondItem="zLM-v8-uBQ" secondAttribute="centerY" id="BkS-7C-W5S"/>
+                <constraint firstItem="y4a-RU-xkv" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="30" id="C2U-Kz-j4R"/>
+                <constraint firstItem="zLM-v8-uBQ" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-30" id="HBI-6P-RoB"/>
+                <constraint firstItem="zLM-v8-uBQ" firstAttribute="leading" secondItem="ERd-ke-LDx" secondAttribute="trailing" constant="20" id="NWh-Gi-rqL"/>
+                <constraint firstItem="y4a-RU-xkv" firstAttribute="centerX" secondItem="zLM-v8-uBQ" secondAttribute="centerX" id="diU-RK-X7b"/>
+                <constraint firstItem="OKZ-JV-2yC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="kvx-8Z-4iP"/>
+                <constraint firstItem="OKZ-JV-2yC" firstAttribute="centerY" secondItem="y4a-RU-xkv" secondAttribute="centerY" id="oi9-3f-Mwg"/>
             </constraints>
+            <point key="canvasLocation" x="43.5" y="54.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="back-sheet0" width="196" height="87"/>
+        <image name="bgmusic" width="736" height="82"/>
+        <image name="soundEffect" width="736" height="82"/>
+    </resources>
 </document>

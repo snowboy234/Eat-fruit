@@ -31,6 +31,7 @@
 #define TopCharacter @"TopCharacter"
 #define BottomCharacter @"BottomCharacter"
 #define MusicShow @"MusicShow"
+#define YinxiaoShow @"YinxiaoShow"
 #define ON @"ON"
 #define OFF @"OFF"
 

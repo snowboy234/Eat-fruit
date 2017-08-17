@@ -39,6 +39,7 @@
 @property (nonatomic, strong) SoundTool * soundTool;
 @property (nonatomic, strong) MyPlayer * soundPlay;
 @property (nonatomic, strong) NSString * showMusic;
+@property (nonatomic, strong) NSString * yinxiaoMusic;
 @end
 
 @implementation TWAirViewController
@@ -73,6 +74,7 @@
     } else {
         [_soundPlay stopMusic];
     }
+    _yinxiaoMusic = [[NSUserDefaults standardUserDefaults] objectForKey:YinxiaoShow];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -175,6 +177,7 @@
 - (void)initBirdsView{
     _birdsView = [TWAirBaby initBabyImageViewWithFrame:CGRectMake(70, -60, 60, 60) imageName:_babyName];
     [self.view addSubview:_birdsView];
+    [self.view bringSubviewToFront:_birdsView];
 }
 
 - (void)initGameUI{
@@ -304,7 +307,7 @@
     }
     bool twoRect = CGRectIntersectsRect(_twoCandy.frame, _birdsView.frame);
     if (twoRect) {
-        if ([_showMusic isEqualToString:ON]) {
+        if ([_yinxiaoMusic isEqualToString:ON]) {
             [_soundTool playSoundByFileName:@"landShort.wav"];
         }
         _twoCandy.hidden = YES;
@@ -314,7 +317,7 @@
     bool topRet = CGRectIntersectsRect(_birdsView.frame, _topPipe.frame);
     bool bottomRet = CGRectIntersectsRect(_birdsView.frame, _bottomPipe.frame);
     if (topRet == true || bottomRet == true) {
-        if ([_showMusic isEqualToString:ON]) {
+        if ([_yinxiaoMusic isEqualToString:ON]) {
             [_soundTool playSoundByFileName:@"airShort.wav"];
         }
         [self onStop];

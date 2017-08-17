@@ -38,6 +38,7 @@
 @property (nonatomic, strong) SoundTool * soundTool;
 @property (nonatomic, strong) MyPlayer * soundPlay;
 @property (nonatomic, strong) NSString * showMusic;
+@property (nonatomic, strong) NSString * yinxiaoMusic;
 @end
 
 @implementation TWHomeViewController
@@ -120,6 +121,8 @@
     } else {
         [_soundPlay stopMusic];
     }
+    
+    _yinxiaoMusic = [[NSUserDefaults standardUserDefaults] objectForKey:YinxiaoShow];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -222,7 +225,7 @@
         if (x.selected) {
             x.selected = NO;
             [_starOrPauseButton setBackgroundImage:[UIImage imageNamed:@"pause_sprite-sheet1"] forState:UIControlStateNormal];
-            TWLog(@"暂停");
+//            TWLog(@"暂停");
             self.paused = YES;
         } else {
             x.selected = YES;
@@ -304,7 +307,7 @@
         candy.caught = YES;
         // 接住的的食物
         if ([self.allFoodArray containsObject:candy]) {
-            if ([_showMusic isEqualToString:ON]) {
+            if ([_yinxiaoMusic isEqualToString:ON]) {
                 [_soundTool playSoundByFileName:@"landShort.wav"];
             }
             // 加分
@@ -313,7 +316,7 @@
             // 减❤️
             _lifeCount --;
             _lifeCountLabel.text = [NSString stringWithFormat:@"× %ld",_lifeCount];
-            if ([_showMusic isEqualToString:ON]) {
+            if ([_yinxiaoMusic isEqualToString:ON]) {
                 [_soundTool playSoundByFileName:@"airShort.wav"];
             }
             // _lifeCount个数小于0的时候失败

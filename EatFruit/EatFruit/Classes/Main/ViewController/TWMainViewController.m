@@ -56,6 +56,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    TWLog(@"%@",NSHomeDirectory());
     [self initObject];
     [self initBackgroundImageView];
     [self initBottomView];

@@ -28,7 +28,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HlL-64-vPe">
-                    <rect key="frame" x="137.5" y="20" width="100" height="44.5"/>
+                    <rect key="frame" x="255" y="20" width="100" height="44.5"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="100" id="APj-90-uJO"/>
                         <constraint firstAttribute="width" secondItem="HlL-64-vPe" secondAttribute="height" multiplier="196:87" id="DUz-5i-qIf"/>
@@ -111,12 +111,12 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="HlL-64-vPe" secondAttribute="trailing" constant="20" id="0xz-Xz-ehm"/>
                 <constraint firstAttribute="bottom" secondItem="PlM-E2-PCo" secondAttribute="bottom" id="5CT-qx-ntO"/>
                 <constraint firstItem="AbQ-Hs-ecI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7iP-Bw-mh4"/>
                 <constraint firstItem="AbQ-Hs-ecI" firstAttribute="top" secondItem="HlL-64-vPe" secondAttribute="bottom" constant="10" id="Kud-fC-arq"/>
                 <constraint firstItem="PlM-E2-PCo" firstAttribute="height" secondItem="AbQ-Hs-ecI" secondAttribute="height" id="PyJ-Hv-GcV"/>
                 <constraint firstAttribute="trailing" secondItem="AbQ-Hs-ecI" secondAttribute="trailing" id="RTe-jH-JiC"/>
-                <constraint firstItem="HlL-64-vPe" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="U39-I5-8gq"/>
                 <constraint firstItem="saH-VV-MxB" firstAttribute="trailing" secondItem="f8t-iz-Nty" secondAttribute="trailing" id="Ucj-aD-pFe"/>
                 <constraint firstItem="saH-VV-MxB" firstAttribute="leading" secondItem="f8t-iz-Nty" secondAttribute="leading" id="bKE-kW-FyT"/>
                 <constraint firstItem="saH-VV-MxB" firstAttribute="height" secondItem="f8t-iz-Nty" secondAttribute="height" id="gHR-R9-uRe"/>
