@@ -37,6 +37,7 @@
 @property (nonatomic, strong) TWHomeGameOverController * gameOverVc;
 @property (nonatomic, strong) SoundTool * soundTool;
 @property (nonatomic, strong) MyPlayer * soundPlay;
+@property (nonatomic, strong) NSString * showMusic;
 @end
 
 @implementation TWHomeViewController
@@ -112,14 +113,22 @@
         _babyName = @"baby1";
     }
     self.baby.name = _babyName;
-    [_soundPlay playMusicWithName:@"landbgMusic.wav"];
+    
+    _showMusic = [[NSUserDefaults standardUserDefaults] objectForKey:MusicShow];
+    if ([_showMusic isEqualToString:ON]) {
+        [_soundPlay playMusicWithName:@"landbgMusic.wav"];
+    } else {
+        [_soundPlay stopMusic];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [_soundPlay playOrStopMusic];
-    [_soundTool stopSound:@"landShort.wav"];
-    [_soundTool stopSound:@"airShort.wav"];
+    if ([_showMusic isEqualToString:ON]) {
+        [_soundPlay playOrStopMusic];
+    } else {
+        [_soundPlay stopMusic];
+    }
 }
 
 - (void)viewDidLoad {
@@ -295,14 +304,18 @@
         candy.caught = YES;
         // 接住的的食物
         if ([self.allFoodArray containsObject:candy]) {
-            [_soundTool playSoundByFileName:@"landShort.wav"];
+            if ([_showMusic isEqualToString:ON]) {
+                [_soundTool playSoundByFileName:@"landShort.wav"];
+            }
             // 加分
             self.score = [self.score addPoints];
         } else {
             // 减❤️
             _lifeCount --;
             _lifeCountLabel.text = [NSString stringWithFormat:@"× %ld",_lifeCount];
-            [_soundTool playSoundByFileName:@"airShort.wav"];
+            if ([_showMusic isEqualToString:ON]) {
+                [_soundTool playSoundByFileName:@"airShort.wav"];
+            }
             // _lifeCount个数小于0的时候失败
             if (_lifeCount == -1) {
                 _lifeCountLabel.text = @"× 0";

@@ -38,6 +38,7 @@
 @property (nonatomic, assign) BOOL paused;                              // 暂停
 @property (nonatomic, strong) SoundTool * soundTool;
 @property (nonatomic, strong) MyPlayer * soundPlay;
+@property (nonatomic, strong) NSString * showMusic;
 @end
 
 @implementation TWAirViewController
@@ -65,14 +66,22 @@
         _babyName = @"bird1";
     }
     self.birdsView.name = _babyName;
-    [_soundPlay playMusicWithName:@"airbgMusic.mp3"];
+    
+    _showMusic = [[NSUserDefaults standardUserDefaults] objectForKey:MusicShow];
+    if ([_showMusic isEqualToString:ON]) {
+        [_soundPlay playMusicWithName:@"airbgMusic.mp3"];
+    } else {
+        [_soundPlay stopMusic];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [_soundPlay playOrStopMusic];
-    [_soundTool stopSound:@"airShort.wav"];
-    [_soundTool stopSound:@"landShort.wav"];
+    if ([_showMusic isEqualToString:ON]) {
+        [_soundPlay playOrStopMusic];
+    } else {
+        [_soundPlay stopMusic];
+    }
 }
 
 
@@ -287,13 +296,17 @@
     //碰撞检测（交集）
     bool oneRect = CGRectIntersectsRect(_oneCandy.frame, _birdsView.frame);
     if (oneRect) {
-        [_soundTool playSoundByFileName:@"landShort.wav"];
+        if ([_showMusic isEqualToString:ON]) {
+            [_soundTool playSoundByFileName:@"landShort.wav"];
+        }
         _oneCandy.hidden = YES;
         self.score = [self.score addPoint];
     }
     bool twoRect = CGRectIntersectsRect(_twoCandy.frame, _birdsView.frame);
     if (twoRect) {
-        [_soundTool playSoundByFileName:@"landShort.wav"];
+        if ([_showMusic isEqualToString:ON]) {
+            [_soundTool playSoundByFileName:@"landShort.wav"];
+        }
         _twoCandy.hidden = YES;
         self.score = [self.score addPoint];
         
@@ -301,7 +314,9 @@
     bool topRet = CGRectIntersectsRect(_birdsView.frame, _topPipe.frame);
     bool bottomRet = CGRectIntersectsRect(_birdsView.frame, _bottomPipe.frame);
     if (topRet == true || bottomRet == true) {
-        [_soundTool playSoundByFileName:@"airShort.wav"];
+        if ([_showMusic isEqualToString:ON]) {
+            [_soundTool playSoundByFileName:@"airShort.wav"];
+        }
         [self onStop];
     }
 

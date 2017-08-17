@@ -19,5 +19,5 @@
 - (void)playMusicWithName:(NSString *)name;
 //暂停或播放
 - (void)playOrStopMusic;
-
+- (void)stopMusic;
 @end

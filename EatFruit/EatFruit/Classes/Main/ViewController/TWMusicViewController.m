@@ -10,6 +10,9 @@
 
 @interface TWMusicViewController ()
 @property (weak, nonatomic) IBOutlet UISwitch *musicSwitch;
+@property (nonatomic, strong) NSString * showMusic;
+@property (nonatomic, strong) SoundTool * soundTool;
+@property (nonatomic, strong) MyPlayer * soundPlay;
 @end
 
 @implementation TWMusicViewController
@@ -22,10 +25,29 @@
     } else {
         [self.musicSwitch setOn:NO];
     }
+    
+    _showMusic = [[NSUserDefaults standardUserDefaults] objectForKey:MusicShow];
+    if ([_showMusic isEqualToString:ON]) {
+        [_soundPlay playOrStopMusic];
+    } else {
+        [_soundPlay stopMusic];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if ([_showMusic isEqualToString:ON]) {
+        [_soundPlay playOrStopMusic];
+    } else {
+        [_soundPlay stopMusic];
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _soundPlay = [MyPlayer shareInstance];
+    _soundTool = [[SoundTool alloc]init];
+    [self.view bringSubviewToFront:_musicSwitch];
 }
 
 - (IBAction)musicSwitchChanged:(UISwitch *)sender {
@@ -34,18 +56,14 @@
         NSLog(@"开");
         [[NSUserDefaults standardUserDefaults] setObject:ON forKey:MusicShow];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        // 音乐想起来
+        [_soundPlay playOrStopMusic];
         
     }else {
         NSLog(@"关");
         [[NSUserDefaults standardUserDefaults] setObject:OFF forKey:MusicShow];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        // 关闭
-        
+        [_soundPlay stopMusic];
     }
-    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

@@ -18,9 +18,31 @@
 @property (weak, nonatomic) IBOutlet UIImageView *bottomImageView;
 @property (nonatomic, assign) NSInteger topIndex;
 @property (nonatomic, assign) NSInteger bottomIndex;
+@property (nonatomic, strong) NSString * showMusic;
+@property (nonatomic, strong) SoundTool * soundTool;
+@property (nonatomic, strong) MyPlayer * soundPlay;
 @end
 
 @implementation TWAllCharacterController
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    _showMusic = [[NSUserDefaults standardUserDefaults] objectForKey:MusicShow];
+    if ([_showMusic isEqualToString:ON]) {
+        [_soundPlay playOrStopMusic];
+    } else {
+        [_soundPlay stopMusic];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if ([_showMusic isEqualToString:ON]) {
+        [_soundPlay playOrStopMusic];
+    } else {
+        [_soundPlay stopMusic];
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,6 +54,8 @@
     _top_RightButton.timeInterval = 0.3;
     _bottom_leftButton.timeInterval = 0.3;
     _bottom_RightButton.timeInterval = 0.3;
+    _soundPlay = [MyPlayer shareInstance];
+    _soundTool = [[SoundTool alloc]init];
 }
 
 - (IBAction)top_leftButtonClick:(id)sender {

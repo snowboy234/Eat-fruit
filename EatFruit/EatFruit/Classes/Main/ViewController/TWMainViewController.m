@@ -36,14 +36,22 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self showAnimation];
-    [_soundPlay playMusicWithName:@"main.wav"];
-    
-    
+    NSString * music = [[NSUserDefaults standardUserDefaults] objectForKey:MusicShow];
+    if ([music isEqualToString:ON]) {
+        [_soundPlay playMusicWithName:@"main.wav"];
+    } else {
+        [_soundPlay stopMusic];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [_soundPlay playOrStopMusic];
+    NSString * music = [[NSUserDefaults standardUserDefaults] objectForKey:MusicShow];
+    if ([music isEqualToString:ON]) {
+        [_soundPlay playOrStopMusic];
+    } else {
+        [_soundPlay stopMusic];
+    }
 }
 
 - (void)viewDidLoad {

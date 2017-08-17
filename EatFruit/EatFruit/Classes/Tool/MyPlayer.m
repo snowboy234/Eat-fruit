@@ -48,4 +48,8 @@
     TWLog(@"播放");
 }
 
+- (void)stopMusic{
+    [_player stop];
+}
+
 @end

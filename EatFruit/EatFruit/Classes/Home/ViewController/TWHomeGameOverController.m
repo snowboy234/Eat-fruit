@@ -13,19 +13,30 @@
 @property (nonatomic, strong) UIImageView * imageView;
 @property (nonatomic, strong) UIImageView * titleView;
 @property (nonatomic, strong) MyPlayer * soundPlayer;
+@property (nonatomic, strong) NSString * showMusic;
 @end
 
 @implementation TWHomeGameOverController
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self setTitleImageViewAnimation];
-    [_soundPlayer playMusicWithName:@"gameover.mp3"];
+
+    _showMusic = [[NSUserDefaults standardUserDefaults] objectForKey:MusicShow];
+    if ([_showMusic isEqualToString:ON]) {
+        [_soundPlayer playMusicWithName:@"gameover.mp3"];
+    } else {
+        [_soundPlayer stopMusic];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [_soundPlayer playOrStopMusic];
+    if ([_showMusic isEqualToString:ON]) {
+        [_soundPlayer playOrStopMusic];
+    } else {
+        [_soundPlayer stopMusic];
+    }
 }
 
 - (void)viewDidLoad {
