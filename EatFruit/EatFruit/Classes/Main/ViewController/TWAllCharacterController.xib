@@ -74,7 +74,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AbQ-Hs-ecI">
                     <rect key="frame" x="0.0" y="74.5" width="375" height="296.5"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ch_1" translatesAutoresizingMaskIntoConstraints="NO" id="4n9-5o-JvS">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ch_1" translatesAutoresizingMaskIntoConstraints="NO" id="4n9-5o-JvS">
                             <rect key="frame" x="129" y="92.5" width="116" height="112"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f8t-iz-Nty">
@@ -131,10 +131,10 @@
         </view>
     </objects>
     <resources>
-        <image name="Ch_1" width="116" height="112"/>
         <image name="arrow_next-sheet0" width="89" height="131"/>
         <image name="arrow_next-sheet1" width="89" height="131"/>
         <image name="back-sheet0" width="196" height="87"/>
         <image name="bird1" width="109" height="102"/>
+        <image name="ch_1" width="116" height="112"/>
     </resources>
 </document>
