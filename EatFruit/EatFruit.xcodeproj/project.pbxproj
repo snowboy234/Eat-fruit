@@ -27,6 +27,7 @@
 		FF5BE99D1F42A4E400F864F1 /* CandyImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE9981F42A4E400F864F1 /* CandyImageView.m */; };
 		FF5BE99E1F42A4E400F864F1 /* BabyImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE99A1F42A4E400F864F1 /* BabyImageView.m */; };
 		FF5BE99F1F42A4E400F864F1 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5BE99C1F42A4E400F864F1 /* Score.m */; };
+		FF96D5601F456A990099C998 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FF96D5621F456A990099C998 /* InfoPlist.strings */; };
 		FF9A6BFE1F43D7DC008173F9 /* TWAllCharacterController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9A6BFC1F43D7DC008173F9 /* TWAllCharacterController.m */; };
 		FF9A6BFF1F43D7DC008173F9 /* TWAllCharacterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF9A6BFD1F43D7DC008173F9 /* TWAllCharacterController.xib */; };
 		FF9A6C061F43E48E008173F9 /* TWAirBaby.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9A6C051F43E48E008173F9 /* TWAirBaby.m */; };
@@ -86,6 +87,10 @@
 		FF5BE99A1F42A4E400F864F1 /* BabyImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImageView.m; sourceTree = "<group>"; };
 		FF5BE99B1F42A4E400F864F1 /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
 		FF5BE99C1F42A4E400F864F1 /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
+		FF96D5541F4567AA0099C998 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		FF96D55F1F456A900099C998 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		FF96D5611F456A990099C998 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FF96D5631F456A9C0099C998 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		FF9A6BFB1F43D7DC008173F9 /* TWAllCharacterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAllCharacterController.h; sourceTree = "<group>"; };
 		FF9A6BFC1F43D7DC008173F9 /* TWAllCharacterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAllCharacterController.m; sourceTree = "<group>"; };
 		FF9A6BFD1F43D7DC008173F9 /* TWAllCharacterController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TWAllCharacterController.xib; sourceTree = "<group>"; };
@@ -169,6 +174,7 @@
 				FF5BE78D1F3D440400F864F1 /* Assets.xcassets */,
 				FF5BE78F1F3D440400F864F1 /* LaunchScreen.storyboard */,
 				FF5BE7921F3D440400F864F1 /* Info.plist */,
+				FF96D5621F456A990099C998 /* InfoPlist.strings */,
 				FF5BE7811F3D440400F864F1 /* Supporting Files */,
 			);
 			path = EatFruit;
@@ -403,8 +409,8 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = FF5BE7751F3D440400F864F1;
 			productRefGroup = FF5BE77F1F3D440400F864F1 /* Products */;
@@ -422,6 +428,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF9A6C6B1F4437E1008173F9 /* music.bundle in Resources */,
+				FF96D5601F456A990099C998 /* InfoPlist.strings in Resources */,
 				FF5BE7911F3D440400F864F1 /* LaunchScreen.storyboard in Resources */,
 				FF9A6C381F44226B008173F9 /* TWMusicViewController.xib in Resources */,
 				FF9A6BFF1F43D7DC008173F9 /* TWAllCharacterController.xib in Resources */,
@@ -528,8 +535,19 @@
 			isa = PBXVariantGroup;
 			children = (
 				FF5BE7901F3D440400F864F1 /* Base */,
+				FF96D5541F4567AA0099C998 /* zh-Hans */,
+				FF96D55F1F456A900099C998 /* en */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		FF96D5621F456A990099C998 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FF96D5611F456A990099C998 /* en */,
+				FF96D5631F456A9C0099C998 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -539,6 +557,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -587,6 +606,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -633,6 +653,7 @@
 				DEVELOPMENT_TEAM = 7F3QQKKLR9;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/EatFruit/Classes/Other/EatFruit.pch";
 				INFOPLIST_FILE = EatFruit/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shmx.EatFruit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -647,6 +668,7 @@
 				DEVELOPMENT_TEAM = 7F3QQKKLR9;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/EatFruit/Classes/Other/EatFruit.pch";
 				INFOPLIST_FILE = EatFruit/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shmx.EatFruit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
