@@ -158,7 +158,6 @@
     _starOrPauseButton.frame = CGRectMake(TWScreenWidth - width - 10, 15 - TopImageViewH * 1.2, width, width);
     [_starOrPauseButton setBackgroundImage:[UIImage imageNamed:@"pause_sprite-sheet0"] forState:UIControlStateNormal];
     [self.headerView addSubview:_starOrPauseButton];
-    _starOrPauseButton.timeInterval = ButtonClickTime;
     _starOrPauseButton.selected = YES;
     [_starOrPauseButton addTarget:self action:@selector(starOrPauseButtonClick:) forControlEvents:UIControlEventTouchUpInside];
 }

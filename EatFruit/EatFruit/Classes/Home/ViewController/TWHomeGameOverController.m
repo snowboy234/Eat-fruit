@@ -150,7 +150,6 @@
 //    UIButton * backButton = [[UIButton alloc]initWithFrame:CGRectMake(x, 20, width, height)];
     
     UIButton * backButton = [[UIButton alloc]initWithFrame:CGRectMake((TWScreenWidth - width) * 0.5, 20, width, height)];
-    backButton.timeInterval = ButtonClickTime;
     [backButton setBackgroundImage:[UIImage imageNamed:@"back-sheet0"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:backButton];

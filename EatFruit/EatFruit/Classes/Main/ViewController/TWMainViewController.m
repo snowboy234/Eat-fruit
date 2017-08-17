@@ -121,14 +121,12 @@
 #pragma mark --开始按钮的子菜单
     // 子菜单上的land按钮
     _landButton = [[UIButton alloc]initWithFrame:CGRectMake(x, height + TWMargin, width, 0)];
-    _landButton.timeInterval = ButtonClickTime;
     [_landButton setBackgroundImage:[UIImage imageNamed:@"land-sheet0"] forState:UIControlStateNormal];
     [_landButton addTarget:self action:@selector(landButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:_landButton];
     
     // 子菜单上的air按钮
     _airButton = [[UIButton alloc]initWithFrame:CGRectMake(TWScreenWidth * 0.5 + TWMargin * 0.5, height + TWMargin, width, 0)];
-    _airButton.timeInterval = ButtonClickTime;
     [_airButton setBackgroundImage:[UIImage imageNamed:@"sky-sheet0"] forState:UIControlStateNormal];
     [_airButton addTarget:self action:@selector(airButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:_airButton];
@@ -136,7 +134,6 @@
 #pragma mark --选择角色按钮
     CGFloat WHProportion_characterButton = 320 / 87.0;
     _characterButton = [[UIButton alloc]initWithFrame:CGRectMake((TWScreenWidth * 0.5) - width, height + TWMargin, width * 2, (width * 2) / WHProportion_characterButton)];
-    _characterButton.timeInterval = ButtonClickTime;
     [_characterButton setBackgroundImage:[UIImage imageNamed:@"character-sheet0"] forState:UIControlStateNormal];
     [_characterButton addTarget:self action:@selector(characterButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:_characterButton];
@@ -144,7 +141,6 @@
 #pragma mark --开始按钮
     // 开始按钮
     UIButton * playButton = [[UIButton alloc]initWithFrame:CGRectMake(x, 0, width, height)];
-    playButton.timeInterval = ButtonClickTime;
     [playButton setBackgroundImage:[UIImage imageNamed:@"play-sheet0"] forState:UIControlStateNormal];
     [playButton addTarget:self action:@selector(playButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:playButton];
@@ -152,7 +148,6 @@
 #pragma mark --声音按钮
     // 更多按钮（声音按钮）
     UIButton * voiceButton = [[UIButton alloc]initWithFrame:CGRectMake(TWScreenWidth * 0.5 + TWMargin * 0.5, 0, width, height)];
-    voiceButton.timeInterval = ButtonClickTime;
     [voiceButton setBackgroundImage:[UIImage imageNamed:@"more-sheet0"] forState:UIControlStateNormal];
     [voiceButton addTarget:self action:@selector(voiceButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:voiceButton];
@@ -208,7 +203,7 @@
     if (sender.selected) {
         sender.selected = NO;
         // hidden
-        [UIView animateWithDuration:ButtonClickTime animations:^{
+        [UIView animateWithDuration:0.3 animations:^{
             _landButton.tw_height = 0;
             _airButton.tw_height = 0;
             _characterButton.tw_y = height + TWMargin;
@@ -216,7 +211,7 @@
     } else {
         sender.selected = YES;
         // show
-        [UIView animateWithDuration:ButtonClickTime animations:^{
+        [UIView animateWithDuration:0.3 animations:^{
             _landButton.tw_height = height;
             _airButton.tw_height = height;
             _characterButton.tw_y = height * 2 + TWMargin * 2;

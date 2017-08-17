@@ -220,7 +220,6 @@
     [_starOrPauseButton setBackgroundImage:[UIImage imageNamed:@"pause_sprite-sheet0"] forState:UIControlStateNormal];
     _starOrPauseButton.tw_centerY = self.lifeView.tw_centerY;
     [self.headerView addSubview:_starOrPauseButton];
-    _starOrPauseButton.timeInterval = ButtonClickTime;
     _starOrPauseButton.selected = YES;
     [_starOrPauseButton addTarget:self action:@selector(starOrPauseButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -232,7 +231,6 @@
     [_backMainButton setBackgroundImage:[UIImage imageNamed:@"backMButton"] forState:UIControlStateNormal];
     _backMainButton.tw_centerY = self.lifeView.tw_centerY;
     [self.headerView addSubview:_backMainButton];
-    _backMainButton.timeInterval = ButtonClickTime;
     _backMainButton.selected = YES;
     [_backMainButton addTarget:self action:@selector(backMainButtonClick) forControlEvents:UIControlEventTouchUpInside];
 }
