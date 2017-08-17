@@ -24,6 +24,7 @@
 @property (nonatomic, strong) UILabel * lifeCountLabel;                 // 显示剩余几次❤️
 @property (nonatomic, assign) NSInteger lifeCount;                      // 共有几条生命
 @property (nonatomic, strong) UIButton * starOrPauseButton;             // 暂停开始
+@property (nonatomic, strong) UIButton * backMainButton;                // 返回主页
 @property (nonatomic, strong) TWStrokeLabel * scoreLabel;               // 显示分数的label
 @property (nonatomic, strong) Score * score;                            // 得数
 
@@ -233,6 +234,33 @@
             self.paused = NO;
         }
     }];
+    
+    
+    _backMainButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    CGFloat backHeight = 40;
+    CGFloat backWeight = 70 * 40 / 56.0;
+    _backMainButton.frame = CGRectMake(TWScreenWidth - width - 10 - backWeight - 10, 0, backWeight, backHeight);
+    [_backMainButton setBackgroundImage:[UIImage imageNamed:@"backMButton"] forState:UIControlStateNormal];
+    _backMainButton.tw_centerY = self.lifeView.tw_centerY;
+    [self.headerView addSubview:_backMainButton];
+    _backMainButton.timeInterval = ButtonClickTime;
+    _backMainButton.selected = YES;
+    [[_backMainButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        // 保存分数，停止掉落，清空
+        _paused = YES;
+        // 跳出页面
+        [UIView animateWithDuration:1 animations:^{
+            self.headerView.tw_y = -TopImageViewH * 1.2;
+            self.lifeView.tw_y = 15 - TopImageViewH * 1.2;
+            self.starOrPauseButton.tw_centerY = self.lifeView.tw_centerY;
+            self.lifeCountLabel.tw_centerY = self.lifeView.tw_centerY;
+            [self.scoreLabel setCenter:self.headerView.center];
+            self.backMainButton.tw_centerY = self.lifeView.tw_centerY;
+        }completion:^(BOOL finished) {
+            // 回到主页
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }];
 }
 
 #pragma mark --中间背景设置
@@ -358,6 +386,7 @@
         self.starOrPauseButton.selected = YES;
         self.lifeCountLabel.tw_centerY = self.lifeView.tw_centerY;
         [self.scoreLabel setCenter:self.headerView.center];
+        self.backMainButton.tw_centerY = self.lifeView.tw_centerY;
     } completion:^(BOOL finished) {
         _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(createCandy) userInfo:nil repeats:YES];
     }];
@@ -397,6 +426,7 @@
         self.starOrPauseButton.tw_centerY = self.lifeView.tw_centerY;
         self.lifeCountLabel.tw_centerY = self.lifeView.tw_centerY;
         [self.scoreLabel setCenter:self.headerView.center];
+        self.backMainButton.tw_centerY = self.lifeView.tw_centerY;
     }completion:^(BOOL finished) {
         // 退出视图
         _gameOverVc.score = _score.points;
