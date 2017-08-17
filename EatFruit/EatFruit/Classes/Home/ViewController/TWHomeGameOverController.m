@@ -8,6 +8,7 @@
 
 #import "TWHomeGameOverController.h"
 #import "TWMainViewController.h"
+#import "TWMusicViewController.h"
 
 @interface TWHomeGameOverController ()
 @property (nonatomic, strong) UIImageView * imageView;
@@ -142,13 +143,16 @@
     
     CGFloat WHProportion_playButton = 196 / 87.0;
     CGFloat width = (ImageViewW - 3 * TWMargin) * 0.5;
-    CGFloat x = (TWScreenWidth * 0.5) - TWMargin * 0.5 - width;
+//    CGFloat x = (TWScreenWidth * 0.5) - TWMargin * 0.5 - width;
     CGFloat height = width / WHProportion_playButton;
     
     // 返回首页按钮
-    UIButton * backButton = [[UIButton alloc]initWithFrame:CGRectMake(x, 20, width, height)];
+//    UIButton * backButton = [[UIButton alloc]initWithFrame:CGRectMake(x, 20, width, height)];
+    
+    UIButton * backButton = [[UIButton alloc]initWithFrame:CGRectMake((TWScreenWidth - width) * 0.5, 20, width, height)];
     backButton.timeInterval = ButtonClickTime;
     [backButton setBackgroundImage:[UIImage imageNamed:@"back-sheet0"] forState:UIControlStateNormal];
+    
     [[backButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
 
         UIViewController *rootVC = self.presentingViewController;
@@ -160,13 +164,13 @@
     [bottomView addSubview:backButton];
     
     // 其他更多按钮
-    UIButton * voiceButton = [[UIButton alloc]initWithFrame:CGRectMake(TWScreenWidth * 0.5 + TWMargin * 0.5, 20, width, height)];
-    voiceButton.timeInterval = ButtonClickTime;
-    [voiceButton setBackgroundImage:[UIImage imageNamed:@"more-sheet0"] forState:UIControlStateNormal];
-    [[voiceButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        TWLogFunc
-    }];
-    [bottomView addSubview:voiceButton];
+//    UIButton * voiceButton = [[UIButton alloc]initWithFrame:CGRectMake(TWScreenWidth * 0.5 + TWMargin * 0.5, 20, width, height)];
+//    voiceButton.timeInterval = ButtonClickTime;
+//    [voiceButton setBackgroundImage:[UIImage imageNamed:@"more-sheet0"] forState:UIControlStateNormal];
+//    [[voiceButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+//        TWLogFunc
+//    }];
+//    [bottomView addSubview:voiceButton];
 }
 
 

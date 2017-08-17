@@ -48,6 +48,9 @@
     _soundPlay = [MyPlayer shareInstance];
     _soundTool = [[SoundTool alloc]init];
     [self.view bringSubviewToFront:_musicSwitch];
+    _musicSwitch.onTintColor = [UIColor colorWithRed:0.945f green:0.573f blue:0.431f alpha:1.00f];
+    _musicSwitch.thumbTintColor = [UIColor colorWithRed:0.984f green:0.890f blue:0.855f alpha:1.00f];
+    _musicSwitch.tintColor = [UIColor colorWithRed:0.933f green:0.427f blue:0.255f alpha:1.00f];
 }
 
 - (IBAction)musicSwitchChanged:(UISwitch *)sender {
@@ -67,6 +70,11 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+//    UIViewController *rootVC = self.presentingViewController;
+//    while (rootVC.presentingViewController) {
+//        rootVC = rootVC.presentingViewController;
+//    }
+//    [rootVC dismissViewControllerAnimated:YES completion:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
