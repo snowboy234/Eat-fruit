@@ -46,8 +46,8 @@
     [self initBackgroundImageView];
     [self setMiddleView];
     [self setTitleView];
-    [self setToolView];
     [self initBottomView];
+    [self setToolView];
 }
 
 #pragma mark --UI设置
