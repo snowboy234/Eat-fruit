@@ -222,18 +222,7 @@
     [self.headerView addSubview:_starOrPauseButton];
     _starOrPauseButton.timeInterval = ButtonClickTime;
     _starOrPauseButton.selected = YES;
-    [[_starOrPauseButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        if (x.selected) {
-            x.selected = NO;
-            [_starOrPauseButton setBackgroundImage:[UIImage imageNamed:@"pause_sprite-sheet1"] forState:UIControlStateNormal];
-//            TWLog(@"暂停");
-            self.paused = YES;
-        } else {
-            x.selected = YES;
-            [_starOrPauseButton setBackgroundImage:[UIImage imageNamed:@"pause_sprite-sheet0"] forState:UIControlStateNormal];
-            self.paused = NO;
-        }
-    }];
+    [_starOrPauseButton addTarget:self action:@selector(starOrPauseButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
     
     _backMainButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -245,22 +234,36 @@
     [self.headerView addSubview:_backMainButton];
     _backMainButton.timeInterval = ButtonClickTime;
     _backMainButton.selected = YES;
-    [[_backMainButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        // 保存分数，停止掉落，清空
-        _paused = YES;
-        // 跳出页面
-        [UIView animateWithDuration:1 animations:^{
-            self.headerView.tw_y = -TopImageViewH * 1.2;
-            self.lifeView.tw_y = 15 - TopImageViewH * 1.2;
-            self.starOrPauseButton.tw_centerY = self.lifeView.tw_centerY;
-            self.lifeCountLabel.tw_centerY = self.lifeView.tw_centerY;
-            [self.scoreLabel setCenter:self.headerView.center];
-            self.backMainButton.tw_centerY = self.lifeView.tw_centerY;
-        }completion:^(BOOL finished) {
-            
-            // 回到主页
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }];
+    [_backMainButton addTarget:self action:@selector(backMainButtonClick) forControlEvents:UIControlEventTouchUpInside];
+}
+
+#pragma mark --点击事件
+- (void)starOrPauseButtonClick:(UIButton *)x{
+    if (x.selected) {
+        x.selected = NO;
+        [_starOrPauseButton setBackgroundImage:[UIImage imageNamed:@"pause_sprite-sheet1"] forState:UIControlStateNormal];
+//      TWLog(@"暂停");
+        self.paused = YES;
+    } else {
+        x.selected = YES;
+        [_starOrPauseButton setBackgroundImage:[UIImage imageNamed:@"pause_sprite-sheet0"] forState:UIControlStateNormal];
+        self.paused = NO;
+    }
+}
+- (void)backMainButtonClick{
+    // 保存分数，停止掉落，清空
+    _paused = YES;
+    // 跳出页面
+    [UIView animateWithDuration:1 animations:^{
+        self.headerView.tw_y = -TopImageViewH * 1.2;
+        self.lifeView.tw_y = 15 - TopImageViewH * 1.2;
+        self.starOrPauseButton.tw_centerY = self.lifeView.tw_centerY;
+        self.lifeCountLabel.tw_centerY = self.lifeView.tw_centerY;
+        [self.scoreLabel setCenter:self.headerView.center];
+        self.backMainButton.tw_centerY = self.lifeView.tw_centerY;
+    }completion:^(BOOL finished) {
+        // 回到主页
+        [self dismissViewControllerAnimated:YES completion:nil];
     }];
 }
 

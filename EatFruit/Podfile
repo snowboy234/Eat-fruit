@@ -7,7 +7,7 @@ target 'EatFruit' do
 
   # Pods for EatFruit
 
-pod 'ReactiveObjC'
+#pod 'ReactiveObjC'
 #pod 'Masonry'
 #pod 'SVProgressHUD'
 

@@ -160,17 +160,20 @@
     [self.headerView addSubview:_starOrPauseButton];
     _starOrPauseButton.timeInterval = ButtonClickTime;
     _starOrPauseButton.selected = YES;
-    [[_starOrPauseButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        if (x.selected) {
-            x.selected = NO;
-            [_starOrPauseButton setBackgroundImage:[UIImage imageNamed:@"pause_sprite-sheet1"] forState:UIControlStateNormal];
-            [_timer setFireDate:[NSDate distantFuture]];
-        } else {
-            x.selected = YES;
-            [_starOrPauseButton setBackgroundImage:[UIImage imageNamed:@"pause_sprite-sheet0"] forState:UIControlStateNormal];
-            [_timer setFireDate:[NSDate distantPast]];
-        }
-    }];
+    [_starOrPauseButton addTarget:self action:@selector(starOrPauseButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+#pragma mark --监听点击
+- (void)starOrPauseButtonClick:(UIButton *)x{
+    if (x.selected) {
+        x.selected = NO;
+        [_starOrPauseButton setBackgroundImage:[UIImage imageNamed:@"pause_sprite-sheet1"] forState:UIControlStateNormal];
+        [_timer setFireDate:[NSDate distantFuture]];
+    } else {
+        x.selected = YES;
+        [_starOrPauseButton setBackgroundImage:[UIImage imageNamed:@"pause_sprite-sheet0"] forState:UIControlStateNormal];
+        [_timer setFireDate:[NSDate distantPast]];
+    }
 }
 
 #pragma mark --游戏界面设置

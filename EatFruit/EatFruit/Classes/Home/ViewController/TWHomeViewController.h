@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^repeatAnimationBlock)();
+//typedef void(^repeatAnimationBlock)();
 @interface TWHomeViewController : UIViewController
-@property(nonatomic, copy) repeatAnimationBlock block;
+//@property(nonatomic, copy) repeatAnimationBlock block;
 - (void)countDownTime;
 @end

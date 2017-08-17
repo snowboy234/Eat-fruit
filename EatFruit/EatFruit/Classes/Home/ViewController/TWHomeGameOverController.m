@@ -152,15 +152,7 @@
     UIButton * backButton = [[UIButton alloc]initWithFrame:CGRectMake((TWScreenWidth - width) * 0.5, 20, width, height)];
     backButton.timeInterval = ButtonClickTime;
     [backButton setBackgroundImage:[UIImage imageNamed:@"back-sheet0"] forState:UIControlStateNormal];
-    
-    [[backButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-
-        UIViewController *rootVC = self.presentingViewController;
-        while (rootVC.presentingViewController) {
-            rootVC = rootVC.presentingViewController;
-        }
-        [rootVC dismissViewControllerAnimated:NO completion:nil];
-    }];
+    [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:backButton];
     
     // 其他更多按钮
@@ -173,5 +165,13 @@
 //    [bottomView addSubview:voiceButton];
 }
 
+
+- (void)backButtonClick{
+    UIViewController *rootVC = self.presentingViewController;
+    while (rootVC.presentingViewController) {
+        rootVC = rootVC.presentingViewController;
+    }
+    [rootVC dismissViewControllerAnimated:NO completion:nil];
+}
 
 @end

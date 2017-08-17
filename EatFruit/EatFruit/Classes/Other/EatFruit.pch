@@ -21,8 +21,6 @@
 #import "SoundTool.h"
 #import "MyPlayer.h"
 
-//#import <Masonry/Masonry.h>
-//#import <SVProgressHUD/SVProgressHUD.h>
-#import <ReactiveObjC/ReactiveObjC.h>
+//#import <ReactiveObjC/ReactiveObjC.h>
 
 #endif /* EatFruit_pch */

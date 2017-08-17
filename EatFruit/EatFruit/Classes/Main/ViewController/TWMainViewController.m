@@ -28,6 +28,7 @@
 @property (nonatomic, strong) UIButton * landButton;  // 模式一按钮
 @property (nonatomic, strong) UIButton * airButton;   // 模式二按钮
 @property (nonatomic, strong) MyPlayer * soundPlay;
+@property (nonatomic,strong) UIButton * characterButton;
 
 @end
 
@@ -103,6 +104,9 @@
     [_topView addSubview:_imageView];
 }
 
+
+
+
 #pragma mark --BottomView
 - (void)initBottomView{
     UIView * bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, TWScreenHeight * 0.5, TWScreenWidth, TWScreenHeight * 0.5)];
@@ -119,81 +123,30 @@
     _landButton = [[UIButton alloc]initWithFrame:CGRectMake(x, height + TWMargin, width, 0)];
     _landButton.timeInterval = ButtonClickTime;
     [_landButton setBackgroundImage:[UIImage imageNamed:@"land-sheet0"] forState:UIControlStateNormal];
-    [[_landButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        TWHomeViewController * homeVc = [[TWHomeViewController alloc]init];
-        homeVc.transitioningDelegate = _animationToolBottom;
-        _animationToolBottom.delegate = self;
-        WeakSelf
-        homeVc.block = ^{
-            [weakSelf setTitleImageViewAnimation];
-            [weakSelf setLevelButtonAnimation];
-        };
-        // 进入页面后开启定时器
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [homeVc countDownTime];
-        });
-        [self presentViewController:homeVc animated:YES completion:nil];
-    }];
+    [_landButton addTarget:self action:@selector(landButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:_landButton];
     
     // 子菜单上的air按钮
     _airButton = [[UIButton alloc]initWithFrame:CGRectMake(TWScreenWidth * 0.5 + TWMargin * 0.5, height + TWMargin, width, 0)];
     _airButton.timeInterval = ButtonClickTime;
     [_airButton setBackgroundImage:[UIImage imageNamed:@"sky-sheet0"] forState:UIControlStateNormal];
-    [[_airButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        TWAirViewController * airVc = [[TWAirViewController alloc]init];
-        airVc.transitioningDelegate = _animationToolRight;
-        _animationToolRight.delegate = self;
-        WeakSelf
-        airVc.block = ^{
-            [weakSelf setTitleImageViewAnimation];
-            [weakSelf setLevelButtonAnimation];
-        };
-        // 进入页面后开启定时器
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [airVc countDownTime];
-            [airVc showBirdView];
-        });
-        [self presentViewController:airVc animated:YES completion:nil];
-    }];
+    [_airButton addTarget:self action:@selector(airButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:_airButton];
     
 #pragma mark --选择角色按钮
     CGFloat WHProportion_characterButton = 320 / 87.0;
-    UIButton * characterButton = [[UIButton alloc]initWithFrame:CGRectMake((TWScreenWidth * 0.5) - width, height + TWMargin, width * 2, (width * 2) / WHProportion_characterButton)];
-    characterButton.timeInterval = ButtonClickTime;
-    [characterButton setBackgroundImage:[UIImage imageNamed:@"character-sheet0"] forState:UIControlStateNormal];
-    [[characterButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        _characterVc.transitioningDelegate = _animationToolLeft;
-        _animationToolLeft.delegate = self;
-        [self presentViewController:_characterVc animated:YES completion:nil];
-    }];
-    [bottomView addSubview:characterButton];
+    _characterButton = [[UIButton alloc]initWithFrame:CGRectMake((TWScreenWidth * 0.5) - width, height + TWMargin, width * 2, (width * 2) / WHProportion_characterButton)];
+    _characterButton.timeInterval = ButtonClickTime;
+    [_characterButton setBackgroundImage:[UIImage imageNamed:@"character-sheet0"] forState:UIControlStateNormal];
+    [_characterButton addTarget:self action:@selector(characterButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView addSubview:_characterButton];
     
 #pragma mark --开始按钮
     // 开始按钮
     UIButton * playButton = [[UIButton alloc]initWithFrame:CGRectMake(x, 0, width, height)];
     playButton.timeInterval = ButtonClickTime;
     [playButton setBackgroundImage:[UIImage imageNamed:@"play-sheet0"] forState:UIControlStateNormal];
-    [[playButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        if (x.selected) {
-            x.selected = NO;
-            // hidden
-            [UIView animateWithDuration:ButtonClickTime animations:^{
-                _landButton.tw_height = 0;
-                _airButton.tw_height = 0;
-                characterButton.tw_y = height + TWMargin;
-            }];
-        } else {
-            x.selected = YES;
-            // show
-            [UIView animateWithDuration:ButtonClickTime animations:^{
-                _landButton.tw_height = height;
-                _airButton.tw_height = height;
-                characterButton.tw_y = height * 2 + TWMargin * 2;
-            }];
-        }
-    }];
+    [playButton addTarget:self action:@selector(playButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:playButton];
     
 #pragma mark --声音按钮
@@ -201,13 +154,82 @@
     UIButton * voiceButton = [[UIButton alloc]initWithFrame:CGRectMake(TWScreenWidth * 0.5 + TWMargin * 0.5, 0, width, height)];
     voiceButton.timeInterval = ButtonClickTime;
     [voiceButton setBackgroundImage:[UIImage imageNamed:@"more-sheet0"] forState:UIControlStateNormal];
-    [[voiceButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        _musicVc.transitioningDelegate = _animationToolTop;
-        _animationToolTop.delegate = self;
-        [self presentViewController:_musicVc animated:YES completion:nil];
-    }];
+    [voiceButton addTarget:self action:@selector(voiceButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:voiceButton];
 }
+
+
+#pragma mark --监听点击
+- (void)landButtonClick{
+    TWHomeViewController * homeVc = [[TWHomeViewController alloc]init];
+    homeVc.transitioningDelegate = _animationToolBottom;
+    _animationToolBottom.delegate = self;
+    //        WeakSelf
+    //        homeVc.block = ^{
+    //            [weakSelf setTitleImageViewAnimation];
+    //            [weakSelf setLevelButtonAnimation];
+    //        };
+    // 进入页面后开启定时器
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [homeVc countDownTime];
+    });
+    [self presentViewController:homeVc animated:YES completion:nil];
+}
+
+- (void)airButtonClick{
+    TWAirViewController * airVc = [[TWAirViewController alloc]init];
+    airVc.transitioningDelegate = _animationToolRight;
+    _animationToolRight.delegate = self;
+//    WeakSelf
+//    airVc.block = ^{
+//        [weakSelf setTitleImageViewAnimation];
+//        [weakSelf setLevelButtonAnimation];
+//    };
+    // 进入页面后开启定时器
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [airVc countDownTime];
+        [airVc showBirdView];
+    });
+    [self presentViewController:airVc animated:YES completion:nil];
+}
+
+- (void)characterButtonClick{
+    _characterVc.transitioningDelegate = _animationToolLeft;
+    _animationToolLeft.delegate = self;
+    [self presentViewController:_characterVc animated:YES completion:nil];
+}
+
+- (void)playButtonClick:(UIButton *)sender{
+    // 属性计算
+    CGFloat WHProportion_playButton = 196 / 87.0;
+    CGFloat width = (ImageViewW - 3 * TWMargin) * 0.5;
+//    CGFloat x = (TWScreenWidth * 0.5) - TWMargin * 0.5 - width;
+    CGFloat height = width / WHProportion_playButton;
+    if (sender.selected) {
+        sender.selected = NO;
+        // hidden
+        [UIView animateWithDuration:ButtonClickTime animations:^{
+            _landButton.tw_height = 0;
+            _airButton.tw_height = 0;
+            _characterButton.tw_y = height + TWMargin;
+        }];
+    } else {
+        sender.selected = YES;
+        // show
+        [UIView animateWithDuration:ButtonClickTime animations:^{
+            _landButton.tw_height = height;
+            _airButton.tw_height = height;
+            _characterButton.tw_y = height * 2 + TWMargin * 2;
+        }];
+    }
+}
+
+- (void)voiceButtonClick{
+    _musicVc.transitioningDelegate = _animationToolTop;
+    _animationToolTop.delegate = self;
+    [self presentViewController:_musicVc animated:YES completion:nil];
+}
+
 
 #pragma mark --TWMainToHomeAnimationDelegate
 - (UIImageView *)getTopScreenImage{
