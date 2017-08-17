@@ -8,8 +8,8 @@ target 'EatFruit' do
   # Pods for EatFruit
 
 pod 'ReactiveObjC'
-pod 'Masonry'
-pod 'SVProgressHUD'
+#pod 'Masonry'
+#pod 'SVProgressHUD'
 
 
 end

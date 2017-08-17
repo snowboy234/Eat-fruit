@@ -653,7 +653,7 @@
 				DEVELOPMENT_TEAM = 7F3QQKKLR9;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/EatFruit/Classes/Other/EatFruit.pch";
 				INFOPLIST_FILE = EatFruit/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shmx.EatFruit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -668,7 +668,7 @@
 				DEVELOPMENT_TEAM = 7F3QQKKLR9;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/EatFruit/Classes/Other/EatFruit.pch";
 				INFOPLIST_FILE = EatFruit/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shmx.EatFruit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
